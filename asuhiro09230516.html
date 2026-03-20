@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ヒアリングフォーム一覧｜アスカデザインラボ</title>
+  <style>
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      background-color: #0f172a;
+      color: #f8fafc;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      margin: 0;
+      padding: 20px;
+    }
+    .container {
+      background: rgba(30, 41, 59, 0.7);
+      padding: 40px;
+      border-radius: 16px;
+      border: 1px solid rgba(255,255,255,0.1);
+      max-width: 600px;
+      width: 100%;
+      text-align: center;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+    }
+    h1 {
+      font-size: 2rem;
+      margin-bottom: 20px;
+      background: linear-gradient(135deg, #a78bfa, #38bdf8);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .section-title {
+      font-size: 1.2rem;
+      font-weight: 800;
+      color: #e2e8f0;
+      margin-top: 30px;
+      margin-bottom: 15px;
+      text-align: left;
+      border-bottom: 1px dashed rgba(255,255,255,0.2);
+      padding-bottom: 10px;
+    }
+    .links {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+    }
+    a {
+      display: block;
+      background: linear-gradient(135deg, #8b5cf6, #6366f1);
+      color: white;
+      text-decoration: none;
+      padding: 15px 20px;
+      border-radius: 10px;
+      font-weight: bold;
+      font-size: 1.1rem;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    a:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(139, 92, 246, 0.4);
+    }
+    .gem-link {
+      background: linear-gradient(135deg, #10b981, #059669);
+    }
+    .disabled-link {
+      display: block;
+      background: rgba(30, 41, 59, 0.4);
+      color: #64748b;
+      padding: 15px 20px;
+      border-radius: 10px;
+      font-weight: bold;
+      font-size: 1.1rem;
+      border: 1px dashed rgba(255, 255, 255, 0.1);
+      cursor: not-allowed;
+    }
+    .desc {
+      font-size: 0.85rem;
+      color: #cbd5e1;
+      margin-top: 5px;
+      font-weight: normal;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>📝 制作ツール一覧</h1>
+    
+    <div class="section-title">💎 AIエディター (Gem本体)</div>
+    <div class="links">
+      <a href="https://gemini.google.com/gem/1pJcEFTJElYQF3XGRjY3ewUj9gxelo5uz?usp=sharing" target="_blank" class="gem-link">🤖 レビュー漫画版 Gem
+        <div class="desc">プロンプトを投げて漫画のシナリオ・画像を生成</div>
+      </a>
+      <a href="https://gemini.google.com/gem/1gPWK3OQxJvfBOmX-9rHAVDXWINNIDKuv?usp=sharing" target="_blank" class="gem-link">🤖 エッセイ漫画版 Gem
+        <div class="desc">プロンプトを投げて漫画のシナリオ・画像を生成</div>
+      </a>
+    </div>
+
+    <div class="section-title">📋 ヒアリングフォーム (プロンプト作成用)</div>
+    <div class="links">
+      <a href="hearing_form_review.html">🎬 レビュー漫画用 フォーム
+        <div class="desc">商品やサービスのレビュー用シナリオ作成</div>
+      </a>
+      <a href="hearing_form_essay.html">📖 エッセイ漫画用 フォーム
+        <div class="desc">日常の体験談や想いを語るシナリオ作成</div>
+      </a>
+      <div class="disabled-link">📚 ストーリー漫画用 フォーム<span style="font-size: 0.8rem; color: #f87171; margin-left:10px;">（※未実装）</span>
+        <div class="desc">Webtoonなどのフィクション・物語作成</div>
+      </div>
+      <a href="hearing_form_character.html">👤 キャラクター設定用 フォーム
+        <div class="desc">登場人物のプロフィールを詳細に作成</div>
+      </a>
+      <a href="hearing_form_background.html">🖼️ 背景・場面設定用 フォーム
+        <div class="desc">特定の場所や背景の指定リストを作成</div>
+      </a>
+    </div>
+  </div>
+</body>
+</html>
