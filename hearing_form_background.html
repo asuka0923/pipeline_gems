@@ -7,28 +7,28 @@
   <title>背景プロンプトメーカー｜アスカデザインラボ</title>
   <style>
     :root {
-      --bg: #0f172a;
-      --surface: #1e293b;
-      --surface-highlight: #334155;
-      --primary: #8b5cf6;
-      --primary-hover: #7c3aed;
-      --good: #10b981;
-      --bad: #ef4444;
-      --text: #f8fafc;
-      --text-dim: #94a3b8;
-      --border: rgba(255, 255, 255, 0.1);
-      --glass: rgba(30, 41, 59, 0.7);
+      --bg: #f8fafc;
+      --surface: #ffffff;
+      --primary: #000000;
+      --primary-hover: #333333;
+      --good: #000000;
+      --bad: #000000;
+      --text: #111827;
+      --text-dim: #4b5563;
+      --border: #000000;
+      --glass: #ffffff;
     }
 
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
 
     body {
-      font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      font-family: 'Hiragino Kaku Gothic ProN', 'Noto Sans JP', sans-serif;
       background-color: var(--bg);
+      background-image: 
+        radial-gradient(#cbd5e1 15%, transparent 16%),
+        radial-gradient(#cbd5e1 15%, transparent 16%);
+      background-size: 10px 10px;
+      background-position: 0 0, 5px 5px;
       color: var(--text);
       line-height: 1.7;
       font-size: 17px;
@@ -36,333 +36,119 @@
       justify-content: center;
       min-height: 100vh;
       padding: 40px 20px;
-      background-image:
-        radial-gradient(circle at top right, rgba(139, 92, 246, 0.15), transparent 40%),
-        radial-gradient(circle at bottom left, rgba(56, 189, 248, 0.1), transparent 40%);
-      background-attachment: fixed;
     }
+    
+    .container { width: 100%; max-width: 900px; }
 
-    .container {
-      width: 100%;
-      max-width: 900px;
-    }
-
-    .header {
-      text-align: center;
-      margin-bottom: 50px;
-    }
-
+    .header { text-align: center; margin-bottom: 50px; background: #fff; border: 4px solid #000; border-radius: 0; padding: 30px; box-shadow: 4px 4px 0px rgba(0,0,0,0.1); }
     .header h1 {
-      font-size: 2.8rem;
-      font-weight: 800;
-      background: linear-gradient(135deg, #a78bfa, #38bdf8);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      margin-bottom: 15px;
+      font-size: 2.5rem;
+      font-weight: 900;
+      color: #000;
+      margin-bottom: 10px;
+      letter-spacing: 2px;
     }
+    .header p { color: #111827; font-size: 1.05rem; font-weight: 700; margin-top: 15px; }
 
-    .header p {
-      color: var(--text-dim);
-      font-size: 1.1rem;
-    }
+    .form-panel { background: var(--bg); border: 4px solid #000; border-radius: 0; padding: 40px; box-shadow: 8px 8px 0px #000; position: relative; }
 
-    .form-panel {
-      background: var(--glass);
-      backdrop-filter: blur(16px);
-      -webkit-backdrop-filter: blur(16px);
-      border: 1px solid var(--border);
-      border-radius: 20px;
-      padding: 50px;
-      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
-    }
+    /* コマ割り (Panels) */
+    .form-group { margin-bottom: 40px; padding: 30px; background: #fff; border: 3px solid #000; border-radius: 0; position: relative; }
+    .form-group:not(:last-child) { border-bottom-width: 6px; margin-bottom: 50px; }
+    .form-group:last-child { margin-bottom: 0; padding-bottom: 0px; background: transparent; border: none; }
+    
+    .form-group > label { display: inline-block; background: #000; color: #fff; font-weight: 900; margin-bottom: 20px; font-size: 1.2rem; padding: 10px 20px; border: 2px solid #000; margin-top: -50px; position: relative; z-index: 1; letter-spacing: 1px; }
 
-    .form-group {
-      margin-bottom: 45px;
-      padding-bottom: 30px;
-      border-bottom: 1px dashed rgba(255, 255, 255, 0.05);
+    .question-desc { font-size: 1.05rem; color: #374151; font-weight: bold; margin-bottom: 20px; margin-top: 5px; }
+
+    .example-box { background: #f8fafc; border: 2px dashed #000; border-radius: 0; padding: 20px; margin-bottom: 20px; font-size: 0.95rem; }
+    details.example-box summary { cursor: pointer; font-weight: 900; color: #000; outline: none; list-style: none; display: flex; align-items: center; justify-content: space-between; padding: 5px 0; }
+    details.example-box summary::-webkit-details-marker { display: none; }
+    details.example-box summary::after { content: '▼'; font-size: 0.8rem; transition: transform 0.2s; }
+    details.example-box:not([open]) summary::after { transform: rotate(-90deg); }
+    details.example-box[open] summary { margin-bottom: 15px; padding-bottom: 15px; border-bottom: 1px solid #000; }
+    
+    .ex-row { display: flex; gap: 15px; margin-bottom: 15px; align-items: flex-start; }
+    .ex-row:last-child { margin-bottom: 0; }
+    .ex-label { font-weight: 900; min-width: 80px; flex-shrink: 0; padding-top: 4px; }
+    .ex-title { font-weight: 900; color: #000; margin-right: 8px; border: 2px solid #000; padding: 4px 8px; font-size: 0.9rem; display: inline-block; margin-bottom: 4px; background: #fff;}
+    .ex-good .ex-label { color: #000; border-bottom: 3px solid #000; display: inline-block; padding-bottom: 2px;}
+    .ex-bad .ex-label { color: #6b7280; text-decoration: line-through; }
+    .ex-text { color: #111827; line-height: 1.7; font-weight: bold; }
+
+    input[type="text"], textarea, select { width: 100%; background: #ffffff; border: 2px solid #000; color: #000; padding: 16px; border-radius: 0; font-size: 1.05rem; font-weight: bold; font-family: inherit; transition: all 0.2s ease; box-shadow: inset 2px 2px 0px rgba(0,0,0,0.05); }
+    input[type="text"]:focus, textarea:focus, select:focus { outline: none; border-width: 3px; transform: translateY(-1px); }
+    textarea { resize: vertical; min-height: 120px; line-height: 1.6; }
+    input::placeholder, textarea::placeholder { font-size: 0.95rem; color: #9ca3af; font-weight: normal; }
+    
+    select { appearance: none; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='black'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M19 9l-7 7-7-7'%3E%3C/path%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 15px center; background-size: 20px; cursor: pointer; }
+    select option { background: #fff; color: #000; }
+
+    .add-btn { background: #fff; border: 2px dashed #000; color: #000; padding: 15px 20px; cursor: pointer; font-weight: 900; width: 100%; font-size: 1.05rem; margin-top: 10px; transition: all 0.1s ease; border-radius: 0; box-shadow: none; }
+    .add-btn:hover { background: #000; color: #fff; }
+
+    /* For character row added fields */
+    .char-row { display: flex; gap: 10px; margin-bottom: 15px; align-items: center; background: #f8fafc !important; border: 2px solid #000 !important; padding: 15px !important; border-radius: 0 !important; box-shadow: none !important; }
+    .char-remove { background: #000; border: none; color: #fff; font-size: 1.2rem; font-weight: 900; cursor: pointer; width: 50px; height: 50px; display: flex; align-items: center; justify-content: center; transition: all 0.1s; flex-shrink: 0; box-shadow: none; border-radius: 0; }
+    .char-remove:hover { background: #4b5563; }
+
+    .action-bar { margin-top: 40px; display: flex; justify-content: center; align-items: center; }
+    .btn-primary { background: #000; color: #fff; border: 4px solid #000; padding: 20px 50px; font-size: 1.3rem; font-weight: 900; border-radius: 0; cursor: pointer; transition: all 0.1s ease; display: flex; align-items: center; gap: 12px; width: 100%; justify-content: center; letter-spacing: 1px; box-shadow: 6px 6px 0px rgba(0,0,0,0.2); }
+    .btn-primary:hover { background: #fff; color: #000; box-shadow: 8px 8px 0px #000; transform: translateY(-2px); }
+    .btn-primary:active { transform: translateY(2px); box-shadow: 0px 0px 0px #000; }
+
+    .form-flow { display: flex; flex-wrap: nowrap; align-items: center; width: 100%; margin-bottom: 40px; padding: 15px 10px; background: #fff; border: 3px solid #000; border-radius: 0; overflow-x: auto; box-shadow: 4px 4px 0px #000; }
+    .flow-tag { flex: 1; text-align: center; font-size: 0.85rem; font-weight: 900; color: #000; padding: 8px 0; border: 2px solid #000; white-space: nowrap; margin: 0 4px;}
+    .flow-arrow { flex-shrink: 0; color: #000; font-size: 0.9rem; margin: 0 4px; font-weight: 900; }
+
+    .toast { position: fixed; bottom: 40px; left: 50%; transform: translateX(-50%) translateY(120px); background: #000; color: #fff; border: 3px solid #fff; padding: 16px 32px; border-radius: 0; font-weight: 900; font-size: 1.1rem; transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1); z-index: 1000; opacity: 0; visibility: hidden; pointer-events: none; }
+    .toast.show { transform: translateX(-50%) translateY(0); opacity: 1; visibility: visible; pointer-events: auto; }
+
+    /* Override info boxes to fit manga logic (screen tones / focus lines) */
+    div[style*="rgba(56, 189, 248"], div[style*="rgba(16, 185, 129"] {
+      background: #ffffff !important;
+      border: 3px solid #000 !important;
+      border-radius: 0 !important;
+      box-shadow: none !important;
+      color: #000 !important;
+      padding: 30px !important;
       position: relative;
+      background-image: repeating-linear-gradient(45deg, transparent, transparent 5px, rgba(0,0,0,0.03) 5px, rgba(0,0,0,0.03) 10px) !important;
+      transform: none !important;
+    }
+    div[style*="rgba(56, 189, 248"] p:first-child, div[style*="rgba(16, 185, 129"] p:first-child {
+      color: #000 !important; font-weight: 900 !important; font-size: 1.3rem !important; margin-bottom: 20px !important; text-shadow: none !important; display: inline-block; background: #fff; padding: 10px 20px; border: 2px solid #000; margin-top: -10px;
+    }
+    div[style*="rgba(56, 189, 248"] p:last-child, div[style*="rgba(16, 185, 129"] p:last-child {
+      color: #111827 !important; font-weight: bold !important; line-height: 1.8 !important; font-size: 1.05rem !important; background: #fff; display: block; padding: 20px; border: 2px solid #000;
+    }
+    [style*="color: #fbbf24;"] {
+      background: #000 !important;
+      color: #fff !important;
+      padding: 4px 10px !important;
+      border: none !important;
+      border-radius: 0 !important;
+      display: inline-block !important;
+      transform: none !important;
+      box-shadow: none !important;
+      margin: 4px 0 !important;
+    }
+    [style*="color: #7dd3fc"], [style*="color: #34d399"] {
+      color: #000 !important; text-shadow: none !important;
     }
 
-    .form-group:not(:last-child)::after {
-      content: '▼';
-      position: absolute;
-      bottom: -18px;
-      left: 50%;
-      color: white;
-      font-size: 1.4rem;
-      background: linear-gradient(135deg, var(--primary), #6366f1);
-      padding: 4px 16px;
-      border-radius: 20px;
-      box-shadow: 0 4px 12px rgba(139, 92, 246, 0.4);
-      animation: gentle-bounce 2s infinite ease-in-out;
-      z-index: 10;
-    }
-
-    @keyframes gentle-bounce {
-
-      0%,
-      100% {
-        transform: translateX(-50%) translateY(0);
-      }
-
-      50% {
-        transform: translateX(-50%) translateY(5px);
-      }
-    }
-
-    .form-group:last-child {
-      border-bottom: none;
-      margin-bottom: 0;
-      padding-bottom: 0;
-    }
-
-    .form-group>label {
-      display: block;
-      font-weight: 800;
-      margin-bottom: 8px;
-      color: #e2e8f0;
-      font-size: 1.25rem;
-    }
-
-    .question-desc {
-      font-size: 1.05rem;
-      color: var(--text-dim);
-      margin-bottom: 15px;
-    }
-
-    .example-box {
-      background: rgba(0, 0, 0, 0.25);
-      border-radius: 12px;
-      padding: 18px 20px;
-      margin-bottom: 20px;
-      border-left: 4px solid var(--primary);
-      font-size: 1rem;
-    }
-
-    details.example-box summary {
-      cursor: pointer;
-      font-weight: 700;
-      color: #a78bfa;
-      outline: none;
-      list-style: none;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-    }
-
-    details.example-box summary::-webkit-details-marker {
-      display: none;
-    }
-
-    details.example-box summary::after {
-      content: '▼';
-      font-size: 0.8rem;
-      transition: transform 0.2s;
-    }
-
-    details.example-box:not([open]) summary::after {
-      transform: rotate(-90deg);
-    }
-
-    details.example-box[open] summary {
-      margin-bottom: 12px;
-      padding-bottom: 12px;
-      border-bottom: 1px dashed rgba(255, 255, 255, 0.1);
-    }
-
-    .ex-row {
-      display: flex;
-      gap: 16px;
-      margin-bottom: 12px;
-      align-items: flex-start;
-    }
-
-    .ex-row:last-child {
-      margin-bottom: 0;
-    }
-
-    .ex-label {
-      font-weight: 800;
-      min-width: 80px;
-      flex-shrink: 0;
-      padding-top: 2px;
-    }
-
-    .ex-title {
-      font-weight: 700;
-      color: #fbbf24;
-      margin-right: 6px;
-    }
-
-    .ex-good .ex-label {
-      color: var(--good);
-    }
-
-    .ex-bad .ex-label {
-      color: var(--bad);
-    }
-
-    .ex-text {
-      color: #e2e8f0;
-      line-height: 1.6;
-    }
-
-    input[type="text"],
-    textarea,
-    select {
-      width: 100%;
-      background: rgba(15, 23, 42, 0.8);
-      border: 1px solid rgba(255, 255, 255, 0.2);
-      color: #fff;
-      padding: 16px 20px;
-      border-radius: 12px;
-      font-size: 1.1rem;
-      font-family: inherit;
-      transition: all 0.2s ease;
-    }
-
-    input[type="text"]:focus,
-    textarea:focus,
-    select:focus {
-      outline: none;
-      border-color: var(--primary);
-      box-shadow: 0 0 0 4px rgba(139, 92, 246, 0.2);
-    }
-
-    textarea {
-      resize: vertical;
-      min-height: 150px;
-      line-height: 1.6;
-    }
-
-    input::placeholder,
-    textarea::placeholder {
-      font-size: 0.85rem;
-      color: rgba(255, 255, 255, 0.45);
-    }
-
-    select {
-      appearance: none;
-      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='white'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M19 9l-7 7-7-7'%3E%3C/path%3E%3C/svg%3E");
-      background-repeat: no-repeat;
-      background-position: right 20px center;
-      background-size: 20px;
-      cursor: pointer;
-    }
-
-    select option {
-      background: var(--surface-highlight);
-      color: #fff;
-    }
-
-    .action-bar {
-      margin-top: 50px;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-    }
-
-    .btn-primary {
-      background: linear-gradient(135deg, var(--primary), #6366f1);
-      color: white;
-      border: none;
-      padding: 20px 50px;
-      font-size: 1.3rem;
-      font-weight: 800;
-      border-radius: 16px;
-      cursor: pointer;
-      transition: all 0.3s ease;
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      box-shadow: 0 10px 20px rgba(139, 92, 246, 0.3);
-      width: 100%;
-      justify-content: center;
-    }
-
-    .btn-primary:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 14px 28px rgba(139, 92, 246, 0.4);
-    }
-
-    .form-flow {
-      display: flex;
-      flex-wrap: nowrap;
-      align-items: center;
-      width: 100%;
-      margin-bottom: 40px;
-      padding: 15px 10px;
-      background: rgba(15, 23, 42, 0.4);
-      border-radius: 12px;
-      border: 1px dashed rgba(139, 92, 246, 0.4);
-      overflow-x: auto;
-    }
-
-    .flow-tag {
-      flex: 1;
-      text-align: center;
-      font-size: 0.8rem;
-      font-weight: 700;
-      color: #e2e8f0;
-      background: rgba(255, 255, 255, 0.05);
-      padding: 6px 0;
-      border-radius: 6px;
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      white-space: nowrap;
-    }
-
-    .flow-arrow {
-      flex-shrink: 0;
-      color: var(--primary);
-      font-size: 0.7rem;
-      margin: 0 4px;
-    }
-
-    .toast {
-      position: fixed;
-      bottom: 40px;
-      left: 50%;
-      transform: translateX(-50%) translateY(120px);
-      background: #10b981;
-      color: white;
-      padding: 16px 32px;
-      border-radius: 30px;
-      font-weight: 700;
-      font-size: 1.1rem;
-      box-shadow: 0 15px 30px rgba(16, 185, 129, 0.4);
-      transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
-      z-index: 1000;
-      opacity: 0;
-      visibility: hidden;
-      pointer-events: none;
-    }
-
-    .toast.show {
-      transform: translateX(-50%) translateY(0);
-      opacity: 1;
-      visibility: visible;
-      pointer-events: auto;
-    }
-
-    @media (max-width: 600px) {
-      .form-panel {
-        padding: 30px;
-      }
-
-      body {
-        font-size: 16px;
-      }
-
-      .header h1 {
-        font-size: 2.2rem;
-      }
-      .ex-row {
-        flex-direction: column;
-        gap: 4px;
-      }
-      .ex-label {
-        padding-top: 0;
-      }
+    @media (max-width: 600px) { 
+      .form-panel, .header { padding: 20px; } 
+      body { font-size: 16px; padding: 15px; } 
+      .header h1 { font-size: 1.8rem; letter-spacing: 0; } 
+      .ex-row { flex-direction: column; gap: 4px; }
+      .ex-label { padding-top: 0; }
+      .form-group { padding: 20px 15px; }
+      .form-group > label { font-size: 1.1rem; margin-top: -35px; margin-bottom: 25px; padding: 8px 16px; }
+      .btn-primary { font-size: 1.1rem; padding: 15px 20px; }
+      .form-flow { padding: 10px; }
+      div[style*="rgba(56, 189, 248"] p:first-child, div[style*="rgba(16, 185, 129"] p:first-child { font-size: 1.1rem !important; padding: 8px 16px; margin-bottom: 15px !important; }
+      div[style*="rgba(56, 189, 248"] p:last-child, div[style*="rgba(16, 185, 129"] p:last-child { padding: 15px; }
     }
   </style>
 </head>
@@ -372,15 +158,15 @@
   <div class="container">
     <div class="header">
       <h1>🏙️ 背景画像プロンプトメーカー</h1>
+      <p style="font-size: 1.05rem; font-weight: bold; margin-top: -5px; margin-bottom: 8px; color: #e2e8f0; line-height: 1.5;">画像生成AI用の背景プロンプトを作成するツールです🏙️</p>
       <p style="font-size: 0.9rem; margin-top: -5px; margin-bottom: 15px; color: #a78bfa; font-weight: bold;">&copy;
         アスカデザインラボ</p>
       <div
         style="background: rgba(56, 189, 248, 0.15); border: 2px solid #38bdf8; border-radius: 12px; padding: 18px; margin-bottom: 20px; text-align: left; max-width: 650px; margin-left: auto; margin-right: auto; box-shadow: 0 4px 15px rgba(0,0,0,0.2);">
-        <p style="color: #7dd3fc; font-weight: 800; font-size: 1.15rem; margin-bottom: 6px;">📝 ご案内：このツールは「プロンプト作成専用」です
+        <p style="color: #7dd3fc; font-weight: 800; font-size: 1.15rem; margin-bottom: 6px;">📝 ご注意：このツール単体で「画像」は作れません！
         </p>
         <p style="font-size: 0.95rem; color: #e2e8f0; line-height: 1.6;">
-          このツール自体で画像が直接作られるわけではありません。<br>一番下にあるボタンから完成した<b>プロンプト文章をコピー</b>し、お使いの画像生成AI（Nano
-          Banana等）のチャット欄に貼り付けて画像を生成してください✨
+          このツール自体で画像が直接作られるわけではありません。<br>一番下にあるボタンから完成した<span style="color: #fbbf24; font-weight: bold;">プロンプト文章をコピー</span>し、<br><span style="color: #fbbf24; font-weight: bold;">お使いの画像生成AI（Nano Banana等）のチャット欄</span>に貼り付けて画像を生成してください✨
         </p>
       </div>
     </div>
