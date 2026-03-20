@@ -347,6 +347,12 @@
       <h1>👤 キャラ生成 ヒアリング</h1>
       <p style="font-size: 0.9rem; margin-top: -5px; margin-bottom: 15px; color: #a78bfa; font-weight: bold;">&copy;
         アスカデザインラボ</p>
+      
+      <div style="background: rgba(16, 185, 129, 0.15); border: 2px dashed var(--good); border-radius: 12px; padding: 18px; margin-bottom: 25px; text-align: left; max-width: 650px; margin-left: auto; margin-right: auto; box-shadow: 0 4px 15px rgba(0,0,0,0.2);">
+        <p style="color: #34d399; font-weight: 800; font-size: 1.15rem; margin-bottom: 6px;">💡 AIにおまかせしたい項目は「空欄のまま」でOK！</p>
+        <p style="font-size: 0.95rem; color: #e2e8f0; line-height: 1.6;">特にこだわりのない項目は何も入力しなくて大丈夫です。<b>空欄にした部分は、AIがランダムにいい感じのデザインを描いてくれます</b>✨ 迷ったらガンガン飛ばしてしまいましょう！</p>
+      </div>
+
       <p>各項目をサクッと入力したら、一番下の「プロンプトをコピー」を押して、<br>「画像生成AI（Nano Banana等）」のチャット欄に直接貼り付けてください✨</p>
     </div>
 
@@ -370,39 +376,41 @@
           <div class="ex-row ex-good"><span class="ex-label">⭕ 良い例</span><span class="ex-text">20代女性、ピンク色のショートボブ /
               10代男性、黒髪マッシュ</span></div>
         </details>
-        <input type="text" id="c_hair" placeholder="例：20代女性、ピンク色のショートボブ / 黒髪マッシュなど">
+        <input type="text" id="c_hair" placeholder="例：20代女性、ピンク色のショートボブ / 黒髪マッシュ（★おまかせは空欄！）">
       </div>
 
       <!-- 服装 -->
       <div class="form-group">
         <label>Q2. いつも着ている【基本の服装】はどんな感じですか？</label>
-        <p class="question-desc">※三面図（全身図）を描くための衣装指定です。</p>
+        <p class="question-desc">
+          ※三面図（全身図）を描くための衣装指定です。<br>
+          <span style="color: #fbbf24; font-weight: bold; display: inline-block; margin-top: 6px;">💡 服の詳しいディテールがわからない場合は「コンビニ店員の制服」「警察官」「消防士」「裁判官」など【職業・属性だけ】でも大丈夫です！</span>
+        </p>
         <details class="example-box">
           <summary>💡 回答例を表示 / 非表示</summary>
-          <div class="ex-row ex-good"><span class="ex-label">⭕ 良い例</span><span class="ex-text">オーバーサイズの白パーカーにデニム /
-              黒のタイトなスーツ</span></div>
+          <div class="ex-row ex-good"><span class="ex-label">⭕ 良い例</span><span class="ex-text">オーバーサイズの白パーカーにデニム / コンビニ店員の制服 / 警察官の制服</span></div>
         </details>
-        <input type="text" id="c_outfit" placeholder="例：オーバーサイズの白パーカーにデニム / 黒のタイトなスーツ">
+        <input type="text" id="c_outfit" placeholder="例：オーバーサイズの白パーカー / 警察官などの職業（★おまかせは空欄！）">
       </div>
 
       <!-- 目 -->
       <div class="form-group">
         <label>Q3. 【目】の形や色、特徴を教えてください</label>
-        <input type="text" id="c_eyes" placeholder="例：少しツリ目、青い瞳、右目に泣きぼくろ">
+        <input type="text" id="c_eyes" placeholder="例：少しツリ目、青い瞳、右目に泣きぼくろ（★おまかせは空欄！）">
       </div>
 
       <!-- 鼻 -->
       <div class="form-group">
         <label>Q4. 【鼻】について特徴はありますか？</label>
         <p class="question-desc">特にない場合は空欄で大丈夫です！</p>
-        <input type="text" id="c_nose" placeholder="例：小さくてツンとした鼻 / 団子鼻 /筋の通った高い鼻">
+        <input type="text" id="c_nose" placeholder="例：小さくてツンとした鼻 / 団子鼻 /筋の通った高い鼻（★おまかせは空欄！）">
       </div>
 
       <!-- 口 -->
       <div class="form-group">
         <label>Q5. 【口】の特徴を教えてください</label>
         <p class="question-desc">特にない場合は空欄で大丈夫です！</p>
-        <input type="text" id="c_mouth" placeholder="例：アヒル口 / 薄い唇 / への字口 / ωみたいな口">
+        <input type="text" id="c_mouth" placeholder="例：アヒル口 / 薄い唇 / への字口 / ωみたいな口（★おまかせは空欄！）">
       </div>
 
       <!-- 頭身 -->
@@ -414,7 +422,7 @@
           <div class="ex-row ex-good"><span class="ex-label">⭕ 良い例</span><span class="ex-text">6〜7頭身のリアルなスタイル /
               2〜3頭身のちびキャラ / 少しデフォルメ強め</span></div>
         </details>
-        <input type="text" id="c_ratio" placeholder="例：6〜7頭身 / 2〜3頭身 / ちびキャラ">
+        <input type="text" id="c_ratio" placeholder="例：6〜7頭身 / 2〜3頭身 / ちびキャラ（★おまかせは空欄！）">
       </div>
       <!-- 絵タッチ -->
       <div class="form-group">
@@ -476,7 +484,10 @@
 
   <script>
     function generatePrompt() {
-      const getVal = (id) => document.getElementById(id).value.trim();
+      const getVal = (id) => {
+        const el = document.getElementById(id);
+        return el ? el.value.trim() : '';
+      };
 
       const hair = getVal('c_hair');
       const outfit = getVal('c_outfit');
