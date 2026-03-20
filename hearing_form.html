@@ -1,0 +1,625 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI Manga Hearing Form | Gem JSON Generator</title>
+  <style>
+    :root {
+      --bg: #0f172a;
+      --surface: #1e293b;
+      --surface-highlight: #334155;
+      --primary: #8b5cf6;
+      --primary-hover: #7c3aed;
+      --good: #10b981;
+      --bad: #ef4444;
+      --text: #f8fafc;
+      --text-dim: #94a3b8;
+      --border: rgba(255, 255, 255, 0.1);
+      --glass: rgba(30, 41, 59, 0.7);
+    }
+    
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      background-color: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      display: flex;
+      justify-content: center;
+      min-height: 100vh;
+      padding: 40px 20px;
+      background-image: 
+        radial-gradient(circle at top right, rgba(139, 92, 246, 0.15), transparent 40%),
+        radial-gradient(circle at bottom left, rgba(56, 189, 248, 0.1), transparent 40%);
+      background-attachment: fixed;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 850px;
+    }
+
+    .header {
+      text-align: center;
+      margin-bottom: 40px;
+    }
+
+    .header h1 {
+      font-size: 2.5rem;
+      font-weight: 800;
+      background: linear-gradient(135deg, #a78bfa, #38bdf8);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      margin-bottom: 15px;
+    }
+
+    .header p {
+      color: var(--text-dim);
+    }
+
+    /* Tabs */
+    .tabs {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 30px;
+      background: rgba(0,0,0,0.2);
+      padding: 6px;
+      border-radius: 12px;
+      width: fit-content;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .tab-btn {
+      background: transparent;
+      border: none;
+      color: var(--text-dim);
+      padding: 10px 24px;
+      font-size: 1rem;
+      font-weight: 600;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .tab-btn:hover {
+      color: var(--text);
+    }
+
+    .tab-btn.active {
+      background: var(--surface);
+      color: #fff;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+    }
+
+    /* Form Panels */
+    .form-panel {
+      display: none;
+      background: var(--glass);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 40px;
+      animation: fadeIn 0.4s ease forwards;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+    }
+
+    .form-panel.active {
+      display: block;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .form-group {
+      margin-bottom: 35px;
+      padding-bottom: 25px;
+      border-bottom: 1px dashed rgba(255,255,255,0.05);
+    }
+    .form-group:last-child {
+      border-bottom: none;
+      margin-bottom: 0;
+      padding-bottom: 0;
+    }
+
+    .form-group > label {
+      display: block;
+      font-weight: 700;
+      margin-bottom: 6px;
+      color: #e2e8f0;
+      font-size: 1.05rem;
+    }
+
+    .question-desc {
+      font-size: 0.9rem;
+      color: var(--text-dim);
+      margin-bottom: 12px;
+    }
+
+    /* Examples Box */
+    .example-box {
+      background: rgba(0,0,0,0.15);
+      border-radius: 10px;
+      padding: 14px 16px;
+      margin-bottom: 16px;
+      font-size: 0.9rem;
+      border-left: 3px solid var(--primary);
+    }
+    
+    .ex-row {
+      display: flex;
+      gap: 12px;
+      margin-bottom: 8px;
+    }
+    .ex-row:last-child { margin-bottom: 0; }
+    
+    .ex-label {
+      font-weight: 700;
+      min-width: 50px;
+      flex-shrink: 0;
+    }
+    
+    .ex-good .ex-label { color: var(--good); }
+    .ex-bad .ex-label { color: var(--bad); }
+    .ex-text { color: #cbd5e1; }
+
+    input[type="text"],
+    textarea,
+    select {
+      width: 100%;
+      background: rgba(15, 23, 42, 0.6);
+      border: 1px solid rgba(255,255,255,0.15);
+      color: #fff;
+      padding: 14px 16px;
+      border-radius: 10px;
+      font-size: 1rem;
+      font-family: inherit;
+      transition: all 0.2s ease;
+    }
+
+    input[type="text"]:focus,
+    textarea:focus,
+    select:focus {
+      outline: none;
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.2);
+    }
+
+    textarea {
+      resize: vertical;
+      min-height: 120px;
+      line-height: 1.5;
+    }
+
+    select {
+      appearance: none;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='white'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M19 9l-7 7-7-7'%3E%3C/path%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 16px center;
+      background-size: 16px;
+      padding-right: 40px;
+      cursor: pointer;
+    }
+    
+    select option {
+      background: var(--surface-highlight);
+      color: #fff;
+    }
+
+    .action-bar {
+      margin-top: 40px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, var(--primary), #6366f1);
+      color: white;
+      border: none;
+      padding: 18px 40px;
+      font-size: 1.2rem;
+      font-weight: 700;
+      border-radius: 12px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      box-shadow: 0 8px 16px rgba(139, 92, 246, 0.3);
+      width: 100%;
+      justify-content: center;
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 12px 20px rgba(139, 92, 246, 0.4);
+    }
+
+    .btn-primary:active {
+      transform: translateY(0);
+    }
+
+    .toast {
+      position: fixed;
+      bottom: 30px;
+      left: 50%;
+      transform: translateX(-50%) translateY(100px);
+      background: #10b981;
+      color: white;
+      padding: 14px 28px;
+      border-radius: 30px;
+      font-weight: 600;
+      box-shadow: 0 10px 25px rgba(16, 185, 129, 0.4);
+      transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+      z-index: 1000;
+    }
+
+    .toast.show {
+      transform: translateX(-50%) translateY(0);
+    }
+
+    /* Scrollbar */
+    ::-webkit-scrollbar {
+      width: 8px;
+    }
+    ::-webkit-scrollbar-track {
+      background: transparent;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: rgba(255,255,255,0.2);
+      border-radius: 4px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: rgba(255,255,255,0.3);
+    }
+    
+    @media (max-width: 600px) {
+      .form-panel { padding: 24px; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <div class="header">
+      <h1>AI Manga Hearing</h1>
+      <p style="font-size: 0.9rem; margin-top: -5px; margin-bottom: 15px; color: #a78bfa; font-weight: bold;">&copy; アスカデザインラボ</p>
+      <p>各項目を入力して「JSONをコピー」を押し、Gemの最初のプロンプトとして送信してください。</p>
+    </div>
+
+    <div class="tabs">
+      <button class="tab-btn active" data-target="essay">📝 エッセイ</button>
+      <button class="tab-btn" data-target="review">🎬 レビュー</button>
+      <button class="tab-btn" data-target="story">📖 ストーリー</button>
+    </div>
+
+    <!-- ＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝ ESSAY FORM ＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝ -->
+    <div id="essay" class="form-panel active">
+      
+      <div class="form-group">
+        <label>題材</label>
+        <p class="question-desc">今回どんなテーマでエッセイ漫画を描きたいですか？</p>
+        <div class="example-box">
+          <div class="ex-row ex-good"><span class="ex-label">⭕ 良い例</span><span class="ex-text">「昨日参加した社内会議で、上司の的外れな発言にモヤッとした話」</span></div>
+          <div class="ex-row ex-bad"><span class="ex-label">❌ 悪い例</span><span class="ex-text">「仕事の話」</span></div>
+        </div>
+        <input type="text" id="e_subject" placeholder="思いついたテーマを入力してください">
+      </div>
+
+      <div class="form-group">
+        <label>ターゲット</label>
+        <p class="question-desc">この漫画を読んで一番「わかる！」と共感してくれそうな人は誰ですか？</p>
+        <div class="example-box">
+          <div class="ex-row ex-good"><span class="ex-label">⭕ 良い例</span><span class="ex-text">「育児と仕事の両立で、毎日自分の時間が1分もないと感じている30代ママ」</span></div>
+        </div>
+        <input type="text" id="e_target" placeholder="例：30代の働く女性、SF映画が好きな人">
+      </div>
+
+      <div class="form-group">
+        <label>伝えたいこと</label>
+        <p class="question-desc">読後、読者にどう感じてほしいですか？何が一番のメッセージですか？</p>
+        <div class="example-box">
+          <div class="ex-row ex-good"><span class="ex-label">⭕ 良い例</span><span class="ex-text">「完璧な親なんていないから、たまにはレトルトで手抜きしてもいいんだよと伝えたい」</span></div>
+          <div class="ex-row ex-bad"><span class="ex-label">❌ 悪い例</span><span class="ex-text">「昨日の出来事を知ってほしい」</span></div>
+        </div>
+        <input type="text" id="e_message" placeholder="一番のメッセージを入力してください">
+      </div>
+
+      <div class="form-group">
+        <label>トーン・テイスト</label>
+        <p class="question-desc">漫画全体の雰囲気はどうしますか？</p>
+        <input type="text" id="e_tone" placeholder="例：明るく笑える、淡々として少し切ない、本音むき出し">
+      </div>
+
+      <div class="form-group">
+        <label>キャラクター設定</label>
+        <p class="question-desc">主人公（あなた）や登場人物の設定を簡単に教えてください。</p>
+        <input type="text" id="e_char" placeholder="例：私＝映画好きの30代OL、上司＝口うるさい50代男性">
+      </div>
+
+      <div class="form-group">
+        <label>ページ数</label>
+        <p class="question-desc">希望するページ数があれば教えてください。未定なら「おまかせ」で構いません。</p>
+        <select id="e_pages">
+          <option value="おまかせ">おまかせ（AIが内容に最適な長さを自動決定）</option>
+          <option value="2ページ">2ページ（サクッと読める）</option>
+          <option value="3ページ">3ページ</option>
+          <option value="4ページ">4ページ（しっかり読める）</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label>漫画のスタイル</label>
+        <p class="question-desc">どんな絵柄・塗りにしますか？（「ボーナススタイルカタログ」の表現も使用可）</p>
+        <input type="text" id="e_style" placeholder="例：絵本風で水彩画スタイルでふんわりスタイル / 女性向けエッセイ風">
+      </div>
+
+      <div class="form-group">
+        <label>ストーリーメモ ✍️</label>
+        <p class="question-desc">実際に起きた出来事、その時のあなたの「内心の声（ツッコミ等）」、感情の変化を箇条書きなどで自由に書き出してください。綺麗にまとまっていなくてOKです。</p>
+        <div class="example-box">
+          <div class="ex-row ex-good"><span class="ex-label">⭕ 良い例</span>
+            <span class="ex-text">
+・朝、コーヒーをこぼして最悪の気分で出社。<br>
+・会議で上司が「最近の若者は〜」とテンプレ説教開始。<br>
+・心の声（また始まったよ。自分の案件どうなってんの？）<br>
+・帰りに寄ったコンビニの店員さんの笑顔で少し救われた。
+            </span>
+          </div>
+        </div>
+        <textarea id="e_memo" placeholder="起きたことや思ったことを箇条書きなどで羅列してください"></textarea>
+      </div>
+
+      <div class="form-group">
+        <label>希望シナリオ構成</label>
+        <select id="e_pattern">
+          <option value="おまかせ">おまかせ（AIが最適なものを選ぶ）</option>
+          <option value="A: 結末先出し型">A: 結末先出し型（SNSでバズりやすい）</option>
+          <option value="B: 時系列エスカレート型">B: 時系列エスカレート型（徐々に感情が高まる）</option>
+          <option value="C: 思想・内省型">C: 思想・内省型（考えを深く語る）</option>
+          <option value="D: ストーリーテラー型">D: ストーリーテラー型（読者に直接語りかける）</option>
+        </select>
+      </div>
+
+      <div class="action-bar">
+        <button class="btn-primary" onclick="generateJSON('essay')">
+          <span>📋 JSONを作成してコピーする</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- ＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝ REVIEW FORM ＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝ -->
+    <div id="review" class="form-panel">
+      
+      <div class="form-group">
+        <label>レビュー対象の正式名称</label>
+        <p class="question-desc">商品名・サービス名・作品名を正式名称で教えてください。（画像生成時に文字が崩れるのを防ぐため記号は控えてください）</p>
+        <input type="text" id="r_name" placeholder="正確な名称を入力してください">
+      </div>
+
+      <div class="form-group">
+        <label>レビュー対象の概要</label>
+        <p class="question-desc">それがどんなものか、知らない人向けに1行で説明してください。</p>
+        <div class="example-box">
+          <div class="ex-row ex-good"><span class="ex-label">⭕ 良い例</span><span class="ex-text">「最近SNSでバズっている、周囲の音を完全に消すノイズキャンセリングイヤホン」</span></div>
+        </div>
+        <input type="text" id="r_desc" placeholder="概要を入力してください">
+      </div>
+
+      <div class="form-group">
+        <label>ボリューム感（レビューの深さ）</label>
+        <p class="question-desc">どのくらいの温度感・情報量で紹介したいですか？</p>
+        <select id="r_vol">
+          <option value="M: 標準（レビューと感情半々）">M: 標準（感情シェアと「何が良いか」のバランス）</option>
+          <option value="L: 軽め（感情共有やサクッと紹介）">L: 軽め（とにかくエモさ・感情・雰囲気を優先）</option>
+          <option value="H: しっかり（比較・条件・注意点も提示）">H: しっかり（他との比較や、買わない方がいい人まで詳細に）</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label>いちばん伝えたい魅力</label>
+        <p class="question-desc">この対象のドコが一番良かったですか？（推しポイント）</p>
+        <div class="example-box">
+          <div class="ex-row ex-good"><span class="ex-label">⭕ 良い例</span><span class="ex-text">「カフェの騒音が一瞬で消えて、自分だけの書斎にワープした感覚になれること」</span></div>
+          <div class="ex-row ex-bad"><span class="ex-label">❌ 悪い例</span><span class="ex-text">「性能がいい」</span></div>
+        </div>
+        <input type="text" id="r_appeal" placeholder="一番の推しポイント">
+      </div>
+
+      <div class="form-group">
+        <label>いちばん描きたいこと・体験</label>
+        <p class="question-desc">カタログスペックではなく「あなた自身の体験」として面白かった瞬間や、漫画で絶対描きたい絵はありますか？</p>
+        <div class="example-box">
+          <div class="ex-row ex-good"><span class="ex-label">⭕ 良い例</span><span class="ex-text">「初めて装着してスイッチを入れた時、世界からフッと音が消えて目を見開いたあの瞬間」</span></div>
+        </div>
+        <textarea id="r_scene" rows="2" placeholder="絶対に入れたいシーンや体験"></textarea>
+      </div>
+
+      <div class="form-group">
+        <label>比較要素・注意点</label>
+        <p class="question-desc">他の製品との違いや、「こういう人には向かないかも」という本音があれば教えてください。無ければ空白でOKです。</p>
+        <textarea id="r_compare" rows="2" placeholder="例：重低音重視の人には物足りないかも。前モデルより高い等"></textarea>
+      </div>
+
+      <div class="form-group">
+        <label>トーン・テイスト</label>
+        <input type="text" id="r_tone" placeholder="例：テンション高め、本音で辛口評価、落ち着いた紹介">
+      </div>
+
+      <div class="form-group">
+        <label>ストーリーメモ ✍️</label>
+        <p class="question-desc">買う前（体験前）の悩み→出会い→使ってみてどうだったか、の流れを箇条書きで出力してください。</p>
+        <textarea id="r_memo" placeholder="使用した時の感想や体験談のメモを羅列してください"></textarea>
+      </div>
+
+      <div class="form-group">
+        <label>漫画のスタイル</label>
+        <input type="text" id="r_style" placeholder="例：少年漫画風でアニメ塗りでパキッとしたスタイル">
+      </div>
+
+      <div class="form-group">
+        <label>希望シナリオ構成</label>
+        <select id="r_pattern">
+          <option value="おまかせ">おまかせ（AIが最適なものを選ぶ）</option>
+          <option value="A: 結末先出し型">A: 結末先出し型（結論から言うスタイル）</option>
+          <option value="B: 時系列エスカレート型">B: 時系列エスカレート型（体験談として語る）</option>
+          <option value="C: 思想・内省型">C: 思想・内省型（マニアックに深く語り入る）</option>
+          <option value="D: ストーリーテラー型">D: ストーリーテラー型（読者に直接プレゼンする）</option>
+        </select>
+      </div>
+
+      <div class="action-bar">
+        <button class="btn-primary" onclick="generateJSON('review')">
+          <span>📋 JSONを作成してコピーする</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- ＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝ STORY FORM ＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝ -->
+    <div id="story" class="form-panel">
+      
+      <div class="form-group">
+        <label>題材・ジャンル</label>
+        <p class="question-desc">どんな世界観・ジャンルの物語ですか？</p>
+        <input type="text" id="s_genre" placeholder="例：現代ファンタジー、学園ラブコメ、サイバーパンクミステリー">
+      </div>
+
+      <div class="form-group">
+        <label>主人公の目的・欲求 (Want)</label>
+        <p class="question-desc">主人公は最終的に何を手に入れたいのか、どうなりたいのかを教えてください。</p>
+        <div class="example-box">
+          <div class="ex-row ex-good"><span class="ex-label">⭕ 良い例</span><span class="ex-text">「すれ違ってばかりの幼馴染に、今度こそ自分の気持ちを伝えたい」</span></div>
+          <div class="ex-row ex-bad"><span class="ex-label">❌ 悪い例</span><span class="ex-text">「恋愛」</span></div>
+        </div>
+        <input type="text" id="s_want" placeholder="主人公の目的">
+      </div>
+
+      <div class="form-group">
+        <label>障害・対立構造 (Obstacle)</label>
+        <p class="question-desc">主人公の目的達成を邪魔しているものは何ですか？（敵、環境、相手の気持ち、自分の内面など）</p>
+        <div class="example-box">
+          <div class="ex-row ex-good"><span class="ex-label">⭕ 良い例</span><span class="ex-text">「幼馴染は明日、留学のために遠くへ行ってしまう。さらに自分は素直になれない性格。」</span></div>
+        </div>
+        <input type="text" id="s_obstacle" placeholder="目的を阻む壁">
+      </div>
+
+      <div class="form-group">
+        <label>結末の方向性（読後感）</label>
+        <p class="question-desc">どんな気持ちで終わる物語にしますか？</p>
+        <div class="example-box">
+          <div class="ex-row ex-good"><span class="ex-label">⭕ 良い例</span><span class="ex-text">「完全に結ばれるわけではないが、少しだけ距離が縮まった温かい余韻」</span></div>
+        </div>
+        <input type="text" id="s_ending" placeholder="例：ハッピーエンド、バッドエンド、成長エンド 等">
+      </div>
+
+      <div class="form-group">
+        <label>トーン・テイスト</label>
+        <input type="text" id="s_tone" placeholder="例：シリアス、コメディ、ダーク、ハートフル">
+      </div>
+
+      <div class="form-group">
+        <label>漫画のスタイル</label>
+        <input type="text" id="s_style" placeholder="例：Webtoon風でアニメ塗りでゴールデンアワースタイル">
+      </div>
+
+      <div class="form-group">
+        <label>あらすじ・プロットメモ ✍️</label>
+        <p class="question-desc">思いついている出来事の流れや、絶対に入れたい「見せ場（一番の危機や感情のピーク）」を、箇条書きで自由に書いてください。</p>
+        <textarea id="s_memo" placeholder="考えているプロットや出来事のメモを羅列してください"></textarea>
+      </div>
+
+      <div class="action-bar">
+        <button class="btn-primary" onclick="generateJSON('story')">
+          <span>📋 JSONを作成してコピーする</span>
+        </button>
+      </div>
+    </div>
+
+  </div>
+
+  <div id="toast" class="toast">✅ コピーしました！Gemのチャット欄に貼り付けて送信してください。</div>
+
+  <script>
+    // Tab Switching
+    document.querySelectorAll('.tab-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+        document.querySelectorAll('.form-panel').forEach(p => p.classList.remove('active'));
+        btn.classList.add('active');
+        document.getElementById(btn.dataset.target).classList.add('active');
+      });
+    });
+
+    // Generate JSON
+    function generateJSON(type) {
+      let data = {};
+      
+      const getVal = (id) => document.getElementById(id).value.trim();
+
+      if (type === 'essay') {
+        data = {
+          "題材": getVal('e_subject'),
+          "ターゲット": getVal('e_target'),
+          "伝えたいこと": getVal('e_message'),
+          "トーン_テイスト": getVal('e_tone'),
+          "ページ数": getVal('e_pages'),
+          "キャラクター設定": getVal('e_char'),
+          "漫画のスタイル": getVal('e_style'),
+          "ストーリーメモ": getVal('e_memo'),
+          "希望シナリオ構成": getVal('e_pattern')
+        };
+      } else if (type === 'review') {
+        data = {
+          "レビュー対象の名称": getVal('r_name'),
+          "レビュー対象の概要": getVal('r_desc'),
+          "ボリューム感": getVal('r_vol'),
+          "いちばん伝えたい魅力": getVal('r_appeal'),
+          "いちばん描きたいこと": getVal('r_scene'),
+          "比較要素_注意点": getVal('r_compare'),
+          "トーン_テイスト": getVal('r_tone'),
+          "ストーリーメモ": getVal('r_memo'),
+          "漫画のスタイル": getVal('r_style'),
+          "希望シナリオ構成": getVal('r_pattern')
+        };
+      } else if (type === 'story') {
+        data = {
+          "題材_ジャンル": getVal('s_genre'),
+          "主人公の目的_欲求": getVal('s_want'),
+          "障害_対立構造": getVal('s_obstacle'),
+          "結末の方向性": getVal('s_ending'),
+          "トーン_テイスト": getVal('s_tone'),
+          "あらすじ_ストーリーメモ": getVal('s_memo'),
+          "漫画のスタイル": getVal('s_style')
+        };
+      }
+
+      const jsonStr = "```json\n" + JSON.stringify(data, null, 2) + "\n```";
+
+      navigator.clipboard.writeText(jsonStr).then(() => {
+        showToast();
+      }).catch(err => {
+        console.error('Copy failed', err);
+        alert("コピーに失敗しました。以下のテキストを手動でコピーしてください:\n\n" + jsonStr);
+      });
+    }
+
+    function showToast() {
+      const toast = document.getElementById('toast');
+      toast.classList.add('show');
+      setTimeout(() => {
+        toast.classList.remove('show');
+      }, 3000);
+    }
+  </script>
+</body>
+</html>

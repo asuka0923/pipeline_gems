@@ -1,0 +1,566 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>背景プロンプトメーカー｜アスカデザインラボ</title>
+  <style>
+    :root {
+      --bg: #0f172a;
+      --surface: #1e293b;
+      --surface-highlight: #334155;
+      --primary: #8b5cf6;
+      --primary-hover: #7c3aed;
+      --good: #10b981;
+      --bad: #ef4444;
+      --text: #f8fafc;
+      --text-dim: #94a3b8;
+      --border: rgba(255, 255, 255, 0.1);
+      --glass: rgba(30, 41, 59, 0.7);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      background-color: var(--bg);
+      color: var(--text);
+      line-height: 1.7;
+      font-size: 17px;
+      display: flex;
+      justify-content: center;
+      min-height: 100vh;
+      padding: 40px 20px;
+      background-image:
+        radial-gradient(circle at top right, rgba(139, 92, 246, 0.15), transparent 40%),
+        radial-gradient(circle at bottom left, rgba(56, 189, 248, 0.1), transparent 40%);
+      background-attachment: fixed;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 900px;
+    }
+
+    .header {
+      text-align: center;
+      margin-bottom: 50px;
+    }
+
+    .header h1 {
+      font-size: 2.8rem;
+      font-weight: 800;
+      background: linear-gradient(135deg, #a78bfa, #38bdf8);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      margin-bottom: 15px;
+    }
+
+    .header p {
+      color: var(--text-dim);
+      font-size: 1.1rem;
+    }
+
+    .form-panel {
+      background: var(--glass);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 50px;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+    }
+
+    .form-group {
+      margin-bottom: 45px;
+      padding-bottom: 30px;
+      border-bottom: 1px dashed rgba(255, 255, 255, 0.05);
+      position: relative;
+    }
+
+    .form-group:not(:last-child)::after {
+      content: '▼';
+      position: absolute;
+      bottom: -18px;
+      left: 50%;
+      color: white;
+      font-size: 1.4rem;
+      background: linear-gradient(135deg, var(--primary), #6366f1);
+      padding: 4px 16px;
+      border-radius: 20px;
+      box-shadow: 0 4px 12px rgba(139, 92, 246, 0.4);
+      animation: gentle-bounce 2s infinite ease-in-out;
+      z-index: 10;
+    }
+
+    @keyframes gentle-bounce {
+
+      0%,
+      100% {
+        transform: translateX(-50%) translateY(0);
+      }
+
+      50% {
+        transform: translateX(-50%) translateY(5px);
+      }
+    }
+
+    .form-group:last-child {
+      border-bottom: none;
+      margin-bottom: 0;
+      padding-bottom: 0;
+    }
+
+    .form-group>label {
+      display: block;
+      font-weight: 800;
+      margin-bottom: 8px;
+      color: #e2e8f0;
+      font-size: 1.25rem;
+    }
+
+    .question-desc {
+      font-size: 1.05rem;
+      color: var(--text-dim);
+      margin-bottom: 15px;
+    }
+
+    .example-box {
+      background: rgba(0, 0, 0, 0.25);
+      border-radius: 12px;
+      padding: 18px 20px;
+      margin-bottom: 20px;
+      border-left: 4px solid var(--primary);
+      font-size: 1rem;
+    }
+
+    details.example-box summary {
+      cursor: pointer;
+      font-weight: 700;
+      color: #a78bfa;
+      outline: none;
+      list-style: none;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    details.example-box summary::-webkit-details-marker {
+      display: none;
+    }
+
+    details.example-box summary::after {
+      content: '▼';
+      font-size: 0.8rem;
+      transition: transform 0.2s;
+    }
+
+    details.example-box:not([open]) summary::after {
+      transform: rotate(-90deg);
+    }
+
+    details.example-box[open] summary {
+      margin-bottom: 12px;
+      padding-bottom: 12px;
+      border-bottom: 1px dashed rgba(255, 255, 255, 0.1);
+    }
+
+    .ex-row {
+      display: flex;
+      gap: 16px;
+      margin-bottom: 12px;
+      align-items: flex-start;
+    }
+
+    .ex-row:last-child {
+      margin-bottom: 0;
+    }
+
+    .ex-label {
+      font-weight: 800;
+      min-width: 80px;
+      flex-shrink: 0;
+      padding-top: 2px;
+    }
+
+    .ex-title {
+      font-weight: 700;
+      color: #fbbf24;
+      margin-right: 6px;
+    }
+
+    .ex-good .ex-label {
+      color: var(--good);
+    }
+
+    .ex-bad .ex-label {
+      color: var(--bad);
+    }
+
+    .ex-text {
+      color: #e2e8f0;
+      line-height: 1.6;
+    }
+
+    input[type="text"],
+    textarea,
+    select {
+      width: 100%;
+      background: rgba(15, 23, 42, 0.8);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      color: #fff;
+      padding: 16px 20px;
+      border-radius: 12px;
+      font-size: 1.1rem;
+      font-family: inherit;
+      transition: all 0.2s ease;
+    }
+
+    input[type="text"]:focus,
+    textarea:focus,
+    select:focus {
+      outline: none;
+      border-color: var(--primary);
+      box-shadow: 0 0 0 4px rgba(139, 92, 246, 0.2);
+    }
+
+    textarea {
+      resize: vertical;
+      min-height: 150px;
+      line-height: 1.6;
+    }
+
+    input::placeholder,
+    textarea::placeholder {
+      font-size: 0.85rem;
+      color: rgba(255, 255, 255, 0.45);
+    }
+
+    select {
+      appearance: none;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='white'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M19 9l-7 7-7-7'%3E%3C/path%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 20px center;
+      background-size: 20px;
+      cursor: pointer;
+    }
+
+    select option {
+      background: var(--surface-highlight);
+      color: #fff;
+    }
+
+    .action-bar {
+      margin-top: 50px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, var(--primary), #6366f1);
+      color: white;
+      border: none;
+      padding: 20px 50px;
+      font-size: 1.3rem;
+      font-weight: 800;
+      border-radius: 16px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      box-shadow: 0 10px 20px rgba(139, 92, 246, 0.3);
+      width: 100%;
+      justify-content: center;
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 14px 28px rgba(139, 92, 246, 0.4);
+    }
+
+    .form-flow {
+      display: flex;
+      flex-wrap: nowrap;
+      align-items: center;
+      width: 100%;
+      margin-bottom: 40px;
+      padding: 15px 10px;
+      background: rgba(15, 23, 42, 0.4);
+      border-radius: 12px;
+      border: 1px dashed rgba(139, 92, 246, 0.4);
+      overflow-x: auto;
+    }
+
+    .flow-tag {
+      flex: 1;
+      text-align: center;
+      font-size: 0.8rem;
+      font-weight: 700;
+      color: #e2e8f0;
+      background: rgba(255, 255, 255, 0.05);
+      padding: 6px 0;
+      border-radius: 6px;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      white-space: nowrap;
+    }
+
+    .flow-arrow {
+      flex-shrink: 0;
+      color: var(--primary);
+      font-size: 0.7rem;
+      margin: 0 4px;
+    }
+
+    .toast {
+      position: fixed;
+      bottom: 40px;
+      left: 50%;
+      transform: translateX(-50%) translateY(120px);
+      background: #10b981;
+      color: white;
+      padding: 16px 32px;
+      border-radius: 30px;
+      font-weight: 700;
+      font-size: 1.1rem;
+      box-shadow: 0 15px 30px rgba(16, 185, 129, 0.4);
+      transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+      z-index: 1000;
+    }
+
+    .toast.show {
+      transform: translateX(-50%) translateY(0);
+    }
+
+    @media (max-width: 600px) {
+      .form-panel {
+        padding: 30px;
+      }
+
+      body {
+        font-size: 16px;
+      }
+
+      .header h1 {
+        font-size: 2.2rem;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="container">
+    <div class="header">
+      <h1>🏙️ 背景生成 ヒアリング</h1>
+      <p style="font-size: 0.9rem; margin-top: -5px; margin-bottom: 15px; color: #a78bfa; font-weight: bold;">&copy; アスカデザインラボ</p>
+      <p>各項目をサクッと入力したら、一番下の「プロンプトをコピー」を押して、<br>「画像生成AI（Nano Banana等）」のチャット欄に直接貼り付けてください✨</p>
+    </div>
+
+    <div class="form-flow">
+      <span class="flow-tag">場所・ロケーション</span><span class="flow-arrow">▶</span>
+      <span class="flow-tag">参照画像</span><span class="flow-arrow">▶</span>
+      <span class="flow-tag">光・時間帯</span><span class="flow-arrow">▶</span>
+      <span class="flow-tag">オブジェクト</span><span class="flow-arrow">▶</span>
+      <span class="flow-tag">雰囲気</span><span class="flow-arrow">▶</span>
+      <span class="flow-tag">画形・タッチ</span>
+    </div>
+
+    <div class="form-panel">
+      <!-- ロケーション -->
+      <div class="form-group">
+        <label>Q1. 今回作りたい背景の【場所（ロケーション）】を教えてください✨</label>
+        <p class="question-desc">屋内外問わず、どのような場所か一言で表してください。</p>
+        <details class="example-box">
+          <summary>💡 回答例を表示 / 非表示</summary>
+          <div class="ex-row ex-good"><span class="ex-label">⭕ 良い例</span><span class="ex-text">主人公の自室（ワンルームアパート） /
+              サイバーパンクな裏路地 / 日差しの入るおしゃれなカフェ</span></div>
+        </details>
+        <input type="text" id="b_location" placeholder="例：主人公の自室 / 廃墟となった学校の教室など">
+      </div>
+
+      <!-- 参照画像 -->
+      <div class="form-group">
+        <label>Q2. ベースにしたい【参照画像（リファレンス）のファイル名】はありますか？</label>
+        <p class="question-desc">ベースに生成したい写真がある場合、ファイル名を入力してください。空欄でも構いません。<br>（※Gemini/Nano Banana等に画像をアップロードすると自動で.jpgに変換されるため、ファイル名は「.jpg」でご指定ください）</p>
+        <details class="example-box">
+          <summary>💡 回答例を表示 / 非表示</summary>
+          <div class="ex-row ex-good"><span class="ex-label">⭕ 良い例</span><span class="ex-text">my_room.jpg /
+              cafe_outside.jpg</span></div>
+        </details>
+        <input type="text" id="b_ref_file" placeholder="例：my_room.jpg">
+      </div>
+
+      <!-- 光・時間帯 -->
+      <div class="form-group">
+        <label>Q3. その場所の【時間帯・天気・照明】はどんな感じですか？</label>
+        <p class="question-desc">空欄でもOK</p>
+        <input type="text" id="b_time" placeholder="例：夕暮れの西日が差し込む / 薄暗くて怪しいネオンライト / よく晴れた爽やかな朝">
+      </div>
+
+      <!-- オブジェクト -->
+      <div class="form-group">
+        <label>Q4. その空間にある【主要なオブジェクト・家具・特徴】を教えてください</label>
+        <p class="question-desc">部屋なら家具、外なら目印になるものなど。</p>
+        <input type="text" id="b_objects" placeholder="例：散らかったデスクと光るゲーミングPC / アンティーク調の大きな本棚と革張りの椅子">
+      </div>
+
+      <!-- 雰囲気 -->
+      <div class="form-group">
+        <label>Q5. その背景から感じる【雰囲気（トーン）】を教えてください</label>
+        <p class="question-desc">読者にどんな感情を与えたいか、空欄でもOK</p>
+        <input type="text" id="b_tone" placeholder="例：どこか寂しげで退廃的 / 明るくて清潔感があり落ち着く空間 / 不気味で背筋が凍るような">
+      </div>
+
+      <!-- アスペクト比 -->
+      <div class="form-group">
+        <label>Q6. 【アスペクト比】を選択してください</label>
+        <p class="question-desc">出力する画像の縦横比を選びます。</p>
+        <select id="b_aspect_ratio"
+          style="width: 100%; padding: 12px; border-radius: 8px; border: 1px solid rgba(255, 255, 255, 0.2); background: rgba(0, 0, 0, 0.2); color: white; font-size: 1rem;">
+          <option value="2:1">2:1</option>
+          <option value="16:9">16:9</option>
+          <option value="3:2">3:2</option>
+          <option value="4:3">4:3</option>
+          <option selected value="1:1">1:1</option>
+          <option value="3:4">3:4</option>
+          <option value="4:5">4:5</option>
+          <option value="2:3">2:3</option>
+          <option value="9:16">9:16</option>
+        </select>
+      </div>
+
+      <!-- 絵タッチ -->
+      <div class="form-group">
+        <label>Q7. どんな【絵のタッチ（画風）】でお見せしましょうか？</label>
+        <p class="question-desc">カタログの内容から、ベース・塗り・エフェクトを選択してください。</p>
+        <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+          <select id="b_style_base" style="flex: 1; min-width: 200px;">
+            <option value="">▼ ベース画風（任意）</option>
+            <option value="少女漫画風">少女漫画風</option>
+            <option value="少年漫画風">少年漫画風</option>
+            <option value="青年漫画風">青年漫画風</option>
+            <option value="劇画調">劇画調</option>
+            <option value="Webtoon風">Webtoon風</option>
+            <option value="絵本風">絵本風</option>
+            <option value="コンセプトアート風">コンセプトアート風</option>
+            <option value="リアル写真調">リアル写真調</option>
+            <option value="アニメ背景美術調">アニメ背景美術調</option>
+          </select>
+          <select id="b_style_touch" style="flex: 1; min-width: 200px;">
+            <option value="">▼ 塗り・タッチ（任意）</option>
+            <option value="水彩画スタイル">水彩画スタイル</option>
+            <option value="アニメ塗り">アニメ塗り</option>
+            <option value="厚塗り">厚塗り</option>
+            <option value="パステル調">パステル調</option>
+            <option value="色鉛筆風">色鉛筆風</option>
+            <option value="コピック塗り">コピック塗り</option>
+            <option value="スケッチ風">スケッチ風</option>
+            <option value="油彩画風">油彩画風</option>
+            <option value="線画抽出（白黒線画）">線画抽出（白黒線画）</option>
+            <option value="3Dレンダリング">3Dレンダリング</option>
+          </select>
+          <select id="b_style_effect" style="flex: 1; min-width: 200px;">
+            <option value="">▼ エフェクト（任意）</option>
+            <option value="キラキラエフェクト">キラキラエフェクト</option>
+            <option value="シネマティックライティング">シネマティックライティング</option>
+            <option value="ノスタルジック">ノスタルジック</option>
+            <option value="ゴールデンアワー">ゴールデンアワー</option>
+            <option value="ふんわり（ソフトフォーカス）">ふんわり（ソフトフォーカス）</option>
+            <option value="ネオンカラー">ネオンカラー</option>
+            <option value="サイバーパンク">サイバーパンク</option>
+            <option value="ダークファンタジー">ダークファンタジー</option>
+            <option value="モノクローム（白黒）">モノクローム（白黒）</option>
+            <option value="被写界深度（ボケ味）">被写界深度（ボケ味）</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="action-bar">
+        <button class="btn-primary" onclick="generatePrompt()">
+          <span>📋 プロンプトを作成してコピーする</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div id="toast" class="toast">✅ コピーしました！画像生成AIのチャット欄に貼り付けてください。</div>
+
+  <script>
+    function generatePrompt() {
+      const getVal = (id) => document.getElementById(id).value.trim();
+
+      const location = getVal('b_location');
+      const refFile = getVal('b_ref_file');
+      const timeLight = getVal('b_time');
+      const objects = getVal('b_objects');
+      const tone = getVal('b_tone');
+
+      const stBase = document.getElementById('b_style_base').value;
+      const stTouch = document.getElementById('b_style_touch').value;
+      const stEffect = document.getElementById('b_style_effect').value;
+      const aspectRatio = document.getElementById('b_aspect_ratio').value;
+
+      let promptArr = [];
+
+      // 世界観とベースの指示
+      if (refFile) {
+        promptArr.push(`「${refFile}」の場所をベース背景として使用します。`);
+        promptArr.push(`この画像の世界観や構造を意図的に維持しつつ、以下の指示に従い新しい状態の【${location || "背景"}】を生成してください。`);
+      } else {
+        const locName = location || "風景・背景";
+        promptArr.push(`以下の指示に従って、魅力的な【${locName}】の背景画像を生成してください。`);
+        promptArr.push(`キャラクターなどの人物は一切描かず、無人の風景のみを描写すること。`);
+      }
+      promptArr.push("");
+
+      // シーン詳細
+      let traits = [];
+      if (timeLight) traits.push(`・時間帯・照明・天気：${timeLight}`);
+      if (objects) traits.push(`・主要なオブジェクトや空間の特徴：${objects}`);
+      if (tone) traits.push(`・全体の雰囲気（トーン）：${tone}`);
+
+      if (traits.length > 0) {
+        promptArr.push("【シーンの詳細】");
+        promptArr.push(traits.join('\n'));
+        promptArr.push("");
+      }
+
+      // 画風
+      let styleParts = [];
+      if (stBase) styleParts.push(stBase);
+      if (stTouch) styleParts.push(stTouch);
+      if (stEffect) styleParts.push(stEffect);
+
+      if (styleParts.length > 0) {
+        promptArr.push("【画風・スタイル設定】");
+        // Combine styles with 'で'
+        promptArr.push(styleParts.map(s => s.replace(/スタイル$/, '')).join('で') + "スタイル");
+        promptArr.push("");
+      }
+
+      if (aspectRatio) {
+        promptArr.push("【アスペクト比】");
+        promptArr.push(aspectRatio);
+      }
+
+      const promptStr = promptArr.join('\n').trim();
+
+      navigator.clipboard.writeText(promptStr).then(() => {
+        const toast = document.getElementById('toast');
+        toast.classList.add('show');
+        setTimeout(() => toast.classList.remove('show'), 3000);
+      }).catch(err => {
+        alert("コピーに失敗しました。以下のテキストを手動でコピーしてください:\n\n" + promptStr);
+      });
+    }
+  </script>
+</body>
+
+</html>

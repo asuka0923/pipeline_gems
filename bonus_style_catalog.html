@@ -1,0 +1,637 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>🎨 ボーナススタイル・カタログ</title>
+  <style>
+    :root {
+      --bg: #0f172a;
+      --surface: #1e293b;
+      --surface-highlight: #334155;
+      --primary: #8b5cf6;
+      --primary-hover: #7c3aed;
+      --good: #10b981;
+      --text: #f8fafc;
+      --text-dim: #94a3b8;
+      --border: rgba(255, 255, 255, 0.1);
+      --glass: rgba(30, 41, 59, 0.7);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      background-color: var(--bg);
+      color: var(--text);
+      line-height: 1.7;
+      font-size: 16px;
+      padding: 40px 20px;
+      background-image:
+        radial-gradient(circle at top right, rgba(139, 92, 246, 0.15), transparent 40%),
+        radial-gradient(circle at bottom left, rgba(56, 189, 248, 0.1), transparent 40%);
+      background-attachment: fixed;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+
+    .header {
+      text-align: center;
+      margin-bottom: 50px;
+    }
+
+    .header h1 {
+      font-size: 2.5rem;
+      font-weight: 800;
+      background: linear-gradient(135deg, #a78bfa, #38bdf8);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      margin-bottom: 15px;
+    }
+
+    .header p {
+      color: var(--text-dim);
+      font-size: 1.1rem;
+    }
+
+    .card {
+      background: var(--glass);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 40px;
+      margin-bottom: 40px;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+    }
+
+    .card h2 {
+      font-size: 1.8rem;
+      margin-bottom: 20px;
+      color: #e2e8f0;
+      border-bottom: 2px solid var(--primary);
+      padding-bottom: 10px;
+      display: inline-block;
+    }
+
+    .card p.desc {
+      color: var(--text-dim);
+      margin-bottom: 25px;
+      font-size: 1.1rem;
+    }
+
+    .usage-box {
+      background: rgba(0, 0, 0, 0.25);
+      border-radius: 12px;
+      padding: 20px;
+      margin-bottom: 30px;
+      border-left: 4px solid var(--primary);
+    }
+
+    .usage-box code {
+      display: block;
+      background: rgba(255, 255, 255, 0.1);
+      padding: 15px;
+      border-radius: 8px;
+      color: #fff;
+      font-size: 1.2rem;
+      font-weight: bold;
+      margin-top: 10px;
+      text-align: center;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 20px;
+      background: rgba(15, 23, 42, 0.5);
+      border-radius: 12px;
+      overflow: hidden;
+    }
+
+    th,
+    td {
+      padding: 16px 20px;
+      text-align: left;
+      border-bottom: 1px solid var(--border);
+    }
+
+    th {
+      background: rgba(255, 255, 255, 0.05);
+      color: #a78bfa;
+      font-weight: 800;
+      font-size: 1.1rem;
+    }
+
+    tr:last-child td {
+      border-bottom: none;
+    }
+
+    td:first-child {
+      font-weight: bold;
+      color: #38bdf8;
+      width: 35%;
+      vertical-align: top;
+    }
+
+    td:last-child {
+      color: #e2e8f0;
+      line-height: 1.6;
+    }
+
+    .recipe-row {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .recipe-row code {
+      background: rgba(139, 92, 246, 0.2);
+      color: #e2e8f0;
+      padding: 6px 12px;
+      border-radius: 6px;
+      font-family: inherit;
+      font-size: 1.05rem;
+      border: 1px solid rgba(139, 92, 246, 0.4);
+      flex-grow: 1;
+    }
+
+    .copy-btn {
+      background: rgba(16, 185, 129, 0.2);
+      border: 1px solid rgba(16, 185, 129, 0.5);
+      color: #10b981;
+      border-radius: 8px;
+      padding: 6px 14px;
+      font-size: 0.95rem;
+      font-weight: bold;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      white-space: nowrap;
+    }
+
+    .copy-btn:hover {
+      background: rgba(16, 185, 129, 0.4);
+      transform: translateY(-2px);
+    }
+
+    .copy-btn:active {
+      transform: translateY(0);
+    }
+
+    .toast {
+      position: fixed;
+      bottom: 40px;
+      left: 50%;
+      transform: translateX(-50%) translateY(120px);
+      background: #10b981;
+      color: white;
+      padding: 16px 32px;
+      border-radius: 30px;
+      font-weight: 700;
+      font-size: 1.1rem;
+      box-shadow: 0 15px 30px rgba(16, 185, 129, 0.4);
+      transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+      z-index: 1000;
+    }
+
+    .toast.show {
+      transform: translateX(-50%) translateY(0);
+    }
+
+    @media (max-width: 600px) {
+      .card {
+        padding: 25px;
+      }
+
+      td,
+      th {
+        padding: 12px 15px;
+      }
+
+      td:first-child {
+        display: block;
+        width: 100%;
+        border-bottom: none;
+        padding-bottom: 5px;
+      }
+
+      td:last-child {
+        display: block;
+        width: 100%;
+        padding-top: 5px;
+      }
+
+      .header h1 {
+        font-size: 2rem;
+      }
+
+      .recipe-row {
+        flex-direction: column;
+        align-items: stretch;
+      }
+
+      .copy-btn {
+        justify-content: center;
+        padding: 10px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="container">
+    <div class="header">
+      <h1>🎨 漫画スタイル・カタログ</h1>
+      <p style="font-size: 0.9rem; margin-top: -5px; margin-bottom: 15px; color: #a78bfa; font-weight: bold;">&copy; アスカデザインラボ</p>
+      <p>モジュール組み合わせ式（Gemini 3 / Nano Banana対応版）</p>
+    </div>
+
+    <!-- 使い方指南 -->
+    <div class="card">
+      <h2>💡 使い方</h2>
+      <p class="desc">プロンプト欄に、各カテゴリーから<strong>好きな日本語タグを組み合わせて</strong>入力してください。</p>
+      <div class="usage-box">
+        <code>ベース画風　+ 塗り・タッチ　+　雰囲気・エフェクト（任意）</code>
+      </div>
+    </div>
+
+    <!-- 用途別レシピ -->
+    <div class="card">
+      <h2>🎯 黄金の組み合わせレシピ集</h2>
+      <p class="desc">迷った時は以下のレシピのコピーボタンを押して使ってください。</p>
+      <table>
+        <tr>
+          <th>用途・目的イメージ</th>
+          <th>黄金のプロンプト（3要素の組み合わせ）</th>
+        </tr>
+        <tr>
+          <td>SNSエッセイ・ほのぼの日常<br><span
+              style="color:var(--text-dim);font-size:0.9em;font-weight:normal">（親しみやすさと適度なゆるさ）</span></td>
+          <td>
+            <div class="recipe-row"><code>絵本風で水彩画スタイルでふんわり（ソフトフォーカス）スタイル</code><button class="copy-btn"
+                onclick="copyText(this, '絵本風で水彩画スタイルでふんわり（ソフトフォーカス）スタイル')">📋 コピー</button></div>
+          </td>
+        </tr>
+        <tr>
+          <td>手描きの日記・育児記録<br><span
+              style="color:var(--text-dim);font-size:0.9em;font-weight:normal">（アナログの温かみと親近感）</span></td>
+          <td>
+            <div class="recipe-row"><code>絵本風でコピック塗りでふんわり（ソフトフォーカス）スタイル</code><button class="copy-btn"
+                onclick="copyText(this, '絵本風でコピック塗りでふんわり（ソフトフォーカス）スタイル')">📋 コピー</button></div>
+          </td>
+        </tr>
+        <tr>
+          <td>ポエム・繊細なつぶやき<br><span
+              style="color:var(--text-dim);font-size:0.9em;font-weight:normal">（儚げで透明感のあるエモーショナル）</span></td>
+          <td>
+            <div class="recipe-row"><code>少女漫画風でパステル調でふんわり（ソフトフォーカス）スタイル</code><button class="copy-btn"
+                onclick="copyText(this, '少女漫画風でパステル調でふんわり（ソフトフォーカス）スタイル')">📋 コピー</button></div>
+          </td>
+        </tr>
+        <tr>
+          <td>おしゃれなブログ挿絵<br><span
+              style="color:var(--text-dim);font-size:0.9em;font-weight:normal">（雑誌の挿絵のような洗練された抜け感）</span></td>
+          <td>
+            <div class="recipe-row"><code>Webtoon風で水彩画スタイルでノスタルジックスタイル</code><button class="copy-btn"
+                onclick="copyText(this, 'Webtoon風で水彩画スタイルでノスタルジックスタイル')">📋 コピー</button></div>
+          </td>
+        </tr>
+        <tr>
+          <td>映画・ガジェットなどの本格レビュー<br><span
+              style="color:var(--text-dim);font-size:0.9em;font-weight:normal">（説得力のある説明とクリアな画面）</span></td>
+          <td>
+            <div class="recipe-row"><code>青年漫画風で厚塗りでシネマティックライティングスタイル</code><button class="copy-btn"
+                onclick="copyText(this, '青年漫画風で厚塗りでシネマティックライティングスタイル')">📋 コピー</button></div>
+          </td>
+        </tr>
+        <tr>
+          <td>クスッと笑えるギャグ・失敗談<br><span
+              style="color:var(--text-dim);font-size:0.9em;font-weight:normal">（コミカルで大げさなリアクション）</span></td>
+          <td>
+            <div class="recipe-row"><code>少年漫画風でアニメ塗りでネオンカラースタイル</code><button class="copy-btn"
+                onclick="copyText(this, '少年漫画風でアニメ塗りでネオンカラースタイル')">📋 コピー</button></div>
+          </td>
+        </tr>
+        <tr>
+          <td>ライフスタイル・購入品紹介<br><span
+              style="color:var(--text-dim);font-size:0.9em;font-weight:normal">（洗練されたおしゃれ感と透明感）</span></td>
+          <td>
+            <div class="recipe-row"><code>少女漫画風で水彩画スタイルでキラキラエフェクトスタイル</code><button class="copy-btn"
+                onclick="copyText(this, '少女漫画風で水彩画スタイルでキラキラエフェクトスタイル')">📋 コピー</button></div>
+          </td>
+        </tr>
+        <tr>
+          <td>淡々とした一人語り・少しエモい日記<br><span
+              style="color:var(--text-dim);font-size:0.9em;font-weight:normal">（落ち着いた空気感と読後感）</span></td>
+          <td>
+            <div class="recipe-row"><code>Webtoon風で色鉛筆風でノスタルジックスタイル</code><button class="copy-btn"
+                onclick="copyText(this, 'Webtoon風で色鉛筆風でノスタルジックスタイル')">📋 コピー</button></div>
+          </td>
+        </tr>
+        <tr>
+          <td>衝撃の事実・熱量高めの熱血レビュー<br><span
+              style="color:var(--text-dim);font-size:0.9em;font-weight:normal">（画面から伝わる圧倒的なパッション）</span></td>
+          <td>
+            <div class="recipe-row"><code>劇画調でスケッチ風でシネマティックライティングスタイル</code><button class="copy-btn"
+                onclick="copyText(this, '劇画調でスケッチ風でシネマティックライティングスタイル')">📋 コピー</button></div>
+          </td>
+        </tr>
+        <tr>
+          <td>YouTubeサムネイル・Webtoon基本<br><span
+              style="color:var(--text-dim);font-size:0.9em;font-weight:normal">（最速の視認性と商業的ルック）</span></td>
+          <td>
+            <div class="recipe-row"><code>少年漫画風でアニメ塗りスタイル</code><button class="copy-btn"
+                onclick="copyText(this, '少年漫画風でアニメ塗りスタイル')">📋 コピー</button></div>
+          </td>
+        </tr>
+        <tr>
+          <td>青春漫画・放課後のエモーショナル<br><span
+              style="color:var(--text-dim);font-size:0.9em;font-weight:normal">（暖かい時間帯と長い影）</span></td>
+          <td>
+            <div class="recipe-row"><code>Webtoon風でアニメ塗りでゴールデンアワースタイル</code><button class="copy-btn"
+                onclick="copyText(this, 'Webtoon風でアニメ塗りでゴールデンアワースタイル')">📋 コピー</button></div>
+          </td>
+        </tr>
+      </table>
+    </div>
+
+    <!-- ベース画風 -->
+    <div class="card">
+      <h2>🏗 カテゴリー1：ベース画風</h2>
+      <p class="desc">キャラクターの絵柄と骨格（頭身やデフォルメの方向性）を決定します。</p>
+      <table>
+        <tr>
+          <th>日本語タグ</th>
+          <th>どんな絵柄になるか（特徴）</th>
+        </tr>
+        <tr>
+          <td>
+            <div class="recipe-row"><span>少女漫画風</span><button class="copy-btn"
+                onclick="copyText(this, '少女漫画風')">📋</button></div>
+          </td>
+          <td>瞳が大きく、キラキラとしたハイライトと細かいまつ毛。華奢で耽美的なプロポーション。</td>
+        </tr>
+        <tr>
+          <td>
+            <div class="recipe-row"><span>少年漫画風</span><button class="copy-btn"
+                onclick="copyText(this, '少年漫画風')">📋</button></div>
+          </td>
+          <td>輪郭線が太く力強い。筋肉や骨格が強調され、熱量のある顔立ちや躍動感のあるポーズになる。</td>
+        </tr>
+        <tr>
+          <td>
+            <div class="recipe-row"><span>青年漫画風</span><button class="copy-btn"
+                onclick="copyText(this, '青年漫画風')">📋</button></div>
+          </td>
+          <td>写実的で頭身が高く、落ち着いたトーン。大人向けのシリアスで地に足の着いたリアルな表現。</td>
+        </tr>
+        <tr>
+          <td>
+            <div class="recipe-row"><span>劇画調</span><button class="copy-btn" onclick="copyText(this, '劇画調')">📋</button>
+            </div>
+          </td>
+          <td>陰影のコントラストが極めて強い。顔のシワや骨格の凹凸まで描き込まれる重厚なハードボイルド絵柄。</td>
+        </tr>
+        <tr>
+          <td>
+            <div class="recipe-row"><span>ちびキャラ</span><button class="copy-btn"
+                onclick="copyText(this, 'ちびキャラ')">📋</button></div>
+          </td>
+          <td>2〜3頭身の低頭身。手足が短く丸みを帯び、愛らしく親しみやすいマスコット的造形。</td>
+        </tr>
+        <tr>
+          <td>
+            <div class="recipe-row"><span>Webtoon風</span><button class="copy-btn"
+                onclick="copyText(this, 'Webtoon風')">📋</button></div>
+          </td>
+          <td>スマートフォン閲覧を意識した、洗練された美形キャラとスッキリとした現代的な高身長プロポーション。</td>
+        </tr>
+        <tr>
+          <td>
+            <div class="recipe-row"><span>絵本風</span><button class="copy-btn" onclick="copyText(this, '絵本風')">📋</button>
+            </div>
+          </td>
+          <td>主線が曖昧、または手描きの温もりがある線。単純化・抽象化された子供に親しみやすい無垢なフォルム。</td>
+        </tr>
+        <tr>
+          <td>
+            <div class="recipe-row"><span>ライトノベル挿絵風</span><button class="copy-btn"
+                onclick="copyText(this, 'ライトノベル挿絵風')">📋</button></div>
+          </td>
+          <td>現代デジタルイラストの王道。緻密な髪の描写、流行のファッション、透明感のあるキラキラした瞳。</td>
+        </tr>
+        <tr>
+          <td>
+            <div class="recipe-row"><span>アメコミ風</span><button class="copy-btn"
+                onclick="copyText(this, 'アメコミ風')">📋</button></div>
+          </td>
+          <td>コントラストの強いベタ塗りの影と太い輪郭線。顎のラインや筋肉が誇張されポップアート風に。</td>
+        </tr>
+        <tr>
+          <td>
+            <div class="recipe-row"><span>レトロアニメ風</span><button class="copy-btn"
+                onclick="copyText(this, 'レトロアニメ風')">📋</button></div>
+          </td>
+          <td>80〜90年代の日本のセルアニメ風。特有の髪型や少し色褪せた色調でノスタルジーを喚起する。</td>
+        </tr>
+      </table>
+    </div>
+
+    <!-- 塗り・タッチ -->
+    <div class="card">
+      <h2>🎨 カテゴリー2：塗り・タッチ</h2>
+      <p class="desc">画像の表面的なテクスチャ（物理的質感）を決定します。</p>
+      <table>
+        <tr>
+          <th>日本語タグ</th>
+          <th>どんな塗り方・質感になるか（特徴）</th>
+        </tr>
+        <tr>
+          <td>
+            <div class="recipe-row"><span>水彩画スタイル</span><button class="copy-btn"
+                onclick="copyText(this, '水彩画スタイル')">📋</button></div>
+          </td>
+          <td>色の境界が柔らかく滲み、透明感のある淡い発色。水彩紙のテクスチャや重なり合う偶然性が美しい。</td>
+        </tr>
+        <tr>
+          <td>
+            <div class="recipe-row"><span>アニメ塗り</span><button class="copy-btn"
+                onclick="copyText(this, 'アニメ塗り')">📋</button></div>
+          </td>
+          <td>影の境界がくっきりと分かれたセルルックなベタ塗り。視認性が非常に高く、クリアで商業的な画面。</td>
+        </tr>
+        <tr>
+          <td>
+            <div class="recipe-row"><span>厚塗り</span><button class="copy-btn" onclick="copyText(this, '厚塗り')">📋</button>
+            </div>
+          </td>
+          <td>不透明な絵具を筆のタッチを残しながら塗り重ねたような手法。立体感と重厚感が増すリッチな仕上がり。</td>
+        </tr>
+        <tr>
+          <td>
+            <div class="recipe-row"><span>パステル調</span><button class="copy-btn"
+                onclick="copyText(this, 'パステル調')">📋</button></div>
+          </td>
+          <td>白を多く混ぜたような、明度が高く彩度の低い柔らかく淡いトーン。コントラストが低く目に優しい。</td>
+        </tr>
+        <tr>
+          <td>
+            <div class="recipe-row"><span>色鉛筆風</span><button class="copy-btn"
+                onclick="copyText(this, '色鉛筆風')">📋</button></div>
+          </td>
+          <td>鉛筆特有の細い線の集積（ハッチング）で塗られ、ザラザラした紙の質感が強調される手作りの温かみ。</td>
+        </tr>
+        <tr>
+          <td>
+            <div class="recipe-row"><span>コピック塗り</span><button class="copy-btn"
+                onclick="copyText(this, 'コピック塗り')">📋</button></div>
+          </td>
+          <td>アナログのアルコールマーカー特有のインクの重なりによる濃淡と、鮮やかでマットな発色。</td>
+        </tr>
+        <tr>
+          <td>
+            <div class="recipe-row"><span>スケッチ風</span><button class="copy-btn"
+                onclick="copyText(this, 'スケッチ風')">📋</button></div>
+          </td>
+          <td>鉛筆や木炭で素早く描かれたような粗いストローク。未完成の美しさを持ち、ネームやラフ提案に使える。</td>
+        </tr>
+        <tr>
+          <td>
+            <div class="recipe-row"><span>油彩画風</span><button class="copy-btn"
+                onclick="copyText(this, '油彩画風')">📋</button></div>
+          </td>
+          <td>キャンバスの荒い布目と、分厚く盛られた油絵具のインパスト表現。古典的な名画のような重厚な物質感。</td>
+        </tr>
+        <tr>
+          <td>
+            <div class="recipe-row"><span>線画抽出（白黒線画）</span><button class="copy-btn"
+                onclick="copyText(this, '線画抽出（白黒線画）')">📋</button></div>
+          </td>
+          <td>色彩が完全に排除され、輪郭線とハッチングのみになる。塗り絵や後から手作業で着彩するベース素材に最適。</td>
+        </tr>
+        <tr>
+          <td>
+            <div class="recipe-row"><span>3Dレンダリング</span><button class="copy-btn"
+                onclick="copyText(this, '3Dレンダリング')">📋</button></div>
+          </td>
+          <td>最先端のゲームエンジンのような、物理ベースの光沢と反射を持つ立体的なフルCG表現。</td>
+        </tr>
+      </table>
+    </div>
+
+    <!-- 雰囲気・エフェクト -->
+    <div class="card">
+      <h2>🎇 カテゴリー3：雰囲気・エフェクト</h2>
+      <p class="desc">画面全体のトーンや照明、エモーショナルな訴求力を決定します。</p>
+      <table>
+        <tr>
+          <th>日本語タグ</th>
+          <th>どんな雰囲気・照明効果になるか（特徴）</th>
+        </tr>
+        <tr>
+          <td>
+            <div class="recipe-row"><span>キラキラエフェクト</span><button class="copy-btn"
+                onclick="copyText(this, 'キラキラエフェクト')">📋</button></div>
+          </td>
+          <td>光の粒子やレンズフレア、星状の煌めきが散りばめられる。アイドル的・魔法的な特別感や華やかさが際立つ。</td>
+        </tr>
+        <tr>
+          <td>
+            <div class="recipe-row"><span>シネマティックライティング</span><button class="copy-btn"
+                onclick="copyText(this, 'シネマティックライティング')">📋</button></div>
+          </td>
+          <td>映画撮影のような計算された多灯ライティング。陰影がドラマチックになり緊迫感が高まる。</td>
+        </tr>
+        <tr>
+          <td>
+            <div class="recipe-row"><span>ノスタルジック</span><button class="copy-btn"
+                onclick="copyText(this, 'ノスタルジック')">📋</button></div>
+          </td>
+          <td>セピア調や褪色したフィルムの色味になり、柔らかな粒子感が加わる。郷愁を誘うエモい画面。</td>
+        </tr>
+        <tr>
+          <td>
+            <div class="recipe-row"><span>ゴールデンアワー</span><button class="copy-btn"
+                onclick="copyText(this, 'ゴールデンアワー')">📋</button></div>
+          </td>
+          <td>日の出・日没時の低く柔らかいオレンジや黄金色の光が画面を包む。一番エモーショナルな空気に。</td>
+        </tr>
+        <tr>
+          <td>
+            <div class="recipe-row"><span>ふんわり（ソフトフォーカス）</span><button class="copy-btn"
+                onclick="copyText(this, 'ふんわり（ソフトフォーカス）')">📋</button></div>
+          </td>
+          <td>レンズにフィルターをかけたように境界が光を帯びて滲み、夢の中のような優しく無害なトーンに。</td>
+        </tr>
+        <tr>
+          <td>
+            <div class="recipe-row"><span>ネオンカラー</span><button class="copy-btn"
+                onclick="copyText(this, 'ネオンカラー')">📋</button></div>
+          </td>
+          <td>蛍光ピンクやイエローが極端な彩度で使用される。クラブカルチャー的でインパクトの強い画面。</td>
+        </tr>
+        <tr>
+          <td>
+            <div class="recipe-row"><span>サイバーパンク</span><button class="copy-btn"
+                onclick="copyText(this, 'サイバーパンク')">📋</button></div>
+          </td>
+          <td>暗い背景にネオンブルーやピンクの発光色が追加される。ディストピア的でハイテクな近未来感。</td>
+        </tr>
+        <tr>
+          <td>
+            <div class="recipe-row"><span>ダークファンタジー</span><button class="copy-btn"
+                onclick="copyText(this, 'ダークファンタジー')">📋</button></div>
+          </td>
+          <td>黒や深い青が支配的に。霧や靄がかかる不穏でミステリアスなゴシック空間。</td>
+        </tr>
+        <tr>
+          <td>
+            <div class="recipe-row"><span>モノクローム（白黒）</span><button class="copy-btn"
+                onclick="copyText(this, 'モノクローム（白黒）')">📋</button></div>
+          </td>
+          <td>光と影、キャラクターの表情そのものに視線をダイレクトに集中させる純粋な白黒。</td>
+        </tr>
+      </table>
+    </div>
+
+  </div>
+
+  <div id="toast" class="toast">✅ プロンプトをコピーしました！</div>
+
+  <script>
+    function copyText(btnElement, text) {
+      navigator.clipboard.writeText(text).then(() => {
+        const toast = document.getElementById('toast');
+        toast.classList.add('show');
+        setTimeout(() => toast.classList.remove('show'), 3000);
+
+        const originalText = btnElement.innerHTML;
+        btnElement.innerHTML = '✅ コピー済';
+        btnElement.style.background = 'rgba(16, 185, 129, 0.4)';
+
+        setTimeout(() => {
+          btnElement.innerHTML = originalText;
+          btnElement.style.background = '';
+        }, 2000);
+      }).catch(err => {
+        alert("コピーに失敗しました。手动でコピーしてください:\n\n" + text);
+      });
+    }
+  </script>
+</body>
+
+</html>
