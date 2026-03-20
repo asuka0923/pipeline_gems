@@ -316,12 +316,18 @@
       font-weight: 700;
       font-size: 1.1rem;
       box-shadow: 0 15px 30px rgba(16, 185, 129, 0.4);
-      transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+      transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
       z-index: 1000;
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
     }
 
     .toast.show {
       transform: translateX(-50%) translateY(0);
+      opacity: 1;
+      visibility: visible;
+      pointer-events: auto;
     }
 
     @media (max-width: 600px) {
@@ -344,16 +350,27 @@
 
   <div class="container">
     <div class="header">
-      <h1>👤 キャラ生成 ヒアリング</h1>
+      <h1>👤 キャラシートプロンプトメーカー</h1>
       <p style="font-size: 0.9rem; margin-top: -5px; margin-bottom: 15px; color: #a78bfa; font-weight: bold;">&copy;
         アスカデザインラボ</p>
-      
-      <div style="background: rgba(16, 185, 129, 0.15); border: 2px dashed var(--good); border-radius: 12px; padding: 18px; margin-bottom: 25px; text-align: left; max-width: 650px; margin-left: auto; margin-right: auto; box-shadow: 0 4px 15px rgba(0,0,0,0.2);">
-        <p style="color: #34d399; font-weight: 800; font-size: 1.15rem; margin-bottom: 6px;">💡 AIにおまかせしたい項目は「空欄のまま」でOK！</p>
-        <p style="font-size: 0.95rem; color: #e2e8f0; line-height: 1.6;">特にこだわりのない項目は何も入力しなくて大丈夫です。<b>空欄にした部分は、AIがランダムにいい感じのデザインを描いてくれます</b>✨ 迷ったらガンガン飛ばしてしまいましょう！</p>
+
+      <div
+        style="background: rgba(16, 185, 129, 0.15); border: 2px dashed var(--good); border-radius: 12px; padding: 18px; margin-bottom: 25px; text-align: left; max-width: 650px; margin-left: auto; margin-right: auto; box-shadow: 0 4px 15px rgba(0,0,0,0.2);">
+        <p style="color: #34d399; font-weight: 800; font-size: 1.15rem; margin-bottom: 6px;">💡 AIにおまかせしたい項目は「空欄のまま」でOK！
+        </p>
+        <p style="font-size: 0.95rem; color: #e2e8f0; line-height: 1.6;">
+          特にこだわりのない項目は何も入力しなくて大丈夫です。<b>空欄にした部分は、AIがランダムにいい感じのデザインを描いてくれます</b>✨ 迷ったらガンガン飛ばしてしまいましょう！</p>
       </div>
 
-      <p>各項目をサクッと入力したら、一番下の「プロンプトをコピー」を押して、<br>「画像生成AI（Nano Banana等）」のチャット欄に直接貼り付けてください✨</p>
+      <div
+        style="background: rgba(56, 189, 248, 0.15); border: 2px solid #38bdf8; border-radius: 12px; padding: 18px; margin-bottom: 20px; text-align: left; max-width: 650px; margin-left: auto; margin-right: auto; box-shadow: 0 4px 15px rgba(0,0,0,0.2);">
+        <p style="color: #7dd3fc; font-weight: 800; font-size: 1.15rem; margin-bottom: 6px;">📝 ご案内：このツールは「プロンプト作成専用」です
+        </p>
+        <p style="font-size: 0.95rem; color: #e2e8f0; line-height: 1.6;">
+          このツール自体で画像が直接作られるわけではありません。<br>一番下にあるボタンから完成した<b>プロンプト文章をコピー</b>し、お使いの画像生成AI（Nano
+          Banana等）のチャット欄に貼り付けて画像を生成してください✨
+        </p>
+      </div>
     </div>
 
     <div class="form-flow">
@@ -373,10 +390,10 @@
         <p class="question-desc">基本の性別や年齢層もここに書いてもらうとスムーズです！</p>
         <details class="example-box">
           <summary>💡 回答例を表示 / 非表示</summary>
-          <div class="ex-row ex-good"><span class="ex-label">⭕ 良い例</span><span class="ex-text">20代女性、ピンク色のショートボブ /
-              10代男性、黒髪マッシュ</span></div>
+          <div class="ex-row ex-good"><span class="ex-label">⭕ 良い例</span><span class="ex-text">20代女性、ピンク色のショートボブ</span>
+          </div>
         </details>
-        <input type="text" id="c_hair" placeholder="例：20代女性、ピンク色のショートボブ / 黒髪マッシュ（★おまかせは空欄！）">
+        <input type="text" id="c_hair" placeholder="例：20代女性、ピンク色のショートボブ（★おまかせは空欄！）">
       </div>
 
       <!-- 服装 -->
@@ -384,13 +401,16 @@
         <label>Q2. いつも着ている【基本の服装】はどんな感じですか？</label>
         <p class="question-desc">
           ※三面図（全身図）を描くための衣装指定です。<br>
-          <span style="color: #fbbf24; font-weight: bold; display: inline-block; margin-top: 6px;">💡 服の詳しいディテールがわからない場合は「コンビニ店員の制服」「警察官」「消防士」「裁判官」など【職業・属性だけ】でも大丈夫です！</span>
+          <span style="color: #fbbf24; font-weight: bold; display: inline-block; margin-top: 6px;">💡
+            服の詳しいディテールがわからない場合は「コンビニ店員の制服」「警察官」「消防士」「裁判官」など【職業・属性だけ】でも大丈夫です！</span>
         </p>
         <details class="example-box">
           <summary>💡 回答例を表示 / 非表示</summary>
-          <div class="ex-row ex-good"><span class="ex-label">⭕ 良い例</span><span class="ex-text">オーバーサイズの白パーカーにデニム / コンビニ店員の制服 / 警察官の制服</span></div>
+          <div class="ex-row ex-good"><span class="ex-label">⭕ 良い例</span><span class="ex-text">オーバーサイズの白パーカーにデニム</span>
+          </div>
+          <div class="ex-row ex-good"><span class="ex-label">⭕ 良い例</span><span class="ex-text">警察官の制服</span></div>
         </details>
-        <input type="text" id="c_outfit" placeholder="例：オーバーサイズの白パーカー / 警察官などの職業（★おまかせは空欄！）">
+        <input type="text" id="c_outfit" placeholder="例：オーバーサイズの白パーカーにデニム（★おまかせは空欄！）">
       </div>
 
       <!-- 目 -->
@@ -403,14 +423,14 @@
       <div class="form-group">
         <label>Q4. 【鼻】について特徴はありますか？</label>
         <p class="question-desc">特にない場合は空欄で大丈夫です！</p>
-        <input type="text" id="c_nose" placeholder="例：小さくてツンとした鼻 / 団子鼻 /筋の通った高い鼻（★おまかせは空欄！）">
+        <input type="text" id="c_nose" placeholder="例：小さくてツンとした鼻（★おまかせは空欄！）">
       </div>
 
       <!-- 口 -->
       <div class="form-group">
         <label>Q5. 【口】の特徴を教えてください</label>
         <p class="question-desc">特にない場合は空欄で大丈夫です！</p>
-        <input type="text" id="c_mouth" placeholder="例：アヒル口 / 薄い唇 / への字口 / ωみたいな口（★おまかせは空欄！）">
+        <input type="text" id="c_mouth" placeholder="例：アヒル口（★おまかせは空欄！）">
       </div>
 
       <!-- 頭身 -->
@@ -419,10 +439,9 @@
         <p class="question-desc">特にない場合は空欄で大丈夫です！</p>
         <details class="example-box">
           <summary>💡 回答例を表示 / 非表示</summary>
-          <div class="ex-row ex-good"><span class="ex-label">⭕ 良い例</span><span class="ex-text">6〜7頭身のリアルなスタイル /
-              2〜3頭身のちびキャラ / 少しデフォルメ強め</span></div>
+          <div class="ex-row ex-good"><span class="ex-label">⭕ 良い例</span><span class="ex-text">2〜3頭身のちびキャラ</span></div>
         </details>
-        <input type="text" id="c_ratio" placeholder="例：6〜7頭身 / 2〜3頭身 / ちびキャラ（★おまかせは空欄！）">
+        <input type="text" id="c_ratio" placeholder="例：6〜7頭身のリアルなスタイル（★おまかせは空欄！）">
       </div>
       <!-- 絵タッチ -->
       <div class="form-group">
@@ -472,9 +491,19 @@
         </div>
       </div>
 
-      <div class="action-bar">
+      <div
+        style="background: rgba(245, 158, 11, 0.15); border: 1px dashed #f59e0b; color: #fbbf24; padding: 15px; border-radius: 12px; font-size: 0.95rem; line-height: 1.6; max-width: 600px; margin: 40px auto 20px; text-align: left;">
+        💡 <b>画像生成時のアドバイス：</b><br>
+        画像が完成して保存する際、ファイル名を「sakura.jpg」「my_room.jpg」のような<b>短い英数字の名前に変更しておく</b>と、後で漫画ヒアリングの際に入力しやすくてオススメです！
+      </div>
+
+      <div class="action-bar" style="margin-top: 10px;">
         <button class="btn-primary" onclick="generatePrompt()">
-          <span>📋 プロンプトを作成してコピーする</span>
+          <div style="display:flex; flex-direction:column; align-items:center;">
+            <span>📋 プロンプトを作成してコピーする</span>
+            <span
+              style="font-size: 0.85rem; font-weight: normal; margin-top: 4px; opacity: 0.9;">（コピー後は、画像生成AIを開いてチャット欄に貼り付けてください！）</span>
+          </div>
         </button>
       </div>
     </div>

@@ -344,10 +344,12 @@
       font-weight: 700;
       font-size: 1.1rem;
       box-shadow: 0 15px 30px rgba(16, 185, 129, 0.4);
-      transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+      transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
       z-index: 1000;
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
     }
-
 
     .form-flow {
       display: flex;
@@ -384,6 +386,9 @@
 
     .toast.show {
       transform: translateX(-50%) translateY(0);
+      opacity: 1;
+      visibility: visible;
+      pointer-events: auto;
     }
 
     @media (max-width: 600px) {
@@ -680,7 +685,10 @@
 
       <div class="action-bar">
         <button class="btn-primary" onclick="generateJSON()">
-          <span>📋 JSONを作成してコピーする</span>
+          <div style="display:flex; flex-direction:column; align-items:center;">
+            <span>📋 ヒアリングデータをコピーする</span>
+            <span style="font-size: 0.85rem; font-weight: normal; margin-top: 4px; opacity: 0.9;">（コピー後は、該当するGemini（レビュー版）を開いて貼り付けてください！）</span>
+          </div>
         </button>
       </div>
     </div>
