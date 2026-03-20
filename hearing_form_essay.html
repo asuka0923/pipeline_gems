@@ -401,6 +401,13 @@
       .header h1 {
         font-size: 2.2rem;
       }
+      .ex-row {
+        flex-direction: column;
+        gap: 4px;
+      }
+      .ex-label {
+        padding-top: 0;
+      }
     }
   </style>
 </head>
@@ -441,7 +448,7 @@
           <div class="ex-row ex-bad"><span class="ex-label">❌ 悪い例</span><span class="ex-text">育児の話 /
               買い物の話（※抽象的すぎて漫画にしづらいです）</span></div>
         </details>
-        <input type="text" id="e_subject" placeholder="どんな時（初めてのおつかい）＋感情（ハラハラ）＋何の話（夫の一言）">
+        <textarea id="e_subject" rows="3" style="min-height: 80px;" placeholder="どんな時（初めてのおつかい）＋感情（ハラハラ）＋何の話（夫の一言）"></textarea>
       </div>
 
       <!-- ストーリーメモ -->
@@ -490,7 +497,7 @@
           <div class="ex-row ex-bad"><span class="ex-label">❌ 悪い例</span><span class="ex-text">主婦 /
               全員（※ターゲットが広すぎます）</span></div>
         </details>
-        <input type="text" id="e_target" placeholder="悩み（育児の辛さを分かってもらえない）＋感情（孤独）＋属性（同世代ママ）">
+        <textarea id="e_target" rows="3" style="min-height: 80px;" placeholder="悩み（育児の辛さを分かってもらえない）＋感情（孤独）＋属性（同世代ママ）"></textarea>
       </div>
 
       <!-- 伝えたいこと -->
@@ -505,7 +512,7 @@
                 class="ex-title">【働き方・コラム】</span>誰かと比べる人生からは降りていい。大きな何者かにならなくても、自分の足元にある小さな幸せを大切にしようというメッセージ</span>
           </div>
         </details>
-        <input type="text" id="e_message" placeholder="メッセージ（完璧じゃなくていい）＋どうなってほしい（成長を笑い合える夫婦に）">
+        <textarea id="e_message" rows="3" style="min-height: 80px;" placeholder="メッセージ（完璧じゃなくていい）＋どうなってほしい（成長を笑い合える夫婦に）"></textarea>
       </div>
 
       <!-- トーン・テイスト -->
@@ -520,7 +527,7 @@
                 class="ex-title">【働き方・コラム】</span>序盤はモノクロ調で重苦しい焦燥感。後半にかけて、視界が開けるように少しずつ温かい光が差し込むようなエモーショナルな雰囲気</span>
           </div>
         </details>
-        <input type="text" id="e_tone" placeholder="前半（ドタバタギャグ）＋中盤（夫への怒りMAX）＋読後感（ほっこり切ない）">
+        <textarea id="e_tone" rows="3" style="min-height: 80px;" placeholder="前半（ドタバタギャグ）＋中盤（夫への怒りMAX）＋読後感（ほっこり切ない）"></textarea>
       </div>
 
       <!-- キャラクター設定 -->
@@ -540,7 +547,7 @@
               <input type="text" class="char-name" placeholder="名前（例：主人公）" style="flex: 1;">
               <input type="text" class="char-file" placeholder="画像ファイル名（任意）" style="flex: 1;">
             </div>
-            <input type="text" class="char-desc" placeholder="見た目・性格・口調（例：30代女性、ショートヘア、心配性、です・ます調）">
+            <textarea class="char-desc" rows="3" style="min-height: 80px;" placeholder="見た目・性格・口調（例：30代女性、ショートヘア、心配性、です・ます調）"></textarea>
           </div>
         </div>
         <button type="button" class="add-btn" onclick="addCharInput('e_char_container')">＋
@@ -675,7 +682,7 @@
           <input type="text" class="char-file" placeholder="画像ファイル名（任意）" style="flex: 1;">
         </div>
         <div style="display: flex; gap: 10px; width: 100%;">
-          <input type="text" class="char-desc" placeholder="見た目・性格・口調（例：30代女性、ショートヘア、心配性、です・ます調）" style="flex: 1;">
+          <textarea class="char-desc" rows="3" style="min-height: 80px; flex: 1;" placeholder="見た目・性格・口調（例：30代女性、ショートヘア、心配性、です・ます調）"></textarea>
           <button type="button" class="char-remove" style="width: auto; padding: 0 15px;">×</button>
         </div>
       `;

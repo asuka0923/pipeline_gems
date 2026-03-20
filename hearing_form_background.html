@@ -356,6 +356,13 @@
       .header h1 {
         font-size: 2.2rem;
       }
+      .ex-row {
+        flex-direction: column;
+        gap: 4px;
+      }
+      .ex-label {
+        padding-top: 0;
+      }
     }
   </style>
 </head>
@@ -397,7 +404,7 @@
           <div class="ex-row ex-good"><span class="ex-label">⭕ 良い例</span><span class="ex-text">主人公の自室（ワンルームアパート） /
               サイバーパンクな裏路地 / 日差しの入るおしゃれなカフェ</span></div>
         </details>
-        <input type="text" id="b_location" placeholder="例：主人公の自室 / 廃墟となった学校の教室など">
+        <textarea id="b_location" rows="3" style="min-height: 80px;" placeholder="例：主人公の自室 / 廃墟となった学校の教室など"></textarea>
       </div>
 
       <!-- 参照画像 -->
@@ -410,28 +417,28 @@
           <div class="ex-row ex-good"><span class="ex-label">⭕ 良い例</span><span class="ex-text">my_room.jpg /
               cafe_outside.jpg</span></div>
         </details>
-        <input type="text" id="b_ref_file" placeholder="例：my_room.jpg">
+        <textarea id="b_ref_file" rows="3" style="min-height: 80px;" placeholder="例：my_room.jpg"></textarea>
       </div>
 
       <!-- 光・時間帯 -->
       <div class="form-group">
         <label>Q3. その場所の【時間帯・天気・照明】はどんな感じですか？</label>
         <p class="question-desc">空欄でもOK</p>
-        <input type="text" id="b_time" placeholder="例：夕暮れの西日が差し込む / 薄暗くて怪しいネオンライト / よく晴れた爽やかな朝">
+        <textarea id="b_time" rows="3" style="min-height: 80px;" placeholder="例：夕暮れの西日が差し込む / 薄暗くて怪しいネオンライト / よく晴れた爽やかな朝"></textarea>
       </div>
 
       <!-- オブジェクト -->
       <div class="form-group">
         <label>Q4. その空間にある【主要なオブジェクト・家具・特徴】を教えてください</label>
         <p class="question-desc">部屋なら家具、外なら目印になるものなど。</p>
-        <input type="text" id="b_objects" placeholder="例：散らかったデスクと光るゲーミングPC / アンティーク調の大きな本棚と革張りの椅子">
+        <textarea id="b_objects" rows="3" style="min-height: 80px;" placeholder="例：散らかったデスクと光るゲーミングPC / アンティーク調の大きな本棚と革張りの椅子"></textarea>
       </div>
 
       <!-- 雰囲気 -->
       <div class="form-group">
         <label>Q5. その背景から感じる【雰囲気（トーン）】を教えてください</label>
         <p class="question-desc">読者にどんな感情を与えたいか、空欄でもOK</p>
-        <input type="text" id="b_tone" placeholder="例：どこか寂しげで退廃的 / 明るくて清潔感があり落ち着く空間 / 不気味で背筋が凍るような">
+        <textarea id="b_tone" rows="3" style="min-height: 80px;" placeholder="例：どこか寂しげで退廃的 / 明るくて清潔感があり落ち着く空間 / 不気味で背筋が凍るような"></textarea>
       </div>
 
       <!-- アスペクト比 -->

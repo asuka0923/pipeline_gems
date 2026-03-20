@@ -242,7 +242,13 @@
       position: fixed; bottom: 40px; left: 50%; transform: translateX(-50%) translateY(120px); background: #10b981; color: white; padding: 16px 32px; border-radius: 30px; font-weight: 700; font-size: 1.1rem; box-shadow: 0 15px 30px rgba(16, 185, 129, 0.4); transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1); z-index: 1000;
     }
     .toast.show { transform: translateX(-50%) translateY(0); }
-    @media (max-width: 600px) { .form-panel { padding: 30px; } body { font-size: 16px; } .header h1 { font-size: 2.2rem; } }
+    @media (max-width: 600px) { 
+      .form-panel { padding: 30px; } 
+      body { font-size: 16px; } 
+      .header h1 { font-size: 2.2rem; } 
+      .ex-row { flex-direction: column; gap: 4px; }
+      .ex-label { padding-top: 0; }
+    }
   </style>
 </head>
 <body>
@@ -276,7 +282,7 @@
           <div class="ex-row ex-good"><span class="ex-label">⭕ 良い例1</span><span class="ex-text"><span class="ex-title">【恋愛】</span>現代日本が舞台の、甘酸っぱい幼馴染ラブストーリー</span></div>
           <div class="ex-row ex-good"><span class="ex-label">⭕ 良い例2</span><span class="ex-text"><span class="ex-title">【青春】</span>高校バスケ部を舞台にした、熱いスポーツもの</span></div>
         </details>
-        <input type="text" id="s_genre" placeholder="舞台（現代日本）＋ジャンル（甘酸っぱい幼馴染ラブストーリー）">
+        <textarea id="s_genre" rows="3" style="min-height: 80px;" placeholder="舞台（現代日本）＋ジャンル（甘酸っぱい幼馴染ラブストーリー）"></textarea>
       </div>
 
       <!-- 主人公の目的 -->
@@ -289,7 +295,7 @@
           <div class="ex-row ex-good"><span class="ex-label">⭕ 良い例2</span><span class="ex-text"><span class="ex-title">【青春】</span>万年最下位の弱小チームを率いて、強豪校を倒し全国大会に出場したい</span></div>
           <div class="ex-row ex-bad"><span class="ex-label">❌ 悪い例</span><span class="ex-text">恋愛 / 勝つこと（※具体的などんな目標か分かりません）</span></div>
         </details>
-        <input type="text" id="s_want" placeholder="相手（明日引っ越す幼馴染に）＋どうしたい（本当の気持ちを伝えたい）">
+        <textarea id="s_want" rows="3" style="min-height: 80px;" placeholder="相手（明日引っ越す幼馴染に）＋どうしたい（本当の気持ちを伝えたい）"></textarea>
       </div>
 
       <!-- 障害 -->
@@ -302,7 +308,7 @@
           <div class="ex-row ex-good"><span class="ex-label">⭕ 良い例2</span><span class="ex-text"><span class="ex-title">【青春】</span>チームメンバーはバラバラでやる気なし。さらに部長である自分は過去のケガのトラウマで試合にまともに出られない。</span></div>
           <div class="ex-row ex-bad"><span class="ex-label">❌ 悪い例</span><span class="ex-text">敵が強い（※どう強いのか、どう壁になっているかが薄いです）</span></div>
         </details>
-        <input type="text" id="s_obstacle" placeholder="環境の壁（既に彼氏がいる）＋内面の壁（あがり症で言葉にできない）">
+        <textarea id="s_obstacle" rows="3" style="min-height: 80px;" placeholder="環境の壁（既に彼氏がいる）＋内面の壁（あがり症で言葉にできない）"></textarea>
       </div>
 
       <!-- 結末 -->
@@ -315,7 +321,7 @@
           <div class="ex-row ex-good"><span class="ex-label">⭕ 良い例2</span><span class="ex-text"><span class="ex-title">【青春】</span>ギリギリで敗退するものの、チームが一つになり「来年こそは」と涙ながらに笑い合う成長劇</span></div>
           <div class="ex-row ex-bad"><span class="ex-label">❌ 悪い例</span><span class="ex-text">ハッピーエンド（※どんな種類のハッピーなのか伝わりづらいです）</span></div>
         </details>
-        <input type="text" id="s_ending" placeholder="結果（結ばれないが）＋感情の変化（未練がなくなる）＋余韻（笑顔の爽やかなエンド）">
+        <textarea id="s_ending" rows="3" style="min-height: 80px;" placeholder="結果（結ばれないが）＋感情の変化（未練がなくなる）＋余韻（笑顔の爽やかなエンド）"></textarea>
       </div>
 
       <!-- トーン -->
@@ -326,7 +332,7 @@
           <div class="ex-row ex-good"><span class="ex-label">⭕ 良い例1</span><span class="ex-text"><span class="ex-title">【恋愛】</span>青春の甘酸っぱさと、タイムリミットの焦燥感</span></div>
           <div class="ex-row ex-good"><span class="ex-label">⭕ 良い例2</span><span class="ex-text"><span class="ex-title">【青春】</span>泥臭くて熱い、王道スポーツマンガのテンション</span></div>
         </details>
-        <input type="text" id="s_tone" placeholder="雰囲気（青春の甘酸っぱさ）＋スパイス（タイムリミットの焦燥感）">
+        <textarea id="s_tone" rows="3" style="min-height: 80px;" placeholder="雰囲気（青春の甘酸っぱさ）＋スパイス（タイムリミットの焦燥感）"></textarea>
       </div>
 
       <!-- キャラクター設定（主人公） -->
@@ -343,7 +349,7 @@
               <input type="text" class="char-name" placeholder="名前（例：主人公）" style="flex: 1;">
               <input type="text" class="char-file" placeholder="画像ファイル名（任意）" style="flex: 1;">
             </div>
-            <input type="text" class="char-desc" placeholder="外見や服装（例：10代男性、黒髪マッシュ、制服姿）">
+            <textarea class="char-desc" rows="3" style="min-height: 80px;" placeholder="外見や服装（例：10代男性、黒髪マッシュ、制服姿）"></textarea>
           </div>
         </div>
         <button type="button" class="add-btn" onclick="addCharInput('s_char_container')">＋ 登場人物を追加する</button>
@@ -486,7 +492,7 @@
           <input type="text" class="char-file" placeholder="画像ファイル名（任意）" style="flex: 1;">
         </div>
         <div style="display: flex; gap: 10px; width: 100%;">
-          <input type="text" class="char-desc" placeholder="外見や服装（例：10代男性、黒髪マッシュ、制服姿）" style="flex: 1;">
+          <textarea class="char-desc" rows="3" style="min-height: 80px; flex: 1;" placeholder="外見や服装（例：10代男性、黒髪マッシュ、制服姿）"></textarea>
           <button type="button" class="char-remove" style="width: auto; padding: 0 15px;">×</button>
         </div>
       `;

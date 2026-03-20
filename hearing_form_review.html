@@ -403,6 +403,13 @@
       .header h1 {
         font-size: 2.2rem;
       }
+      .ex-row {
+        flex-direction: column;
+        gap: 4px;
+      }
+      .ex-label {
+        padding-top: 0;
+      }
     }
   </style>
 </head>
@@ -441,7 +448,7 @@
           <div class="ex-row ex-good"><span class="ex-label">⭕ 良い例2</span><span class="ex-text"><span
                 class="ex-title">【カフェ】</span>純喫茶 フォレスタ</span></div>
         </details>
-        <input type="text" id="r_name" placeholder="正式な商品名・店舗名など（例：マジカルグロウ）">
+        <textarea id="r_name" rows="3" style="min-height: 80px;" placeholder="正式な商品名・店舗名など（例：マジカルグロウ）"></textarea>
       </div>
 
       <!-- 概要 -->
@@ -456,7 +463,7 @@
           <div class="ex-row ex-bad"><span class="ex-label">❌ 悪い例</span><span class="ex-text">アイシャドウ /
               喫茶店（※特徴が伝わりません）</span></div>
         </details>
-        <input type="text" id="r_desc" placeholder="特徴（捨て色なしで垢抜ける）＋何なのか（新作アイシャドウ）">
+        <textarea id="r_desc" rows="3" style="min-height: 80px;" placeholder="特徴（捨て色なしで垢抜ける）＋何なのか（新作アイシャドウ）"></textarea>
       </div>
 
       <!-- 対象画像ファイル名 -->
@@ -498,7 +505,7 @@
           <div class="ex-row ex-bad"><span class="ex-label">❌ 悪い例</span><span class="ex-text">色が可愛い /
               美味しい（※平凡すぎて見せ場になりません）</span></div>
         </details>
-        <input type="text" id="r_appeal" placeholder="結果（上品なキラキラ感）＋感動（夕方まで全くくすまない！）">
+        <textarea id="r_appeal" rows="3" style="min-height: 80px;" placeholder="結果（上品なキラキラ感）＋感動（夕方まで全くくすまない！）"></textarea>
       </div>
 
       <!-- いちばん描きたいこと -->
@@ -533,7 +540,7 @@
               <input type="text" class="char-name" placeholder="名前（例：ひな）" style="flex: 1;">
               <input type="text" class="char-file" placeholder="画像ファイル名（任意）" style="flex: 1;">
             </div>
-            <input type="text" class="char-desc" placeholder="見た目・性格・口調（例：黒髪ロング、ピンクのニット、明るい性格、タメ口）">
+            <textarea class="char-desc" rows="3" style="min-height: 80px;" placeholder="見た目・性格・口調（例：黒髪ロング、ピンクのニット、明るい性格、タメ口）"></textarea>
           </div>
         </div>
         <button type="button" class="add-btn" onclick="addCharInput('r_char_container')">＋
@@ -568,7 +575,7 @@
           <div class="ex-row ex-good"><span class="ex-label">⭕ 良い例2</span><span class="ex-text"><span
                 class="ex-title">【カフェ】</span>ゆったりとした時間の流れ、静かだけど内なる感動が爆発する感じ</span></div>
         </details>
-        <input type="text" id="r_tone" placeholder="テンション（高めで全力おすすめ）＋雰囲気（ワクワクするキラキラ感）">
+        <textarea id="r_tone" rows="3" style="min-height: 80px;" placeholder="テンション（高めで全力おすすめ）＋雰囲気（ワクワクするキラキラ感）"></textarea>
       </div>
 
       <!-- ストレメモ -->
@@ -709,7 +716,7 @@
           <input type="text" class="char-file" placeholder="画像ファイル名（任意）" style="flex: 1;">
         </div>
         <div style="display: flex; gap: 10px; width: 100%;">
-          <input type="text" class="char-desc" placeholder="見た目・性格・口調（例：黒髪ロング、ピンクのニット、明るい性格、タメ口）" style="flex: 1;">
+          <textarea class="char-desc" rows="3" style="min-height: 80px; flex: 1;" placeholder="見た目・性格・口調（例：黒髪ロング、ピンクのニット、明るい性格、タメ口）"></textarea>
           <button type="button" class="char-remove" style="width: auto; padding: 0 15px;">×</button>
         </div>
       `;

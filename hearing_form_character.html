@@ -342,6 +342,13 @@
       .header h1 {
         font-size: 2.2rem;
       }
+      .ex-row {
+        flex-direction: column;
+        gap: 4px;
+      }
+      .ex-label {
+        padding-top: 0;
+      }
     }
   </style>
 </head>
@@ -393,7 +400,7 @@
           <div class="ex-row ex-good"><span class="ex-label">⭕ 良い例</span><span class="ex-text">20代女性、ピンク色のショートボブ</span>
           </div>
         </details>
-        <input type="text" id="c_hair" placeholder="例：20代女性、ピンク色のショートボブ（★おまかせは空欄！）">
+        <textarea id="c_hair" rows="3" style="min-height: 80px;" placeholder="例：20代女性、ピンク色のショートボブ（★おまかせは空欄！）"></textarea>
       </div>
 
       <!-- 服装 -->
@@ -410,27 +417,27 @@
           </div>
           <div class="ex-row ex-good"><span class="ex-label">⭕ 良い例</span><span class="ex-text">警察官の制服</span></div>
         </details>
-        <input type="text" id="c_outfit" placeholder="例：オーバーサイズの白パーカーにデニム（★おまかせは空欄！）">
+        <textarea id="c_outfit" rows="3" style="min-height: 80px;" placeholder="例：オーバーサイズの白パーカーにデニム（★おまかせは空欄！）"></textarea>
       </div>
 
       <!-- 目 -->
       <div class="form-group">
         <label>Q3. 【目】の形や色、特徴を教えてください</label>
-        <input type="text" id="c_eyes" placeholder="例：少しツリ目、青い瞳、右目に泣きぼくろ（★おまかせは空欄！）">
+        <textarea id="c_eyes" rows="3" style="min-height: 80px;" placeholder="例：少しツリ目、青い瞳、右目に泣きぼくろ（★おまかせは空欄！）"></textarea>
       </div>
 
       <!-- 鼻 -->
       <div class="form-group">
         <label>Q4. 【鼻】について特徴はありますか？</label>
         <p class="question-desc">特にない場合は空欄で大丈夫です！</p>
-        <input type="text" id="c_nose" placeholder="例：小さくてツンとした鼻（★おまかせは空欄！）">
+        <textarea id="c_nose" rows="3" style="min-height: 80px;" placeholder="例：小さくてツンとした鼻（★おまかせは空欄！）"></textarea>
       </div>
 
       <!-- 口 -->
       <div class="form-group">
         <label>Q5. 【口】の特徴を教えてください</label>
         <p class="question-desc">特にない場合は空欄で大丈夫です！</p>
-        <input type="text" id="c_mouth" placeholder="例：アヒル口（★おまかせは空欄！）">
+        <textarea id="c_mouth" rows="3" style="min-height: 80px;" placeholder="例：アヒル口（★おまかせは空欄！）"></textarea>
       </div>
 
       <!-- 頭身 -->
@@ -441,7 +448,7 @@
           <summary>💡 回答例を表示 / 非表示</summary>
           <div class="ex-row ex-good"><span class="ex-label">⭕ 良い例</span><span class="ex-text">2〜3頭身のちびキャラ</span></div>
         </details>
-        <input type="text" id="c_ratio" placeholder="例：6〜7頭身のリアルなスタイル（★おまかせは空欄！）">
+        <textarea id="c_ratio" rows="3" style="min-height: 80px;" placeholder="例：6〜7頭身のリアルなスタイル（★おまかせは空欄！）"></textarea>
       </div>
       <!-- 絵タッチ -->
       <div class="form-group">
