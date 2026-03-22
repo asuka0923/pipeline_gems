@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>使い方ガイド｜AIマンガ制作プロンプトメーカー</title>
+  <style>
+    /* CSS imported and adjusted from the manga style */
+    :root {
+      --bg: #f8fafc;
+      --surface: #ffffff;
+      --text: #111827;
+      --border: #000000;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Hiragino Kaku Gothic ProN', 'Noto Sans JP', sans-serif;
+      background-color: var(--bg);
+      background-image: 
+        radial-gradient(#cbd5e1 15%, transparent 16%),
+        radial-gradient(#cbd5e1 15%, transparent 16%);
+      background-size: 10px 10px;
+      background-position: 0 0, 5px 5px;
+      color: var(--text);
+      line-height: 1.8;
+      font-size: 17px;
+      padding: 40px 20px;
+    }
+    .container { width: 100%; max-width: 900px; margin: 0 auto; }
+    
+    .header { text-align: center; margin-bottom: 40px; background: #fff; border: 4px solid #000; padding: 40px 20px; box-shadow: 6px 6px 0px #000; }
+    .header h1 { font-size: 2.2rem; font-weight: 900; margin-bottom: 15px; letter-spacing: 2px; }
+    .header p { font-weight: bold; font-size: 1.1rem; }
+
+    /* In-page navigation */
+    .toc { background: #fff; border: 4px solid #000; padding: 40px; margin-bottom: 60px; box-shadow: 8px 8px 0px #000; }
+    .toc h2 { font-size: 1.6rem; font-weight: 900; border-bottom: 4px solid #000; padding-bottom: 12px; margin-bottom: 25px; display: inline-block; }
+    .toc ul { list-style: none; margin-left: 10px; }
+    .toc li { margin-bottom: 20px; }
+    .toc a { color: #000; text-decoration: none; font-weight: 900; font-size: 1.2rem; display: flex; align-items: center; gap: 10px; transition: all 0.2s; }
+    .toc a:hover { transform: translateX(8px); }
+    .toc a::before { content: '▶'; font-size: 0.9rem; }
+
+    /* Sections */
+    .section { background: #fff; border: 4px solid #000; padding: 50px 40px 40px; margin-bottom: 60px; box-shadow: 8px 8px 0px #000; position: relative; }
+    .section h2 { background: #000; color: #fff; display: inline-block; padding: 12px 25px; font-size: 1.5rem; font-weight: 900; margin-top: -85px; margin-bottom: 30px; border: 2px solid #000; letter-spacing: 1px; }
+    .section h3 { font-size: 1.3rem; font-weight: 900; border-left: 8px solid #000; padding-left: 15px; margin: 40px 0 20px; }
+    
+    p { margin-bottom: 20px; font-weight: bold; line-height: 1.8; }
+    
+    /* Image placeholder styling */
+    .img-box { border: 4px dashed #000; background: #f1f5f9; padding: 20px; text-align: center; margin: 40px 0; position: relative; }
+    .img-box::before { content: 'ここに画像を挿入（img_stepX.png 等に差し替え）'; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); color: #9ca3af; font-weight: 900; font-size: 1.2rem; z-index: 0; white-space: nowrap; }
+    .img-box img { position: relative; z-index: 1; max-width: 100%; height: auto; border: 3px solid #000; display: block; margin: 0 auto; background: transparent; min-height: 200px; object-fit: cover; }
+    .img-box img[src=""] { background: transparent; border: none; }
+    .img-caption { position: relative; z-index: 1; font-size: 1rem; font-weight: 900; margin-top: 15px; color: #111827; }
+
+    .highlight { background: #000; color: #fff; padding: 4px 10px; margin: 0 4px; display: inline-block; }
+    .warning-box { border: 4px solid #000; padding: 25px; margin: 30px 0; background: #fff; }
+    .warning-box.red { border-color: #000; box-shadow: 6px 6px 0px #000; }
+    .warning-box.red::before { content: '⚠️ 【重要】画像生成AIの指定'; display: block; color: #000; font-weight: 900; font-size: 1.3rem; margin-bottom: 15px; border-bottom: 3px solid #000; padding-bottom: 10px;}
+
+    .step-list { margin-left: 25px; font-weight: bold; margin-bottom: 30px; }
+    .step-list li { margin-bottom: 25px; list-style-type: decimal; font-size: 1.15rem;}
+    .step-list li span { display: block; font-size: 1rem; font-weight: normal; margin-top: 8px; color: #374151; line-height: 1.6; }
+
+    .top-link { display: block; text-align: right; font-weight: 900; color: #000; text-decoration: underline; margin-top: 30px; }
+    .top-link:hover { text-decoration: none; }
+    
+    @media (max-width: 600px) {
+      .section h2 { font-size: 1.2rem; padding: 10px 15px; margin-top: -75px;}
+      .section { padding: 40px 20px 20px; }
+      .img-box::before { font-size: 1rem; white-space: normal; padding: 10px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <h1>📖 使い方ガイド</h1>
+      <p>AIマンガ制作プロンプトメーカー・特典ツールの作業手順書</p>
+    </div>
+
+    <!-- 目次 -->
+    <div class="toc">
+      <h2>📌 目次（ページ内リンク）</h2>
+      <ul>
+        <li><a href="#step1">STEP 1：ヒアリングフォームで要件を入力する</a></li>
+        <li><a href="#step2">STEP 2：専用AIで「マンガ脚本・演出」を作成する</a></li>
+        <li><a href="#step3">STEP 3：画像生成AIでマンガを描く</a></li>
+        <li><a href="#bonus">🎁 必見！特典ツールの便利な使い方</a></li>
+        <li><a href="#faq">💡 よくあるトラブルと解決法</a></li>
+      </ul>
+    </div>
+
+    <!-- STEP 1 -->
+    <div id="step1" class="section">
+      <h2>STEP 1：ヒアリングフォームで要件を入力する</h2>
+      <p>まずは、作りたい漫画の種類に合わせて、専用のヒアリングフォームを開きます。</p>
+      
+      <ol class="step-list">
+        <li><strong>作りたい漫画のフォームを開く</strong>
+          <span>同梱されている「エッセイ版」「ストーリー版」「レビュー版」のいずれかのHTMLファイルをお使いのブラウザで開いてください。</span>
+        </li>
+        <li><strong>設問（Q1〜）に順番に答える</strong>
+          <span>「💡 回答例」を参考にしながら、頭の中にあるアイデアを箇条書きなどで自由に入力します。指定がない項目やAIにおまかせしたい場合は「空欄」でOKです。</span>
+        </li>
+        <li><strong>「キャラクターID」を決める（重要）</strong>
+          <span>キャラクターのID欄には<span class="highlight">asuka</span>のように半角英数字のファイル名（ID）を入力します。ここでIDをつけることで、画像生成時に安定して同じキャラクターを呼び出せます。</span>
+        </li>
+        <li><strong>データをコピーする</strong>
+          <span>一番下にある「📋 ヒアリングデータをコピーする」ボタンを押し、JSONデータをクリップボードにコピーします。</span>
+        </li>
+      </ol>
+
+      <div class="img-box">
+        <!-- 実際の画像がある場合は以下 src を書き換えてください -->
+        <img src="" alt="">
+        <p class="img-caption">▲ フォームの一番下にあるボタンでコピー完了！</p>
+      </div>
+      <a href="#" class="top-link">↑ 目次へ戻る</a>
+    </div>
+
+    <!-- STEP 2 -->
+    <div id="step2" class="section">
+      <h2>STEP 2：専用AIで「マンガ脚本・演出」を作成する</h2>
+      <p>STEP 1でコピーしたデータを、マンガ脚本構築用のAIに渡してプロンプトに変換してもらいます。</p>
+      
+      <ol class="step-list">
+        <li><strong>専用のAI（システムプロンプト設定済み）を開く</strong>
+          <span>ご提供しているシステムプロンプトがセット済みのAIチャット画面（Geminiなど）を開いてください。</span>
+        </li>
+        <li><strong>コピーしたヒアリングデータを貼り付けて送信</strong>
+          <span>チャットの最初のメッセージとして、先ほどコピーしたデータをそのまま貼り付けて送信します。</span>
+        </li>
+        <li><strong>AIからの構成提案に答え、すり合わせる</strong>
+          <span>AIが構成の提案をしてきます。気になる点があれば修正指示を出し、良ければ「OKです、作ってください」と合意を出します。</span>
+        </li>
+        <li><strong>最終プロンプトを出力させる</strong>
+          <span>設計書にOKを出すと、画像生成用に最適化された<span class="highlight">「1ページずつの英語プロンプト」</span>が出力されます。</span>
+        </li>
+      </ol>
+
+      <div class="img-box">
+        <img src="" alt="">
+        <p class="img-caption">▲ AIと会話しながら、理想のマンガ構成を固めていきます。</p>
+      </div>
+      <a href="#" class="top-link">↑ 目次へ戻る</a>
+    </div>
+
+    <!-- STEP 3 -->
+    <div id="step3" class="section">
+      <h2>STEP 3：画像生成AIでマンガを描く</h2>
+      <p>いよいよ画像を生成します。ここでの利用AIは厳密に指定されていますので必ずお守りください！</p>
+      
+      <div class="warning-box red">
+        生成には必ず<strong>「Gemini」または「Higgsfield（Nanobanana2 / NanobananaPro）」</strong>をご使用ください。<br>
+        他のAIモデルを使うと、入力プロンプトの自動翻訳などの影響で「致命的な文字化け」や「セリフの欠落」が発生し、意図通りの漫画が作成できません。
+      </div>
+
+      <ol class="step-list">
+        <li><strong>指定の画像生成AIを開く</strong>
+          <span>Nanobanana等のチャット画面を開きます。</span>
+        </li>
+        <li><strong>キャラクター画像（リファレンス）をアップロードする</strong>
+          <span>主人公の顔を固定したい場合、キャラクターID（例: asuka）と同じ名前の画像ファイル（例: asuka.jpg 等。拡張子付き）をAIへアップロード・参照指定します。</span>
+        </li>
+        <li><strong>プロンプトをそのまま貼り付けて生成！</strong>
+          <span>STEP 2でAIが出力した「ページ1」のプロンプト全文をコピーし、ペーストして生成ボタンを押します。1文字も削らずにコピペするのが成功のコツです。完成したらページ2へと進みます。</span>
+        </li>
+      </ol>
+
+      <div class="img-box">
+        <img src="" alt="">
+        <p class="img-caption">▲ ページごとにプロンプトをコピペして生成していきます。</p>
+      </div>
+      <a href="#" class="top-link">↑ 目次へ戻る</a>
+    </div>
+
+    <!-- 特典ツールの使い方 -->
+    <div id="bonus" class="section">
+      <h2>🎁 必見！特典ツールの便利な使い方</h2>
+      <p>本パッケージには、マンガ制作をさらに一段レベルアップさせる強力な特典ツールが付属しています。各ツールの用途に合わせてご活用ください。</p>
+
+      <h3>① キャラシートメーカー（hearing_form_character.html）</h3>
+      <p>漫画本編を作る前に、特定のキャラクターの「三面図（正面・横・後ろ）」を作ってデザインを固定するための専用フォームです。</p>
+      <ul class="step-list" style="list-style-type: disc;">
+        <li>髪型や目を入力し、プロンプトをワンクリック生成。</li>
+        <li>画像生成AIで出力し、気に入ったものを「キャラクターのリファレンス用画像（例: asuka.jpg）」として保存。</li>
+        <li>このID名（asuka）を、マンガ本編の「STEP 1」で入力すれば、全ページで同じ顔のキャラが登場しやすくなります！</li>
+      </ul>
+
+      <h3>② 背景ジェネレーター（hearing_form_background.html）</h3>
+      <p>「主人公の自室」や「いつものカフェ」など、よく使う背景画像を前もって作って固定化するための専用フォームです。</p>
+      <ul class="step-list" style="list-style-type: disc;">
+        <li>「少し散らかった女子部屋」などの特徴を入力し、プロンプトを生成して画像として保存。</li>
+        <li>背景ID（例: my_room）を記憶し、マンガ本編のフォーム「背景設定（任意）」などで指定することで、何度でも同じ背景レイアウトを呼び出せます。</li>
+      </ul>
+
+      <h3>③ スタイルカタログ（bonus_style_catalog.html）</h3>
+      <p>「どんな絵柄の漫画にするか」を視覚的に選べる参考カタログです。</p>
+      <ul class="step-list" style="list-style-type: disc;">
+        <li>入力時に「タッチや画風が思いつかない…」という時に眺めてみてください。</li>
+        <li>気になる画風の名前（水彩画風、アメコミ風など）をコピーして、ご自身のプロンプトやヒアリングフォームのドロップダウンから選択しましょう！</li>
+      </ul>
+
+      <h3>④ マンガレイアウトメーカー（manga-layout-maker/index.html）</h3>
+      <p>マンガのコマ割りを視覚的に自作し、画像生成AIへ構図を強く指示するための専用ツールです。</p>
+      <ul class="step-list" style="list-style-type: disc;">
+        <li>画面上で好きなコマ割りを直感的に作成し、画像として書き出し（保存）します。</li>
+        <li>画像生成AIでマンガを描く（STEP 3）際、このレイアウト画像を<span class="highlight">プロンプトと一緒にアップロード添付</span>します。</li>
+        <li>STEP 2でAIが出力したプロンプトの<strong>一番下</strong>に、ご自身で<br>
+          <strong style="color: #ef4444; border-bottom: 2px solid #ef4444; padding-bottom: 2px; display: inline-block; margin-top: 5px;">レイアウトは（保存したファイル名、拡張子なし）を参照してください。</strong><br>
+          という一文を手作業で付け足してから生成を実行してください。（例: レイアウトは page1_layout を参照してください。）
+        </li>
+      </ul>
+      <a href="#" class="top-link">↑ 目次へ戻る</a>
+    </div>
+
+    <!-- よくある質問 -->
+    <div id="faq" class="section">
+      <h2>💡 よくあるトラブルと解決法</h2>
+      
+      <h3>Q. AIがプロンプトの出力を「（中略）」とサボってしまいます…</h3>
+      <p>A. LLMは賢いがゆえに「全く繰り返しの長文」を勝手に要約してしまう性質があります。指示書で「絶対に省略禁止」の強いロックを掛けていますが、もし発生した場合は「中略せずに、ページ1から最後まですべて1文字も削らずにフル出力してください」と直接AIに指示してください。</p>
+
+      <h3>Q. 漢字やセリフがめちゃくちゃに文字化け（謎の言語化）します…</h3>
+      <p>A. 利用している画像生成AIが日本語を理解できず「勝手に自動翻訳」を通している（例：Midjourneyなど）可能性が極めて高いです。セリフを完全維持するため、必ず【Gemini または Higgsfield (Nanobanana)】をご利用ください。</p>
+
+      <h3>Q. キャラクターの顔がページごとにバラバラになります…</h3>
+      <p>A. フォームで入力した「キャラクターID」と、実際に画像生成AIへアップロード（参照設定）させた画像ファイル名が完全に合致しているか確認してください（例: IDが asuka のとき、画像も asuka.jpg）。</p>
+
+      <a href="#" class="top-link">↑ 目次へ戻る</a>
+    </div>
+    
+  </div>
+</body>
+</html>
