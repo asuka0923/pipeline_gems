@@ -1,0 +1,532 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>🎨 1コマ漫画プロンプトメーカー</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;600;700&display=swap');
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Noto Sans JP', sans-serif;
+      background: linear-gradient(135deg, #0f0c29, #1a1a3e, #24243e);
+      color: #e0e0e8;
+      min-height: 100vh;
+      padding: 24px 12px;
+    }
+
+    .container {
+      max-width: 720px;
+      margin: 0 auto;
+    }
+
+    header {
+      text-align: center;
+      padding: 28px 0 18px;
+    }
+
+    header h1 {
+      font-size: 1.6rem;
+      background: linear-gradient(90deg, #a78bfa, #38bdf8);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      margin-bottom: 4px;
+    }
+
+    header p {
+      font-size: 0.85rem;
+      color: #8b8fa3;
+    }
+
+    .card {
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 14px;
+      padding: 22px;
+      margin-bottom: 16px;
+      backdrop-filter: blur(12px);
+    }
+
+    .card h2 {
+      font-size: 1rem;
+      color: #a78bfa;
+      margin-bottom: 14px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .form-row {
+      margin-bottom: 14px;
+    }
+
+    .form-row label {
+      display: block;
+      font-size: 0.82rem;
+      color: #c4c6d6;
+      margin-bottom: 4px;
+      font-weight: 600;
+    }
+
+    .form-row input,
+    .form-row select,
+    .form-row textarea {
+      width: 100%;
+      padding: 10px 12px;
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-radius: 8px;
+      background: rgba(0, 0, 0, 0.3);
+      color: #e0e0e8;
+      font-size: 0.92rem;
+      font-family: inherit;
+      transition: border-color 0.2s;
+    }
+
+    .form-row input:focus,
+    .form-row select:focus,
+    .form-row textarea:focus {
+      outline: none;
+      border-color: #a78bfa;
+      box-shadow: 0 0 0 2px rgba(167, 139, 250, 0.15);
+    }
+
+    .form-row textarea {
+      resize: vertical;
+    }
+
+    .hint {
+      font-size: 0.75rem;
+      color: #6b7280;
+      margin-top: 3px;
+    }
+
+    .row-2 {
+      display: flex;
+      gap: 10px;
+    }
+
+    .row-2>* {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .row-3 {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .row-3>* {
+      flex: 1;
+      min-width: 140px;
+    }
+
+    /* キャラ追加/削除 */
+    .char-block {
+      background: rgba(167, 139, 250, 0.06);
+      border: 1px solid rgba(167, 139, 250, 0.15);
+      border-radius: 10px;
+      padding: 14px;
+      margin-bottom: 10px;
+      position: relative;
+    }
+
+    .char-block .btn-remove {
+      position: absolute;
+      top: 8px;
+      right: 8px;
+      background: rgba(239, 68, 68, 0.2);
+      border: none;
+      color: #f87171;
+      width: 26px;
+      height: 26px;
+      border-radius: 50%;
+      cursor: pointer;
+      font-size: 0.8rem;
+      transition: background 0.2s;
+    }
+
+    .char-block .btn-remove:hover {
+      background: rgba(239, 68, 68, 0.4);
+    }
+
+    .btn-add {
+      background: rgba(167, 139, 250, 0.15);
+      border: 1px dashed rgba(167, 139, 250, 0.3);
+      color: #a78bfa;
+      padding: 8px 16px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 0.85rem;
+      width: 100%;
+      transition: background 0.2s;
+    }
+
+    .btn-add:hover {
+      background: rgba(167, 139, 250, 0.25);
+    }
+
+    /* テキスト要素 */
+    .te-block {
+      background: rgba(56, 189, 248, 0.05);
+      border: 1px solid rgba(56, 189, 248, 0.12);
+      border-radius: 10px;
+      padding: 12px;
+      margin-bottom: 8px;
+      position: relative;
+    }
+
+    .te-block .btn-remove {
+      position: absolute;
+      top: 6px;
+      right: 6px;
+      background: rgba(239, 68, 68, 0.15);
+      border: none;
+      color: #f87171;
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      cursor: pointer;
+      font-size: 0.75rem;
+    }
+
+    .btn-generate {
+      width: 100%;
+      padding: 14px 20px;
+      background: linear-gradient(135deg, #7c3aed, #6366f1);
+      color: #fff;
+      border: none;
+      border-radius: 10px;
+      font-size: 1rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: transform 0.15s, box-shadow 0.2s;
+      box-shadow: 0 4px 20px rgba(99, 102, 241, 0.3);
+    }
+
+    .btn-generate:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 6px 24px rgba(99, 102, 241, 0.45);
+    }
+
+    /* 出力エリア */
+    .output-area {
+      position: relative;
+      background: rgba(0, 0, 0, 0.4);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 10px;
+      padding: 16px;
+      white-space: pre-wrap;
+      word-break: break-all;
+      font-size: 0.88rem;
+      line-height: 1.65;
+      color: #d1d5e8;
+      min-height: 100px;
+      max-height: 500px;
+      overflow-y: auto;
+    }
+
+    .btn-copy {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      background: rgba(167, 139, 250, 0.2);
+      border: 1px solid rgba(167, 139, 250, 0.3);
+      color: #a78bfa;
+      padding: 6px 14px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 0.8rem;
+      transition: background 0.2s;
+    }
+
+    .btn-copy:hover {
+      background: rgba(167, 139, 250, 0.35);
+    }
+
+    .btn-copy.copied {
+      background: rgba(34, 197, 94, 0.3);
+      color: #4ade80;
+      border-color: rgba(34, 197, 94, 0.3);
+    }
+
+    .sep {
+      height: 1px;
+      background: rgba(255, 255, 255, 0.06);
+      margin: 10px 0;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <header>
+      <h1>🎨 1コマ漫画プロンプトメーカー</h1>
+      <p>ブログ挿絵用の漫画1コマを、高品質なプロンプトでカンタン生成！</p>
+    </header>
+
+    <!-- ① 基本設定 -->
+    <div class="card">
+      <h2>⚙️ 基本設定</h2>
+      <div class="row-2">
+        <div class="form-row">
+          <label>アスペクト比</label>
+          <select id="aspect">
+            <option value="9:16">9:16（縦長・スマホ全画面）</option>
+            <option value="4:5">4:5（縦長・SNS汎用）</option>
+            <option value="1:1" selected>1:1（正方形・ブログ汎用）</option>
+            <option value="3:4">3:4（縦長・Web/タブレット）</option>
+            <option value="16:9">16:9（横長・シネマ）</option>
+            <option value="3:2">3:2（横長・写真比率）</option>
+          </select>
+        </div>
+        <div class="form-row">
+          <label>セリフ方向</label>
+          <select id="textDir">
+            <option value="vertical" selected>縦読み</option>
+            <option value="horizontal">横読み</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-row">
+        <label>絵タッチ（スタイル）</label>
+        <div class="row-3">
+          <select id="styleBase">
+            <option value="">▼ ベース画風</option>
+            <option value="少女漫画風">少女漫画風</option>
+            <option value="少年漫画風">少年漫画風</option>
+            <option value="青年漫画風">青年漫画風</option>
+            <option value="劇画調">劇画調</option>
+            <option value="ちびキャラ">ちびキャラ</option>
+            <option value="Webtoon風">Webtoon風</option>
+            <option value="絵本風">絵本風</option>
+            <option value="ライトノベル挿絵風">ライトノベル挿絵風</option>
+            <option value="アメコミ風">アメコミ風</option>
+            <option value="レトロアニメ風">レトロアニメ風</option>
+          </select>
+          <select id="styleTouch">
+            <option value="">▼ 塗り・タッチ</option>
+            <option value="水彩画スタイル">水彩画スタイル</option>
+            <option value="アニメ塗り">アニメ塗り</option>
+            <option value="厚塗り">厚塗り</option>
+            <option value="パステル調">パステル調</option>
+            <option value="色鉛筆風">色鉛筆風</option>
+            <option value="コピック塗り">コピック塗り</option>
+            <option value="スケッチ風">スケッチ風</option>
+            <option value="油彩画風">油彩画風</option>
+            <option value="線画抽出（白黒線画）">線画抽出（白黒線画）</option>
+            <option value="3Dレンダリング">3Dレンダリング</option>
+          </select>
+          <select id="styleEffect">
+            <option value="">▼ エフェクト（任意）</option>
+            <option value="キラキラエフェクト">キラキラエフェクト</option>
+            <option value="シネマティックライティング">シネマティックライティング</option>
+            <option value="ノスタルジック">ノスタルジック</option>
+            <option value="ゴールデンアワー">ゴールデンアワー</option>
+            <option value="ふんわり（ソフトフォーカス）">ふんわり（ソフトフォーカス）</option>
+            <option value="ネオンカラー">ネオンカラー</option>
+            <option value="サイバーパンク">サイバーパンク</option>
+            <option value="ダークファンタジー">ダークファンタジー</option>
+            <option value="モノクローム（白黒）">モノクローム（白黒）</option>
+          </select>
+        </div>
+      </div>
+    </div>
+
+    <!-- ② キャラクター -->
+    <div class="card">
+      <h2>👤 キャラクター</h2>
+      <div id="charList"></div>
+      <button class="btn-add" onclick="addChar()">＋ キャラクター追加</button>
+    </div>
+
+    <!-- ③ シーン・演出 -->
+    <div class="card">
+      <h2>🎬 シーン・演出</h2>
+      <div class="form-row" style="margin-bottom:10px;">
+        <label style="display:inline-flex; align-items:center; gap:8px; cursor:pointer; font-size:0.88rem;">
+          <input type="checkbox" id="abstractBg" style="width:18px;height:18px;accent-color:#a78bfa;cursor:pointer;">
+          抽象背景（背景の指定がない場合はチェック）
+        </label>
+      </div>
+      <div class="form-row">
+        <label>描きたいシーン</label>
+        <textarea id="scene" rows="3" placeholder="例: 満天の星空。両手を広げて驚いて目を見開くアスの顔のアップ"></textarea>
+        <p class="hint">💡 （背景）+ ポーズ + 表情 + 人物 + アングル</p>
+      </div>
+    </div>
+
+    <!-- ④ セリフ・擬音 -->
+    <div class="card">
+      <h2>💬 セリフ・擬音</h2>
+      <div id="teList"></div>
+      <button class="btn-add" onclick="addTE()">＋ セリフ/モノローグ/擬音 追加</button>
+    </div>
+
+    <!-- 生成ボタン -->
+    <button class="btn-generate" onclick="generate()">🚀 プロンプトを生成！</button>
+
+    <!-- 出力 -->
+    <div class="card" id="outputCard" style="margin-top: 16px; display:none;">
+      <h2>📋 生成されたプロンプト</h2>
+      <div style="position: relative;">
+        <div class="output-area" id="output"></div>
+        <button class="btn-copy" id="copyBtn" onclick="copyPrompt()">📋 コピー</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // ---- キャラクター ----
+    let charCount = 0;
+    function addChar() {
+      charCount++;
+      const div = document.createElement('div');
+      div.className = 'char-block';
+      div.innerHTML = `
+    <button class="btn-remove" onclick="this.parentElement.remove()">✕</button>
+    <div class="row-2">
+      <div class="form-row"><label>名前</label><input type="text" class="c-name" placeholder="例: アス"></div>
+      <div class="form-row"><label>ファイル名 (拡張子抜き)</label><input type="text" class="c-id" placeholder="例: asu"></div>
+    </div>
+    <div class="form-row"><label>見た目の特徴（キャラシートがある場合は不要）</label><input type="text" class="c-desc" placeholder="例: 髪型・服装など"></div>
+  `;
+      document.getElementById('charList').appendChild(div);
+    }
+
+    // ---- テキスト要素 ----
+    function addTE() {
+      const div = document.createElement('div');
+      div.className = 'te-block';
+      div.innerHTML = `
+    <button class="btn-remove" onclick="this.parentElement.remove()">✕</button>
+    <div class="row-2" style="margin-bottom:8px;">
+      <div class="form-row"><label>種類</label>
+        <select class="te-type" onchange="toggleSpeaker(this)">
+          <option value="dialogue">💬 セリフ</option>
+          <option value="monologue">💭 モノローグ</option>
+          <option value="sfx">🔊 擬音</option>
+        </select>
+      </div>
+      <div class="form-row te-speaker-row"><label>発言者</label><input type="text" class="te-speaker" placeholder="例: アス"></div>
+    </div>
+    <div class="form-row"><label>内容</label><input type="text" class="te-text" placeholder="例: うわーー！きれいーーー！"></div>
+  `;
+      document.getElementById('teList').appendChild(div);
+    }
+
+    function toggleSpeaker(sel) {
+      const row = sel.closest('.te-block').querySelector('.te-speaker-row');
+      row.style.display = sel.value === 'sfx' ? 'none' : '';
+    }
+
+    // 初期1キャラ + 1セリフ
+    addChar();
+    addTE();
+
+    // ---- プロンプト生成 ----
+    function generate() {
+      const lines = [];
+      const aspect = document.getElementById('aspect').value;
+      const textDir = document.getElementById('textDir').value;
+
+      // スタイル組み立て
+      const sb = document.getElementById('styleBase').value;
+      const st = document.getElementById('styleTouch').value;
+      const se = document.getElementById('styleEffect').value;
+      const styleParts = [sb, st, se].filter(Boolean);
+      const style = styleParts.length > 0 ? styleParts.join('で') + 'スタイル' : '指定なし';
+
+      // 冒頭
+      lines.push('漫画の1コマを画像生成してください。');
+      lines.push('プロが制作した漫画のコマのように、本物らしく説得力のあるものにしてください。');
+      lines.push('');
+      lines.push(`キャンバス:「${aspect}」の白地キャンバス`);
+      lines.push(`スタイル：${style}`);
+
+      if (textDir === 'vertical') {
+        lines.push('セリフとモノローグは、日本の漫画フォントの**縦読み**で表示すること。横書きは禁止。指示以外のテキストを捏造しない。');
+      } else {
+        lines.push('セリフとモノローグは、日本の漫画フォントの**横読み**で表示すること。指示以外のテキストを捏造しない。');
+      }
+
+      lines.push('');
+      lines.push('モノローグ・セリフは、文節や息継ぎなど意味の通る自然な位置で、美しく改行する。');
+      lines.push('モノローグは四角のキャプションボックスで囲む。');
+
+      // キャラクター
+      const chars = [];
+      document.querySelectorAll('.char-block').forEach(b => {
+        const name = b.querySelector('.c-name').value.trim();
+        const id = b.querySelector('.c-id').value.trim();
+        const desc = b.querySelector('.c-desc').value.trim();
+        if (name) chars.push({ name, id, desc });
+      });
+
+      if (chars.length > 0) {
+        lines.push('');
+        lines.push('キャラ・背景・オブジェクトはシーン内で一貫性を保ってください。');
+        lines.push('キャラクター：');
+        chars.forEach(c => {
+          const display = c.id ? `${c.name}(${c.id})` : c.name;
+          lines.push(`${display}: ${c.desc || '(未入力)'}`);
+        });
+      }
+
+      // シーン
+      const scene = document.getElementById('scene').value.trim();
+      const useAbstract = document.getElementById('abstractBg').checked;
+      const sceneText = useAbstract ? `抽象背景。${scene || '(未入力)'}` : (scene || '(未入力)');
+      lines.push('');
+      lines.push('シーン：');
+      lines.push(`演出: ${sceneText}`);
+
+      // テキスト要素
+      const teBlocks = document.querySelectorAll('.te-block');
+      let hasText = false;
+      teBlocks.forEach(b => {
+        const type = b.querySelector('.te-type').value;
+        const speaker = b.querySelector('.te-speaker') ? b.querySelector('.te-speaker').value.trim() : '';
+        const text = b.querySelector('.te-text').value.trim();
+        if (!text) return;
+        hasText = true;
+        if (type === 'monologue') {
+          lines.push(`モノローグ:${text}`);
+        } else if (type === 'dialogue') {
+          if (speaker) {
+            lines.push(`${speaker}のセリフ:${text}`);
+          } else {
+            lines.push(`セリフ:${text}`);
+          }
+        } else if (type === 'sfx') {
+          lines.push(`擬音:${text}`);
+        }
+      });
+
+      const result = lines.join('\n');
+      document.getElementById('output').textContent = result;
+      document.getElementById('outputCard').style.display = '';
+      document.getElementById('outputCard').scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+
+    // ---- コピー ----
+    function copyPrompt() {
+      const text = document.getElementById('output').textContent;
+      const btn = document.getElementById('copyBtn');
+      navigator.clipboard.writeText(text).then(() => {
+        btn.textContent = '✅ コピー完了！';
+        btn.classList.add('copied');
+        setTimeout(() => { btn.textContent = '📋 コピー'; btn.classList.remove('copied'); }, 2000);
+      });
+    }
+  </script>
+</body>
+
+</html>
