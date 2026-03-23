@@ -73,10 +73,9 @@
     .ex-label { font-weight: 900; min-width: 80px; flex-shrink: 0; padding-top: 4px; }
     .ex-title { font-weight: 900; color: #000; margin-right: 8px; border: 2px solid #000; padding: 4px 8px; font-size: 0.9rem; display: inline-block; margin-bottom: 4px; background: #fff;}
     .ex-good .ex-label { color: #000; border-bottom: 3px solid #000; display: inline-block; padding-bottom: 2px;}
-    .ex-bad .ex-label { color: #6b7280; text-decoration: line-through; }
-    .ex-text { color: #111827; line-height: 1.7; font-weight: bold; }
+    .ex-text { color: #111827; line-height: 1.7; font-weight: normal; }
 
-    input[type="text"], textarea, select { width: 100%; background: #ffffff; border: 2px solid #000; color: #000; padding: 16px; border-radius: 0; font-size: 1.05rem; font-weight: bold; font-family: inherit; transition: all 0.2s ease; box-shadow: inset 2px 2px 0px rgba(0,0,0,0.05); }
+    input[type="text"], textarea, select { width: 100%; background: #ffffff; border: 2px solid #000; color: #000; padding: 16px; border-radius: 0; font-size: 0.95rem; font-weight: normal; font-family: inherit; transition: all 0.2s ease; box-shadow: inset 2px 2px 0px rgba(0,0,0,0.05); }
     input[type="text"]:focus, textarea:focus, select:focus { outline: none; border-width: 3px; transform: translateY(-1px); }
     textarea { resize: vertical; min-height: 120px; line-height: 1.6; }
     input::placeholder, textarea::placeholder { font-size: 0.95rem; color: #9ca3af; font-weight: normal; }
@@ -157,16 +156,8 @@
   <div class="container">
     <div class="header">
       <h1>🎬 レビュー漫画 ヒアリング</h1>
-      <p style="font-size: 1.05rem; font-weight: bold; margin-top: -5px; margin-bottom: 8px; color: #e2e8f0; line-height: 1.5;">レビュー漫画作成用のヒアリングデータ（JSON）を作成するツールです🎬</p>
-      <p style="font-size: 0.9rem; margin-top: -5px; margin-bottom: 15px; color: #a78bfa; font-weight: bold;">&copy;
-        アスカデザインラボ</p>
-      <div
-        style="background: rgba(56, 189, 248, 0.15); border: 2px solid #38bdf8; border-radius: 12px; padding: 18px; margin-bottom: 20px; text-align: left; max-width: 650px; margin-left: auto; margin-right: auto; box-shadow: 0 4px 15px rgba(0,0,0,0.2);">
-        <p style="color: #7dd3fc; font-weight: 800; font-size: 1.15rem; margin-bottom: 6px;">📝 ご注意：このツール単体で「漫画」は完成しません！</p>
-        <p style="font-size: 0.95rem; color: #e2e8f0; line-height: 1.6;">
-          各項目を入力後、一番下にあるボタンから<span style="color: #fbbf24;">ヒアリングデータ(JSON)をコピー</span>し、<br><span style="color: #fbbf24;">[レビュー版]漫画脚本メーカーのチャット欄</span>へ貼り付けて送信してください。
-        </p>
-      </div>
+      <p style="font-size: 1.05rem; font-weight: bold; margin-top: -5px; margin-bottom: 8px; color: #e2e8f0; line-height: 1.5;">綺麗な文章は不要！「キーワード」や「メモ」を投げるだけでAIが最高の構成を作ります🎬</p>
+      <p style="font-size: 0.9rem; margin-top: -5px; margin-bottom: 15px; color: #a78bfa; font-weight: bold;">&copy; アスカデザインラボ</p>
     </div>
 
     <div class="form-flow">
@@ -186,15 +177,14 @@
     <div class="form-panel">
       <!-- 名称 -->
       <div class="form-group">
-        <label>Q1. 今回レビューしたい対象の【正式名称】を教えてください✨</label>
+        <label>Q1. 今回レビューしたい対象の【お名前】を教えてください✨</label>
         <details class="example-box">
           <summary>💡 回答例を表示 / 非表示</summary>
-          <div class="ex-row ex-good"><span class="ex-label">⭕ 良い例1</span><span class="ex-text"><span
-                class="ex-title">【化粧品】</span>マジカルグロウ パレット</span></div>
-          <div class="ex-row ex-good"><span class="ex-label">⭕ 良い例2</span><span class="ex-text"><span
-                class="ex-title">【カフェ】</span>純喫茶 フォレスタ</span></div>
+          <div class="ex-row ex-good"><span class="ex-label">⭕ 例1</span><span class="ex-text">【商品やサービスの名前】マジカルグロウ パレット</span></div>
+          <div class="ex-row ex-good"><span class="ex-label">⭕ 例2</span><span class="ex-text">【商品やサービスの名前】純喫茶 フォレスタ</span></div>
         </details>
-        <textarea id="r_name" rows="3" style="min-height: 80px;" placeholder="正式な商品名・店舗名など（例：マジカルグロウ）"></textarea>
+        <textarea id="r_name" rows="1" style="min-height: 50px;">
+【商品やサービスの名前】</textarea>
       </div>
 
       <!-- 概要 -->
@@ -202,35 +192,28 @@
         <label>Q2. レビュー対象がどんなものか、知らない人向けに簡単に教えてください！</label>
         <details class="example-box">
           <summary>💡 回答例を表示 / 非表示</summary>
-          <div class="ex-row ex-good"><span class="ex-label">⭕ 良い例1</span><span class="ex-text"><span
-                class="ex-title">【化粧品】</span>捨て色なしで一気に垢抜ける、話題の新作アイシャドウパレット</span></div>
-          <div class="ex-row ex-good"><span class="ex-label">⭕ 良い例2</span><span class="ex-text"><span
-                class="ex-title">【カフェ】</span>路地裏にある、アンティーク家具に囲まれた隠れ家的な自家焙煎カフェ</span></div>
-          <div class="ex-row ex-bad"><span class="ex-label">❌ 悪い例</span><span class="ex-text">アイシャドウ /
-              喫茶店（※特徴が伝わりません）</span></div>
+          <div class="ex-row ex-good"><span class="ex-label">⭕ 例1</span><span class="ex-text">【ひとことで言うとどんなもの？】捨て色なしで一気に垢抜ける、新作アイシャドウ</span></div>
+          <div class="ex-row ex-good"><span class="ex-label">⭕ 例2</span><span class="ex-text">【ひとことで言うとどんなもの？】路地裏にある、隠れ家的な自家焙煎カフェ</span></div>
         </details>
-        <textarea id="r_desc" rows="3" style="min-height: 80px;" placeholder="特徴（捨て色なしで垢抜ける）＋何なのか（新作アイシャドウ）"></textarea>
+        <textarea id="r_desc" rows="1" style="min-height: 50px;">
+【ひとことで言うとどんなもの？】</textarea>
       </div>
 
       <!-- 対象画像ファイル名 -->
       <div class="form-group">
-        <label>Q2.5. レビュー対象の「写真・画像ファイル名」はありますか？（任意）</label>
+        <label>Q3. レビュー対象の「写真・画像ファイル名」はありますか？（任意）</label>
         <p class="question-desc">
-          ある場合は入力してください。アイシャドウの見た目や映画のポスターなど、演出の素材として漫画内に組み込みます！（※著作権のあるものはイラスト風にぼかして配置してとAIへ指示を出します）<br>（※Gemini/Nano
-          Banana等に画像をアップロードすると自動で.jpgに変換されるため、ファイル名は「.jpg」でご指定ください）</p>
+          ある場合は入力してください。アイシャドウの見た目など、演出の素材として漫画内に組み込みます！（※著作権のあるものはイラスト風にぼかして配置してとAIへ指示を出します）<br>（※Gemini/NanoBanana等に画像をアップロードすると自動で.jpgに変換されるため、ファイル名は「.jpg」でご指定ください）</p>
         <details class="example-box">
           <summary>💡 回答例を表示 / 非表示</summary>
-          <div class="ex-row ex-good"><span class="ex-label">⭕ 良い例1</span><span class="ex-text"><span
-                class="ex-title">【化粧品】</span>eyeshadow</span></div>
-          <div class="ex-row ex-good"><span class="ex-label">⭕ 良い例2</span><span class="ex-text"><span
-                class="ex-title">【映画等】</span>movie_poster</span></div>
+          <div class="ex-row ex-good"><span class="ex-label">⭕ 例</span><span class="ex-text">eyeshadow.jpg / movie_poster.jpg</span></div>
         </details>
-        <input type="text" id="r_subject_file" placeholder="例：eyeshadow / movie_poster">
+        <input type="text" id="r_subject_file" placeholder="ここにファイル名を入力：">
       </div>
 
       <!-- ボリューム感 -->
       <div class="form-group">
-        <label>Q3. レビューの「深さ（語りの熱量）」はどれくらいが理想ですか？</label>
+        <label>Q4. レビューの「深さ（語りの熱量）」はどれくらいが理想ですか？</label>
         <p class="question-desc">サラッと直感的に伝えたいか、詳細までがっつり語り尽くしたいかを選んでください。</p>
         <select id="r_vol">
           <option value="M: 標準（レビュー情報と感情が半々）">M: 標準（事実と感情をバランスよく伝えたい）</option>
@@ -241,53 +224,51 @@
 
       <!-- いちばん伝えたい魅力 -->
       <div class="form-group">
-        <label>Q4.「いちばん伝えたい魅力や推しポイント」など感動したところはズバリどこですか？</label>
+        <label>Q5.「いちばん伝えたい魅力や推しポイント」はズバリどこですか？</label>
         <details class="example-box">
           <summary>💡 回答例を表示 / 非表示</summary>
-          <div class="ex-row ex-good"><span class="ex-label">⭕ 良い例1</span><span class="ex-text"><span
-                class="ex-title">【化粧品】</span>塗った瞬間のキラキラ感が上品で、夕方になっても全くくすまないこと</span></div>
-          <div class="ex-row ex-good"><span class="ex-label">⭕ 良い例2</span><span class="ex-text"><span
-                class="ex-title">【カフェ】</span>時が止まったような静かな空間で味わう、濃厚な自家製プリンとコーヒーのペアリング</span></div>
-          <div class="ex-row ex-bad"><span class="ex-label">❌ 悪い例</span><span class="ex-text">色が可愛い /
-              美味しい（※平凡すぎて見せ場になりません）</span></div>
+          <div class="ex-row ex-good"><span class="ex-label">⭕ 例1</span><span class="ex-text">【一番のおすすめポイントは？】夕方になっても全くくすまない魔法のラメ</span></div>
+          <div class="ex-row ex-good"><span class="ex-label">⭕ 例2</span><span class="ex-text">【一番のおすすめポイントは？】濃厚な自家製プリンとコーヒーのペアリング</span></div>
         </details>
-        <textarea id="r_appeal" rows="3" style="min-height: 80px;"
-          placeholder="結果（上品なキラキラ感）＋感動（夕方まで全くくすまない！）"></textarea>
+        <textarea id="r_appeal" rows="1" style="min-height: 50px;">
+【一番のおすすめポイントは？】</textarea>
       </div>
 
       <!-- いちばん描きたいこと -->
       <div class="form-group">
-        <label>Q5. 「これだけは絶対に伝えたい感激したこと」を、思いつくままに教えてください😊</label>
+        <label>Q6. 「絶対に伝えたい感激した瞬間（心の声）」をズバリ一言で教えてください😊</label>
         <details class="example-box">
           <summary>💡 回答例を表示 / 非表示</summary>
-          <div class="ex-row ex-good"><span class="ex-label">⭕ 良い例1</span><span class="ex-text"><span
-                class="ex-title">【化粧品】</span>朝のメイクで魔法のラメを乗せた瞬間、鏡の中の自分の目がパッチリ見えて「天才か!?」と声が出たシーン</span></div>
-          <div class="ex-row ex-good"><span class="ex-label">⭕ 良い例2</span><span class="ex-text"><span
-                class="ex-title">【カフェ】</span>仕事で疲弊した帰り道、一口のプリンで張り詰めていた糸が切れて少し泣きそうになった至福の表情</span></div>
-          <div class="ex-row ex-bad"><span class="ex-label">❌ 悪い例</span><span class="ex-text">買ったところ / お店の外観</span>
-          </div>
+          <div class="ex-row ex-good"><span class="ex-label">⭕ 例1</span><span class="ex-text">【使って一番テンションが上がった（心の声が出た）瞬間】（鏡を見て）「えっ、私の目、デカすぎ…天才か！？」と思った瞬間</span></div>
         </details>
-        <textarea id="r_scene" placeholder="きっかけ（朝のメイク）＋行動（ラメを乗せた瞬間）＋結果（目がパッチリで「天才か!?」）"></textarea>
+        <textarea id="r_scene" rows="2" style="min-height: 70px;">
+【使って一番テンションが上がった（心の声が出た）瞬間】</textarea>
       </div>
 
       <!-- キャラクター設定（主人公） -->
       <div class="form-group">
-        <label>Q6. 登場人物の「プロフィール」を教えてください😊</label>
-        <p class="question-desc">画像生成のプロンプトに使用します。参考画像がある場合はファイル名を添えてください。見た目・性格・口調を書くと、キャラに合ったセリフが生成されます！</p>
+        <label>Q7. レビュアーとなる登場人物の「プロフィール」を教えてください😊</label>
+        <p class="question-desc">画像生成のプロンプトに使用します。見た目・性格・口調を書くと、キャラに合ったセリフが生成されます！</p>
         <details class="example-box">
           <summary>💡 回答例を表示 / 非表示</summary>
-          <div class="ex-row ex-good"><span class="ex-label">⭕ 良い例</span><span class="ex-text"><span
-                class="ex-title">【化粧品】</span><br>ひな（joshi）：黒髪ロング、ピンクのニット、明るくてテンション高め、タメ口<br>先輩（なし）：ショートヘア、スーツ姿、眼鏡、落ち着いた性格、です・ます調</span>
+          <div class="ex-row ex-good"><span class="ex-label">⭕ 例1</span>
+            <span class="ex-text">
+              【見た目】30代女性、ショートヘア<br>
+              【性格・特徴】新しいもの好きだけど飽きっぽい<br>
+              【口調】基本はですます調
+            </span>
           </div>
         </details>
         <div id="r_char_container">
           <div class="char-row"
             style="flex-direction: column; gap: 8px; background: rgba(255,255,255,0.05); padding: 15px; border-radius: 8px;">
             <div style="display: flex; gap: 10px; width: 100%;">
-              <input type="text" class="char-id" placeholder="キャラクターID（半角英数・ファイル名と同じ 例: asuka）" style="flex: 1; font-family: monospace; font-weight: bold; background: #fdf2f8; border: 2px solid #000;">
+              <input type="text" class="char-id" placeholder="【名前 や ファイル名 例：自分】" style="flex: 1; font-family: monospace; font-weight: bold; background: #fdf2f8; border: 2px solid #000;">
             </div>
-            <textarea class="char-desc" rows="3" style="min-height: 80px;"
-              placeholder="見た目・性格・口調（例：黒髪ロング、ピンクのニット、明るい性格、タメ口）"></textarea>
+            <textarea class="char-desc" rows="3" style="min-height: 100px;">
+【見た目】
+【性格・特徴】
+【口調】</textarea>
           </div>
         </div>
         <button type="button" class="add-btn" onclick="addCharInput('r_char_container')">＋
@@ -296,73 +277,63 @@
 
       <!-- 背景設定 -->
       <div class="form-group">
-        <label>Q6.5. 特定の場面の「背景画像（リファレンス）」はありますか？（任意）</label>
-        <p class="question-desc">自室や特定の店舗など、背景を画像で固定したい場合は「場所・特徴」と「ファイル名」を入力してください。画像がなくても特徴だけ伝えてもOKです！</p>
+        <label>Q8. 特定の場面の「背景画像（リファレンス）」はありますか？（任意）</label>
+        <p class="question-desc">自室や特定の店舗など、背景を画像で固定したい場合はご入力ください。画像がなくても特徴だけ伝えてもOKです！</p>
         <div id="r_bg_container">
           <div class="char-row"
             style="flex-direction: column; gap: 8px; background: rgba(255,255,255,0.05); padding: 15px; border-radius: 8px;">
             <div style="display: flex; gap: 10px; width: 100%;">
-              <input type="text" class="bg-id" placeholder="背景ID（半角英数・ファイル名と同じ 例: my_room）" style="flex: 1; font-family: monospace; font-weight: bold; background: #e0f2fe; border: 2px solid #000;"></div><div style="display: flex; gap: 10px; width: 100%; margin-top: 8px;"><textarea class="bg-desc" rows="2" style="min-height: 60px; flex: 1;" placeholder="場所・特徴（例：自室、少し散らかった女子部屋）"></textarea>
+              <input type="text" class="bg-id" placeholder="【背景ID・ファイル名（任意）例：my_room.jpg】" style="flex: 1; font-family: monospace; font-weight: bold; background: #e0f2fe; border: 2px solid #000;"></div><div style="display: flex; gap: 10px; width: 100%; margin-top: 8px;"><textarea class="bg-desc" rows="2" style="min-height: 80px;">
+【場所】
+【雰囲気や特徴】</textarea>
             </div>
           </div>
         </div>
         <button type="button" class="add-btn" onclick="addBgInput('r_bg_container')">＋ 背景を追加する</button>
       </div>
 
-
-
       <!-- トーン -->
       <div class="form-group">
-        <label>Q7. 漫画全体の雰囲気（トーン・テイスト）はどんな感じにしましょうか？</label>
+        <label>Q9. 漫画全体の雰囲気（トーン・テイスト）はどんな感じにしましょうか？</label>
         <details class="example-box">
           <summary>💡 回答例を表示 / 非表示</summary>
-          <div class="ex-row ex-good"><span class="ex-label">⭕ 良い例1</span><span class="ex-text"><span
-                class="ex-title">【化粧品】</span>テンション高めの全力おすすめ、ワクワクするキラキラ感</span></div>
-          <div class="ex-row ex-good"><span class="ex-label">⭕ 良い例2</span><span class="ex-text"><span
-                class="ex-title">【カフェ】</span>ゆったりとした時間の流れ、静かだけど内なる感動が爆発する感じ</span></div>
+          <div class="ex-row ex-good"><span class="ex-label">⭕ 例1</span><span class="ex-text">【雰囲気の希望】テンション高めの全力おすすめ、キラキラ感</span></div>
+          <div class="ex-row ex-good"><span class="ex-label">⭕ 例2</span><span class="ex-text">【雰囲気の希望】ゆったりとした時間の流れ、静かだけど感動する感じ</span></div>
         </details>
-        <textarea id="r_tone" rows="3" style="min-height: 80px;"
-          placeholder="テンション（高めで全力おすすめ）＋雰囲気（ワクワクするキラキラ感）"></textarea>
+        <textarea id="r_tone" rows="1" style="min-height: 50px;">
+【雰囲気の希望】</textarea>
       </div>
 
-      <!-- ストレメモ -->
+      <!-- ストーリーメモ -->
       <div class="form-group">
-        <label>Q8. レビュー対象にまつわる【エピソード】を、箇条書きで自由に教えてください🎵</label>
-        <p class="question-desc">「背景や悩み」→「きっかけ」→「体験してどうだったか」の流れで書くとスムーズです！</p>
+        <label>Q10. レビュー対象にまつわる【エピソード】を自由に教えてください🎵</label>
+        <p class="question-desc">カッコの右にキーワードやメモを書くだけでOKです！</p>
         <details class="example-box">
           <summary>💡 回答例を表示 / 非表示</summary>
-          <div class="ex-row ex-good"><span class="ex-label">⭕ 良い例1</span>
+          <div class="ex-row ex-good"><span class="ex-label">⭕ 例1</span>
             <span class="ex-text">
-              <span class="ex-title">【化粧品レビュー】</span><br>
-              ・最近メイクがマンネリ化してテンションが上がらなかった。<br>
-              ・SNSでバズっていたこのパレットが気になり、思い切って購入。<br>
-              ・翌朝、ワクワクしながら使ってみたら、ラメの密着度がすごくて感動！<br>
-              ・夜まで全くヨレなくて、職場の先輩にも「今日いつもと雰囲気違うね」と褒められた！
-            </span>
-          </div>
-          <div class="ex-row ex-good"><span class="ex-label">⭕ 良い例2</span>
-            <span class="ex-text">
-              <span class="ex-title">【自社パン屋の紹介】</span><br>
-              ・「毎日食べても飽きないパンを届けたい」という想いで開業。<br>
-              ・国産小麦と天然酵母にこだわり、試行錯誤を重ねた。<br>
-              ・看板商品の食パンはリピーター続出、「ここの食パンしか食べられなくなった」という声も。<br>
-              ・朝の焼きたての香りに誘われて来店するお客さんが絶えない。
+              【出会う前の悩み】最近メイクがマンネリ化していた<br>
+              【買ったきっかけ】SNSでバズっていたから<br>
+              【使ってみてどうだったか？（結末）】ラメが落ちなくて感動！先輩にも褒められた！
             </span>
           </div>
         </details>
-        <textarea id="r_memo" placeholder="背景（悩みや想い）＋きっかけ（購入・開発の経緯）＋結果（使ってみた感想やお客様の反応）"></textarea>
+        <textarea id="r_memo" rows="3" style="min-height: 100px;">
+【出会う前の悩み】
+【買ったきっかけ】
+【使ってみてどうだったか？（結末）】</textarea>
       </div>
 
       <!-- ページ数 -->
       <div class="form-group">
-        <label>Q9. ご希望のページ数はありますか？</label>
+        <label>Q11. ご希望のページ数はありますか？</label>
         <p class="question-desc">未定なら「おまかせ」、指定したい場合は「4ページ」のように入力してください。</p>
         <input type="text" id="r_pages" placeholder="例：おまかせ / 4ページ / 6〜8ページ" value="おまかせ">
       </div>
 
       <!-- アスペクト比 -->
       <div class="form-group">
-        <label>Q10. 【アスペクト比】を選択してください</label>
+        <label>Q12. 【アスペクト比】を選択してください</label>
         <p class="question-desc">出力する画像の縦横比を選びます。</p>
         <select id="r_aspect_ratio"
           style="width: 100%; padding: 12px; border-radius: 8px; border: 1px solid rgba(255, 255, 255, 0.2); background: rgba(0, 0, 0, 0.2); color: white; font-size: 1rem;">
@@ -374,11 +345,9 @@
         </select>
       </div>
 
-
-
       <!-- スタイル -->
       <div class="form-group">
-        <label>Q12. どんな「絵柄」でお見せしましょうか？ <a href="bonus_style_catalog.html" target="_blank"
+        <label>Q13. どんな「絵柄」でお見せしましょうか？ <a href="bonus_style_catalog.html" target="_blank"
             style="font-size: 0.9rem; color: #38bdf8; text-decoration: underline; margin-left: 10px;">🎨
             カタログを開く</a></label>
         <p class="question-desc">カタログの内容から、ベース・塗り・エフェクトを選択してください。</p>
@@ -426,7 +395,7 @@
 
       <!-- 構成 -->
       <div class="form-group">
-        <label>Q12. シナリオの構成パターンに希望はありますか？</label>
+        <label>Q14. シナリオの構成パターンに希望はありますか？</label>
         <p class="question-desc">よくわからない場合は「おまかせ」で大丈夫ですよ！</p>
         <select id="r_pattern">
           <option value="おまかせ">おまかせ（AIが最適なものを選ぶ）</option>
@@ -436,17 +405,13 @@
           <option value="D: ストーリーテラー型">D: ストーリーテラー型（読者に直接プレゼンする）</option>
         </select>
       </div>
-    <div style="background: #ffffff; border: 4px solid #000; padding: 25px; text-align: left; margin-bottom: 30px; border-radius: 0; box-shadow: 6px 6px 0px #000;">
-      <p style="font-weight: 900; font-size: 1.25rem; border-bottom: 3px solid #000; padding-bottom: 10px; margin-bottom: 15px; color: #000;">⚠️ 【重要】画像化に利用するAIについて</p>
-      <p style="font-weight: bold; line-height: 1.7; font-size: 1.05rem; color: #111827;">生成には必ず <span style="background: #000; color: #fff; padding: 2px 8px;">Gemini または Higgsfield（Nanobanana2 / NanobananaPro）</span> をご使用ください。<br>
-      ※他のAIモデルを使用した場合、入力文の自動翻訳などの影響により「致命的な文字化け」や「全体の崩れ」が発生し、意図通りの漫画が作成できません。</p>
-    </div>
-    <div class="action-bar">
+
+      <div class="action-bar">
         <button class="btn-primary" onclick="generateJSON()">
           <div style="display:flex; flex-direction:column; align-items:center;">
             <span>📋 ヒアリングデータをコピーする</span>
             <span
-              style="font-size: 0.85rem; font-weight: normal; margin-top: 4px; opacity: 0.9;">（コピー後は、該当するGemini（レビュー版）を開いて貼り付けてください！）</span>
+              style="font-size: 0.85rem; font-weight: normal; margin-top: 4px; opacity: 0.9;">（コピー後は該当するGeminiに貼り付けてください！）</span>
           </div>
         </button>
       </div>
@@ -464,10 +429,13 @@
 
       row.innerHTML = `
         <div style="display: flex; gap: 10px; width: 100%;">
-          <input type="text" class="char-id" placeholder="キャラクターID（半角英数・ファイル名と同じ 例: asuka）" style="flex: 1; font-family: monospace; font-weight: bold; background: #fdf2f8; border: 2px solid #000;">
+          <input type="text" class="char-id" placeholder="【名前 や ファイル名 例：夫】" style="flex: 1; font-family: monospace; font-weight: bold; background: #fdf2f8; border: 2px solid #000;">
         </div>
         <div style="display: flex; gap: 10px; width: 100%;">
-          <textarea class="char-desc" rows="3" style="min-height: 80px; flex: 1;" placeholder="見た目・性格・口調（例：黒髪ロング、ピンクのニット、明るい性格、タメ口）"></textarea>
+          <textarea class="char-desc" rows="3" style="min-height: 100px; flex: 1;">
+【見た目】
+【性格・特徴】
+【口調】</textarea>
           <button type="button" class="char-remove" style="width: auto; padding: 0 15px;">×</button>
         </div>
       `;
@@ -484,7 +452,9 @@
 
       row.innerHTML = `
         <div style="display: flex; gap: 10px; width: 100%;">
-          <input type="text" class="bg-id" placeholder="背景ID（半角英数・ファイル名と同じ 例: my_room）" style="flex: 1; font-family: monospace; font-weight: bold; background: #e0f2fe; border: 2px solid #000;"></div><div style="display: flex; gap: 10px; width: 100%; margin-top: 8px;"><textarea class="bg-desc" rows="2" style="min-height: 60px; flex: 1;" placeholder="場所・特徴（例：自室、少し散らかった女子部屋）"></textarea>
+          <input type="text" class="bg-id" placeholder="【背景ID・ファイル名（任意）例：my_room.jpg】" style="flex: 1; font-family: monospace; font-weight: bold; background: #e0f2fe; border: 2px solid #000;"></div><div style="display: flex; gap: 10px; width: 100%; margin-top: 8px;"><textarea class="bg-desc" rows="2" style="min-height: 80px; flex: 1;">
+【場所】
+【雰囲気や特徴】</textarea>
           <button type="button" class="char-remove" style="width: auto; padding: 0 15px;">×</button>
         </div>
       `;
@@ -492,7 +462,6 @@
       row.querySelector('.char-remove').onclick = function () { container.removeChild(row); };
       container.appendChild(row);
     }
-
 
     function generateJSON() {
       const getVal = (id) => document.getElementById(id).value.trim();
@@ -550,13 +519,13 @@
       data["漫画のスタイル"] = combinedStyle;
       data["希望シナリオ構成"] = getVal('r_pattern');
 
-      const jsonStr = "```json\n" + JSON.stringify(data, null, 2) + "\n```";
+      const jsonStr = "\`\`\`json\n" + JSON.stringify(data, null, 2) + "\n\`\`\`";
       navigator.clipboard.writeText(jsonStr).then(() => {
         const toast = document.getElementById('toast');
         toast.classList.add('show');
         setTimeout(() => toast.classList.remove('show'), 3000);
       }).catch(err => {
-        alert("コピーに失敗しました。手动でコピーしてください:\n\n" + jsonStr);
+        alert("コピーに失敗しました。以下のテキストを手動でコピーしてください:\n\n" + jsonStr);
       });
     }
   </script>

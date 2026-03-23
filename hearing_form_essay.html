@@ -4,8 +4,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>エッセイ版AI漫画ヒアリングフォーム｜アスカデザインラボ
-  </title>
+  <title>エッセイ版AI漫画ヒアリングフォーム｜アスカデザインラボ</title>
   <style>
     :root {
       --bg: #f8fafc;
@@ -74,10 +73,9 @@
     .ex-label { font-weight: 900; min-width: 80px; flex-shrink: 0; padding-top: 4px; }
     .ex-title { font-weight: 900; color: #000; margin-right: 8px; border: 2px solid #000; padding: 4px 8px; font-size: 0.9rem; display: inline-block; margin-bottom: 4px; background: #fff;}
     .ex-good .ex-label { color: #000; border-bottom: 3px solid #000; display: inline-block; padding-bottom: 2px;}
-    .ex-bad .ex-label { color: #6b7280; text-decoration: line-through; }
-    .ex-text { color: #111827; line-height: 1.7; font-weight: bold; }
+    .ex-text { color: #111827; line-height: 1.7; font-weight: normal; }
 
-    input[type="text"], textarea, select { width: 100%; background: #ffffff; border: 2px solid #000; color: #000; padding: 16px; border-radius: 0; font-size: 1.05rem; font-weight: bold; font-family: inherit; transition: all 0.2s ease; box-shadow: inset 2px 2px 0px rgba(0,0,0,0.05); }
+    input[type="text"], textarea, select { width: 100%; background: #ffffff; border: 2px solid #000; color: #000; padding: 16px; border-radius: 0; font-size: 0.95rem; font-weight: normal; font-family: inherit; transition: all 0.2s ease; box-shadow: inset 2px 2px 0px rgba(0,0,0,0.05); }
     input[type="text"]:focus, textarea:focus, select:focus { outline: none; border-width: 3px; transform: translateY(-1px); }
     textarea { resize: vertical; min-height: 120px; line-height: 1.6; }
     input::placeholder, textarea::placeholder { font-size: 0.95rem; color: #9ca3af; font-weight: normal; }
@@ -159,16 +157,8 @@
   <div class="container">
     <div class="header">
       <h1>📝 エッセイ漫画 ヒアリング</h1>
-      <p style="font-size: 1.05rem; font-weight: bold; margin-top: -5px; margin-bottom: 8px; color: #e2e8f0; line-height: 1.5;">エッセイ漫画作成用のヒアリングデータ（JSON）を作成するツールです📝</p>
-      <p style="font-size: 0.9rem; margin-top: -5px; margin-bottom: 15px; color: #a78bfa; font-weight: bold;">&copy;
-        アスカデザインラボ</p>
-      <div
-        style="background: rgba(56, 189, 248, 0.15); border: 2px solid #38bdf8; border-radius: 12px; padding: 18px; margin-bottom: 20px; text-align: left; max-width: 650px; margin-left: auto; margin-right: auto; box-shadow: 0 4px 15px rgba(0,0,0,0.2);">
-        <p style="color: #7dd3fc; font-weight: 800; font-size: 1.15rem; margin-bottom: 6px;">📝 ご注意：このツール単体で「漫画」は完成しません！</p>
-        <p style="font-size: 0.95rem; color: #e2e8f0; line-height: 1.6;">
-          各項目を入力後、一番下にあるボタンから<span style="color: #fbbf24;">ヒアリングデータ(JSON)をコピー</span>し、<br><span style="color: #fbbf24;">[エッセイ版]漫画脚本メーカーのチャット欄</span>へ貼り付けて送信してください。
-        </p>
-      </div>
+      <p style="font-size: 1.05rem; font-weight: bold; margin-top: -5px; margin-bottom: 8px; color: #e2e8f0; line-height: 1.5;">綺麗な文章は不要！「キーワード」や「メモ」を投げるだけでAIが最高の構成を作ります📝</p>
+      <p style="font-size: 0.9rem; margin-top: -5px; margin-bottom: 15px; color: #a78bfa; font-weight: bold;">&copy; アスカデザインラボ</p>
     </div>
 
     <div class="form-flow">
@@ -183,160 +173,158 @@
     </div>
 
     <div class="form-panel">
-
       <!-- 題材 -->
       <div class="form-group">
         <label>Q1. 今回はどんな出来事を漫画にしたいですか？✨</label>
-        <p class="question-desc">日常のちょっとしたことでも大歓迎です！</p>
+        <p class="question-desc">単語や短い言葉でOK！部品をもらえればAIが物語にします😊</p>
         <details class="example-box">
           <summary>💡 回答例を表示 / 非表示</summary>
-          <div class="ex-row ex-good"><span class="ex-label">⭕ 良い例1</span><span class="ex-text"><span
-                class="ex-title">【育児・夫】</span>初めて子どもが一人でおつかいに行けた日の、親のハラハラと夫の無自覚な一言</span></div>
-          <div class="ex-row ex-good"><span class="ex-label">⭕ 良い例2</span><span class="ex-text"><span
-                class="ex-title">【働き方・コラム】</span>30代になって感じた「このままでいいのか」という漠然とした焦りと、そこから得た小さな気づき</span></div>
-          <div class="ex-row ex-bad"><span class="ex-label">❌ 悪い例</span><span class="ex-text">育児の話 /
-              買い物の話（※抽象的すぎて漫画にしづらいです）</span></div>
+          <div class="ex-row ex-good"><span class="ex-label">⭕ 例1</span>
+            <span class="ex-text">
+              【いつの話？】先週末<br>
+              【誰の話？】5歳の息子と私<br>
+              【ひとことで言うと何があった？】はじめてのおつかいに挑戦した
+            </span>
+          </div>
+          <div class="ex-row ex-good"><span class="ex-label">⭕ 例2</span>
+            <span class="ex-text">
+              【いつの話？】昨日の帰り道<br>
+              【誰の話？】自分<br>
+              【ひとことで言うと何があった？】電車の窓に映った自分を見て落ち込んだ
+            </span>
+          </div>
         </details>
-        <textarea id="e_subject" rows="3" style="min-height: 80px;"
-          placeholder="どんな時（初めてのおつかい）＋感情（ハラハラ）＋何の話（夫の一言）"></textarea>
+        <textarea id="e_subject" rows="3" style="min-height: 100px;">
+【いつの話？】
+【誰の話？】
+【ひとことで言うと何があった？】</textarea>
       </div>
 
       <!-- ストーリーメモ -->
       <div class="form-group">
         <label>Q2. 今回の出来事を、思い出すままに教えてください！</label>
-        <p class="question-desc">その時の「内心の声（ツッコミ等）」や感情の変化も交えて、自由に書いてください😊</p>
+        <p class="question-desc">カッコの右にキーワードやセリフのメモを書いてください。</p>
         <details class="example-box">
           <summary>💡 回答例を表示 / 非表示</summary>
-          <div class="ex-row ex-good"><span class="ex-label">⭕ 良い例1</span>
+          <div class="ex-row ex-good"><span class="ex-label">⭕ 例1</span>
             <span class="ex-text">
-              <span class="ex-title">【育児・夫】</span><br>
-              ・5歳の息子が突然「一人で牛乳買ってくる！」と宣言。<br>
-              ・心配でこっそり電柱の陰から尾行する私。不審者みたいになってたはず。<br>
-              ・無事に買えて号泣して喜んだのに、帰宅後の夫が「たかが牛乳で大げさだな」と一言。<br>
-              ・心の声（はぁ！？お前一生牛乳飲むなよ！）<br>
-              ・夫への怒りと息子の成長への嬉しさで感情がぐちゃぐちゃになった。
+              【場所】近所のスーパー<br>
+              【起きた事件】息子が一人で牛乳を買いに行った<br>
+              【その時の心の叫び・ツッコミ】（お願いだから無事に帰ってきてーー！！😭）<br>
+              【最終的にどうなった？】買えた！でも帰宅後、夫に「大げさ」と笑われた。
             </span>
-          </div>
-          <div class="ex-row ex-good"><span class="ex-label">⭕ 良い例2</span>
-            <span class="ex-text">
-              <span class="ex-title">【働き方・コラム】</span><br>
-              ・夜遅くに帰宅中、ふと電車の窓ガラスに映る疲れた自分を見て「私、何のためにこんなに働いてるんだっけ？」と虚無感に襲われた。<br>
-              ・同世代の友人はSNSでキラキラした転職や昇進の報告ばかり。<br>
-              ・焦って自己啓発本を何冊も買ったけれど、結局積ん読のまま。<br>
-              ・でもある休日、プランターで育てていたトマトが小さな実をつけているのを見た瞬間、心がスッと軽くなった。<br>
-              ・「大きな何者かにならなくても、自分のペースで今日を生きていればそれでいいんだ」と納得できた日のこと。
-            </span>
-          </div>
-          <div class="ex-row ex-bad"><span class="ex-label">❌ 悪い例</span>
-            <span class="ex-text">買い物に行ったら夫が文句を言ってきた。スーパーで怒ってる人がいた。</span>
           </div>
         </details>
-        <textarea id="e_memo" placeholder="起きたことや思ったことを箇条書きなどで羅列してください"></textarea>
+        <textarea id="e_memo" rows="4" style="min-height: 120px;">
+【場所】
+【起きた事件】
+【その時の心の叫び・ツッコミ】
+【最終的にどうなった？】</textarea>
       </div>
 
       <!-- ターゲット -->
       <div class="form-group">
-        <label>Q3. この漫画を読んで、「わかる！」と一番共感してくれそうなのはどんな方ですか？</label>
-        <p class="question-desc">ターゲットを絞るほど刺さる漫画になります！</p>
+        <label>Q3. この漫画を、「わかる！」と一番共感してくれそうなのはどんな人？</label>
         <details class="example-box">
           <summary>💡 回答例を表示 / 非表示</summary>
-          <div class="ex-row ex-good"><span class="ex-label">⭕ 良い例1</span><span class="ex-text"><span
-                class="ex-title">【育児・夫】</span>育児の大変さをパートナーに分かってもらえず、孤独を感じている同世代のママ</span></div>
-          <div class="ex-row ex-good"><span class="ex-label">⭕ 良い例2</span><span class="ex-text"><span
-                class="ex-title">【働き方・コラム】</span>周りと自分を比べてしまい、漠然とした将来への不安や生きづらさを抱えている同世代の社会人</span></div>
-          <div class="ex-row ex-bad"><span class="ex-label">❌ 悪い例</span><span class="ex-text">主婦 /
-              全員（※ターゲットが広すぎます）</span></div>
+          <div class="ex-row ex-good"><span class="ex-label">⭕ 例1</span>
+            <span class="ex-text">
+              【ズバリどんな人？】育児の大変さを分かってもらえないママ
+            </span>
+          </div>
         </details>
-        <textarea id="e_target" rows="3" style="min-height: 80px;"
-          placeholder="悩み（育児の辛さを分かってもらえない）＋感情（孤独）＋属性（同世代ママ）"></textarea>
+        <textarea id="e_target" rows="1" style="min-height: 50px;">
+【ズバリどんな人？】</textarea>
       </div>
 
       <!-- 伝えたいこと -->
       <div class="form-group">
         <label>Q4. 読み終わったあと、読者にどう感じてもらいたいですか？</label>
-        <p class="question-desc">この漫画に込める一番のメッセージを教えてください！</p>
         <details class="example-box">
           <summary>💡 回答例を表示 / 非表示</summary>
-          <div class="ex-row ex-good"><span class="ex-label">⭕ 良い例1</span><span class="ex-text"><span
-                class="ex-title">【育児・夫】</span>完璧じゃなくてもいい。子どもの小さな成長を一緒に「すごいね」って笑い合える夫婦でありたいという本音</span></div>
-          <div class="ex-row ex-good"><span class="ex-label">⭕ 良い例2</span><span class="ex-text"><span
-                class="ex-title">【働き方・コラム】</span>誰かと比べる人生からは降りていい。大きな何者かにならなくても、自分の足元にある小さな幸せを大切にしようというメッセージ</span>
+          <div class="ex-row ex-good"><span class="ex-label">⭕ 例1</span>
+            <span class="ex-text">
+              【どう感じてほしい？】完璧じゃなくても、小さな成長を一緒に笑い合いたい
+            </span>
           </div>
         </details>
-        <textarea id="e_message" rows="3" style="min-height: 80px;"
-          placeholder="メッセージ（完璧じゃなくていい）＋どうなってほしい（成長を笑い合える夫婦に）"></textarea>
+        <textarea id="e_message" rows="1" style="min-height: 50px;">
+【どう感じてほしい？】</textarea>
       </div>
 
       <!-- トーン・テイスト -->
       <div class="form-group">
         <label>Q5. 漫画全体の雰囲気（トーン・テイスト）はどんな感じにしましょうか？</label>
-        <p class="question-desc">明るい感じ、切ない感じなど、お好みをどうぞ！</p>
         <details class="example-box">
           <summary>💡 回答例を表示 / 非表示</summary>
-          <div class="ex-row ex-good"><span class="ex-label">⭕ 良い例1</span><span class="ex-text"><span
-                class="ex-title">【育児・夫】</span>前半はドタバタギャグ、後半は夫への怒りMAX、最後は少しほっこり切ない感じ</span></div>
-          <div class="ex-row ex-good"><span class="ex-label">⭕ 良い例2</span><span class="ex-text"><span
-                class="ex-title">【働き方・コラム】</span>序盤はモノクロ調で重苦しい焦燥感。後半にかけて、視界が開けるように少しずつ温かい光が差し込むようなエモーショナルな雰囲気</span>
+          <div class="ex-row ex-good"><span class="ex-label">⭕ 例1</span>
+            <span class="ex-text">
+              【雰囲気の希望】前半はドタバタギャグ、最後はほっこり
+            </span>
           </div>
         </details>
-        <textarea id="e_tone" rows="3" style="min-height: 80px;"
-          placeholder="前半（ドタバタギャグ）＋中盤（夫への怒りMAX）＋読後感（ほっこり切ない）"></textarea>
+        <textarea id="e_tone" rows="1" style="min-height: 50px;">
+【雰囲気の希望】</textarea>
       </div>
 
       <!-- キャラクター設定 -->
       <div class="form-group">
         <label>Q6. 登場人物の「プロフィール」を教えてください😊</label>
-        <p class="question-desc">画像生成のプロンプトに使用します。参考画像がある場合はファイル名を添えてください。見た目・性格・口調を書くと、キャラに合ったセリフが生成されます！</p>
+        <p class="question-desc">これをもとにキャラクターのセリフや画像が生成されます。</p>
         <details class="example-box">
           <summary>💡 回答例を表示 / 非表示</summary>
-          <div class="ex-row ex-good"><span class="ex-label">⭕ 良い例</span><span class="ex-text"><span
-                class="ex-title">【育児・夫】</span><br>私：心配性、30代女性、ショートヘア、エプロン姿、です・ます調<br>夫：無頓着、30代男性、ボサボサ頭、スウェット姿、タメ口</span>
+          <div class="ex-row ex-good"><span class="ex-label">⭕ 例1</span>
+            <span class="ex-text">
+              【見た目】30代女性、ショートヘア、エプロン<br>
+              【性格・特徴】心配性<br>
+              【口調】基本はですます調。焦るとタメ口
+            </span>
           </div>
         </details>
         <div id="e_char_container">
-          <div class="char-row"
-            style="flex-direction: column; gap: 8px; background: rgba(255,255,255,0.05); padding: 15px; border-radius: 8px;">
+          <div class="char-row" style="flex-direction: column; gap: 8px; background: rgba(255,255,255,0.05); padding: 15px; border-radius: 8px;">
             <div style="display: flex; gap: 10px; width: 100%;">
-              <input type="text" class="char-id" placeholder="キャラクターID（半角英数・ファイル名と同じ 例: asuka）" style="flex: 1; font-family: monospace; font-weight: bold; background: #fdf2f8; border: 2px solid #000;">
+              <input type="text" class="char-id" placeholder="【名前 や ファイル名 例：夫】" style="flex: 1; font-family: monospace; font-weight: bold; background: #fdf2f8; border: 2px solid #000;">
             </div>
-            <textarea class="char-desc" rows="3" style="min-height: 80px;"
-              placeholder="見た目・性格・口調（例：30代女性、ショートヘア、心配性、です・ます調）"></textarea>
+            <textarea class="char-desc" rows="3" style="min-height: 100px;">
+【見た目】
+【性格・特徴】
+【口調】</textarea>
           </div>
         </div>
-        <button type="button" class="add-btn" onclick="addCharInput('e_char_container')">＋
-          登場人物を追加する</button>
+        <button type="button" class="add-btn" onclick="addCharInput('e_char_container')">＋ 登場人物を追加する</button>
       </div>
 
       <!-- 背景設定 -->
       <div class="form-group">
-        <label>Q6.5. 特定の場面の「背景画像（リファレンス）」はありますか？（任意）</label>
-        <p class="question-desc">自室や特定の店舗など、背景を画像で固定したい場合は「場所・特徴」と「ファイル名」を入力してください。画像がなくても特徴だけ伝えてもOKです！</p>
+        <label>Q7. 背景画像（リファレンス）はありますか？（任意）</label>
         <div id="e_bg_container">
-          <div class="char-row"
-            style="flex-direction: column; gap: 8px; background: rgba(255,255,255,0.05); padding: 15px; border-radius: 8px;">
+          <div class="char-row" style="flex-direction: column; gap: 8px; background: rgba(255,255,255,0.05); padding: 15px; border-radius: 8px;">
             <div style="display: flex; gap: 10px; width: 100%;">
-              <input type="text" class="bg-id" placeholder="背景ID（半角英数・ファイル名と同じ 例: my_room）" style="flex: 1; font-family: monospace; font-weight: bold; background: #e0f2fe; border: 2px solid #000;"></div><div style="display: flex; gap: 10px; width: 100%; margin-top: 8px;"><textarea class="bg-desc" rows="2" style="min-height: 60px; flex: 1;" placeholder="場所・特徴（例：自室、少し散らかった女子部屋）"></textarea>
+              <input type="text" class="bg-id" placeholder="【背景ID・ファイル名（任意）例：my_room.jpg】" style="flex: 1; font-family: monospace; font-weight: bold; background: #e0f2fe; border: 2px solid #000;">
+            </div>
+            <div style="display: flex; gap: 10px; width: 100%; margin-top: 8px;">
+              <textarea class="bg-desc" rows="2" style="min-height: 80px; flex: 1;">
+【場所】
+【雰囲気や特徴】</textarea>
             </div>
           </div>
         </div>
         <button type="button" class="add-btn" onclick="addBgInput('e_bg_container')">＋ 背景を追加する</button>
       </div>
 
-
       <!-- ページ数 -->
       <div class="form-group">
-        <label>Q7. ご希望のページ数はありますか？</label>
+        <label>Q8. ご希望のページ数はありますか？</label>
         <p class="question-desc">未定なら「おまかせ」、指定したい場合は「4ページ」のように入力してください。</p>
         <input type="text" id="e_pages" placeholder="例：おまかせ / 4ページ / 6〜8ページ" value="おまかせ">
       </div>
 
-      <!-- 漫画のスタイル -->
       <!-- アスペクト比 -->
       <div class="form-group">
-        <label>Q8. 【アスペクト比】を選択してください</label>
+        <label>Q9. 【アスペクト比】を選択してください</label>
         <p class="question-desc">出力する画像の縦横比を選びます。</p>
-        <select id="e_aspect_ratio"
-          style="width: 100%; padding: 12px; border-radius: 8px; border: 1px solid rgba(255, 255, 255, 0.2); background: rgba(0, 0, 0, 0.2); color: white; font-size: 1rem;">
+        <select id="e_aspect_ratio" style="width: 100%; padding: 12px; border-radius: 8px; border: 1px solid rgba(255, 255, 255, 0.2); background: rgba(0, 0, 0, 0.2); color: white; font-size: 1rem;">
           <option value="4:5">4:5（縦長・SNS汎用）</option>
           <option value="1:1">1:1（正方形・SNS汎用）</option>
           <option selected value="9:16">9:16（縦長・スマホ全画面）</option>
@@ -345,13 +333,9 @@
         </select>
       </div>
 
-
-
       <!-- スタイル -->
       <div class="form-group">
-        <label>Q10. どんな「絵柄」でお見せしましょうか？ <a href="bonus_style_catalog.html" target="_blank"
-            style="font-size: 0.9rem; color: #38bdf8; text-decoration: underline; margin-left: 10px;">🎨
-            カタログを開く</a></label>
+        <label>Q10. どんな「絵柄」でお見せしましょうか？ <a href="bonus_style_catalog.html" target="_blank" style="font-size: 0.9rem; color: #38bdf8; text-decoration: underline; margin-left: 10px;">🎨 カタログを開く</a></label>
         <p class="question-desc">カタログの内容から、ベース・塗り・エフェクトを選択してください。</p>
         <div style="display: flex; gap: 10px; flex-wrap: wrap;">
           <select id="e_style_base" style="flex: 1; min-width: 200px;">
@@ -397,27 +381,21 @@
 
       <!-- 希望シナリオ構成 -->
       <div class="form-group">
-        <label>Q10. シナリオの構成パターンに希望はありますか？</label>
-        <p class="question-desc">よくわからない場合は「おまかせ」で大丈夫ですよ！</p>
+        <label>Q11. シナリオの構成パターンの希望（あれば）</label>
         <select id="e_pattern">
           <option value="おまかせ">おまかせ（AIが最適なものを選ぶ）</option>
+          <option value="「あ、あるある！」な日常ギャグ">「あ、あるある！」な日常ギャグ</option>
+          <option value="「なるほど！」な学び・ノウハウ">「なるほど！」な学び・ノウハウ</option>
+          <option value="「じーんとする」感動・成長">「じーんとする」感動・成長</option>
           <option value="A: 結末先出し型">A: 結末先出し型（結論から。SNSでバズりやすい）</option>
-          <option value="B: 時系列エスカレート型">B: 時系列エスカレート型（体験談として徐々に感情が高まる）</option>
-          <option value="C: 思想・内省型">C: 思想・内省型（心の声を中心に考えを深く語る）</option>
-          <option value="D: ストーリーテラー型">D: ストーリーテラー型（読者に直接語りかける構成）</option>
         </select>
       </div>
-    <div style="background: #ffffff; border: 4px solid #000; padding: 25px; text-align: left; margin-bottom: 30px; border-radius: 0; box-shadow: 6px 6px 0px #000;">
-      <p style="font-weight: 900; font-size: 1.25rem; border-bottom: 3px solid #000; padding-bottom: 10px; margin-bottom: 15px; color: #000;">⚠️ 【重要】画像化に利用するAIについて</p>
-      <p style="font-weight: bold; line-height: 1.7; font-size: 1.05rem; color: #111827;">生成には必ず <span style="background: #000; color: #fff; padding: 2px 8px;">Gemini または Higgsfield（Nanobanana2 / NanobananaPro）</span> をご使用ください。<br>
-      ※他のAIモデルを使用した場合、入力文の自動翻訳などの影響により「致命的な文字化け」や「全体の崩れ」が発生し、意図通りの漫画が作成できません。</p>
-    </div>
-    <div class="action-bar">
+
+      <div class="action-bar">
         <button class="btn-primary" onclick="generateJSON()">
           <div style="display:flex; flex-direction:column; align-items:center;">
             <span>📋 ヒアリングデータをコピーする</span>
-            <span
-              style="font-size: 0.85rem; font-weight: normal; margin-top: 4px; opacity: 0.9;">（コピー後は、該当するGemini（エッセイ版）を開いて貼り付けてください！）</span>
+            <span style="font-size: 0.85rem; font-weight: normal; margin-top: 4px; opacity: 0.9;">（コピー後は該当するGeminiに貼り付けてください！）</span>
           </div>
         </button>
       </div>
@@ -435,10 +413,13 @@
 
       row.innerHTML = `
         <div style="display: flex; gap: 10px; width: 100%;">
-          <input type="text" class="char-id" placeholder="キャラクターID（半角英数・ファイル名と同じ 例: asuka）" style="flex: 1; font-family: monospace; font-weight: bold; background: #fdf2f8; border: 2px solid #000;">
+          <input type="text" class="char-id" placeholder="【名前 や ファイル名 例：夫】" style="flex: 1; font-family: monospace; font-weight: bold; background: #fdf2f8; border: 2px solid #000;">
         </div>
         <div style="display: flex; gap: 10px; width: 100%;">
-          <textarea class="char-desc" rows="3" style="min-height: 80px; flex: 1;" placeholder="見た目・性格・口調（例：30代女性、ショートヘア、心配性、です・ます調）"></textarea>
+          <textarea class="char-desc" rows="3" style="min-height: 100px; flex: 1;">
+【見た目】
+【性格・特徴】
+【口調】</textarea>
           <button type="button" class="char-remove" style="width: auto; padding: 0 15px;">×</button>
         </div>
       `;
@@ -455,7 +436,12 @@
 
       row.innerHTML = `
         <div style="display: flex; gap: 10px; width: 100%;">
-          <input type="text" class="bg-id" placeholder="背景ID（半角英数・ファイル名と同じ 例: my_room）" style="flex: 1; font-family: monospace; font-weight: bold; background: #e0f2fe; border: 2px solid #000;"></div><div style="display: flex; gap: 10px; width: 100%; margin-top: 8px;"><textarea class="bg-desc" rows="2" style="min-height: 60px; flex: 1;" placeholder="場所・特徴（例：自室、少し散らかった女子部屋）"></textarea>
+          <input type="text" class="bg-id" placeholder="【背景ID・ファイル名（任意）例：my_room.jpg】" style="flex: 1; font-family: monospace; font-weight: bold; background: #e0f2fe; border: 2px solid #000;">
+        </div>
+        <div style="display: flex; gap: 10px; width: 100%; margin-top: 8px;">
+          <textarea class="bg-desc" rows="2" style="min-height: 80px; flex: 1;">
+【場所】
+【雰囲気や特徴】</textarea>
           <button type="button" class="char-remove" style="width: auto; padding: 0 15px;">×</button>
         </div>
       `;
@@ -463,7 +449,6 @@
       row.querySelector('.char-remove').onclick = function () { container.removeChild(row); };
       container.appendChild(row);
     }
-
 
     function generateJSON() {
       const getVal = (id) => document.getElementById(id).value.trim();
@@ -518,14 +503,14 @@
       data["漫画のスタイル"] = combinedStyle;
       data["希望シナリオ構成"] = getVal('e_pattern');
 
-      const jsonStr = "```json\n" + JSON.stringify(data, null, 2) + "\n```";
+      const jsonStr = "\`\`\`json\n" + JSON.stringify(data, null, 2) + "\n\`\`\`";
 
       navigator.clipboard.writeText(jsonStr).then(() => {
         const toast = document.getElementById('toast');
         toast.classList.add('show');
         setTimeout(() => toast.classList.remove('show'), 3000);
       }).catch(err => {
-        alert("コピーに失敗しました。以下のテキストを手动でコピーしてください:\n\n" + jsonStr);
+        alert("コピーに失敗しました。以下のテキストを手動でコピーしてください:\n\n" + jsonStr);
       });
     }
   </script>
